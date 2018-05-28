@@ -21,35 +21,36 @@ public abstract class GenericDAO<T> {
 	public GenericDAO() {
 		try {
 			connection = ConnectionFactory.getConnection();
-			connection.setAutoCommit(true);
+			connection.setAutoCommit(false);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println(e);
 		}
 	}
 
 	public void closeConn(Connection connection) {
 		try {
-			if (!connection.isClosed())
+			if (connection != null && !connection.isClosed())
 				connection.close();
 		} catch (SQLException e) {
-			// TODO: handle exception
+			System.out.println(e);
 		}
 	}
 
 	public void closeResultSet(ResultSet rs) {
 		try {
-			if (!rs.isClosed())
+			if (rs != null && !rs.isClosed())
 				rs.close();
 		} catch (SQLException e) {
-			// TODO: handle exception
+			System.out.println(e);
 		}
 	}
 
 	public void rollback(Connection connection) {
 		try {
 			connection.rollback();
+			System.out.println("Rollback");
 		} catch (SQLException e) {
-			// TODO: handle exception
+			System.out.println(e);
 		}
 	}
 

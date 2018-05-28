@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import br.com.farmacia.modelo.ClientePF;
-import br.com.farmacia.modelo.Localizacao;
 import br.com.farmacia.modelo.dao.util.Util;
 
 public class ClienteDAO extends GenericDAO<ClientePF> {
@@ -74,29 +73,21 @@ public class ClienteDAO extends GenericDAO<ClientePF> {
 	@Override
 	public Collection<ClientePF> listar() {
 		StringBuilder sql = new StringBuilder();
-		sql.append("select CLIENTE.cpf, CLIENTE.nome, CLIENTE.telefone, CLIENTE.email ");
-		sql.append("CLIENTE.dataNascimento, CLIENTE.sexo, CLIENTE.perfil, CLIENTE.LOCALIZACAO_id ");
-		sql.append("CLIENTE.LOGIN_id, LOCALIZACAO.id, LOCALIZACAO.cep, ");
-		sql.append("LOCALIZACAO.endereco, LOCALIZACAO.cidade, LOCALIZACAO.estado  ");
-		sql.append("from CLIENTE inner join LOCALIZACAO on LOCALIZACAO.id = CLIENTE.LOCALIZACAO_id");
-		try (PreparedStatement stmt = connection.prepareStatement(sql.toString())) {
+		sql.append("select c.cpf, c.nome, c.telefone, c.email, ");
+		sql.append("c.dataNascimento, c.sexo, c.perfil, c.LOCALIZACAO_id, ");
+		sql.append("c.LOGIN_id, l.id, l.cep, ");
+		sql.append("l.endereco, l.cidade, l.estado, ");
+		sql.append("lo.id, lo.senha, lo.usuario ");
+		sql.append("from CLIENTE as c inner join LOCALIZACAO as l on l.id = c.LOCALIZACAO_id ");
+		sql.append("inner join LOGIN as lo on lo.id = c.LOGIN_id;");
+		try (PreparedStatement stmt = connection.prepareStatement(sql.toString());
+				ResultSet rs = stmt.executeQuery()) {
 			Collection<ClientePF> clientes = new ArrayList<>();
-			ClientePF cliente = null;
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				cliente = new ClientePF();
-				cliente.setCpf(rs.getString("CLIENTE.cpf"));
-				cliente.setNome(rs.getString("CLIENTE.nome"));
-				cliente.setEmail(rs.getString("CLIENTE.email"));
-				cliente.setDataNascimento(rs.getDate("CLIENTE.dataNascimento").toLocalDate());
-				cliente.setSexo(rs.getString("CLIENTE.sexo"));
-				cliente.setPerfil(rs.getString("CLIENTE.perfil"));
-				cliente.setLocalizacao(Util.getLocalizacao(rs));
-				clientes.add(cliente);
-			}
-
+			while (rs.next()) 
+				clientes.add(Util.getCliente(rs));
 			return clientes;
 		} catch (SQLException e) {
+			System.out.println("Deu merda");
 			rollback(connection);
 			return null;
 		} finally {

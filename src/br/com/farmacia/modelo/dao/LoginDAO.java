@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import br.com.farmacia.modelo.Login;
+import br.com.farmacia.modelo.dao.util.Util;
 
 public class LoginDAO extends GenericDAO<Login>{
 
@@ -58,18 +59,13 @@ public class LoginDAO extends GenericDAO<Login>{
 
 	@Override
 	public Collection<Login> listar() {
-		String sql = "select id, usuario, senha from LOGIN";
-		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+		String sql = "select LOGIN.id, LOGIN.usuario, LOGIN.senha from LOGIN";
+		try (PreparedStatement stmt = connection.prepareStatement(sql);
+				ResultSet rs = stmt.executeQuery()) {
 			Collection<Login> logins = new ArrayList<>();
-			Login login = null;
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				login = new Login();
-				login.setUsuario(rs.getString("usuario"));;
-				login.setSenha(rs.getString("senha"));
-				login.setId(rs.getInt("id"));
-				logins.add(login);
-			}
+			while (rs.next()) 
+				logins.add(Util.getLogin(rs));
+			
 			return logins;
 		} catch (SQLException e) {
 			rollback(connection);

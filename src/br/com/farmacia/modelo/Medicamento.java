@@ -14,7 +14,23 @@ public class Medicamento {
 	private String fabricante;
 	private int quantidade;
 	private String categoria;
-	private String tipo;
+	private TipoMedicamento tipo;
+
+	@Override
+	public String toString() {
+		StringBuilder sBuilder = new StringBuilder();
+		sBuilder.append("\n[id: " + getId() + "],");
+		sBuilder.append("[preco: " + getPreco() + "],");
+		sBuilder.append("[nome: " + getNome() + "],");
+		sBuilder.append("[validade: " + getValidade() + "],");
+		sBuilder.append("[descricao: " + getDescricao() + "],");
+		sBuilder.append("[foto_path: " + getFotoPath() + "],");
+		sBuilder.append("[fabricante: " + getFabricante() + "],");
+		sBuilder.append("[quantidade: " + getQuantidade() + "],");
+		sBuilder.append("[categoria: " + getCategoria() + "],");
+		sBuilder.append("[tipo: " + getTipo() + "]");
+		return sBuilder.toString();
+	}
 
 	public int getId() {
 		return id;
@@ -88,11 +104,11 @@ public class Medicamento {
 		this.categoria = categoria;
 	}
 
-	public String getTipo() {
+	public TipoMedicamento getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(TipoMedicamento tipo) {
 		this.tipo = tipo;
 	}
 

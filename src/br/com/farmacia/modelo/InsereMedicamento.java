@@ -1,24 +1,39 @@
 package br.com.farmacia.modelo;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class InsereMedicamento {
+	private int id;
 	private FarmaciaPJ farmacia;
-	private List<Medicamento> medicamentos;
+	private Medicamento medicamento;
 	private LocalDate data;
+	private int quantidade;
 
-	public InsereMedicamento() {
-		this.medicamentos = new ArrayList<>();
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("[id: " + getId() + ",");
+		sb.append("data: " + getData() + ",");
+		sb.append("quantidade: " + getQuantidade() + ",");
+		sb.append("farmacia: " + getFarmacia() + ",");
+		sb.append("medicamento: " + getMedicamento() + "]");
+		return sb.toString();
 	}
 
-	public List<Medicamento> getMedicamentos() {
-		return medicamentos;
+	public int getId() {
+		return id;
 	}
 
-	public void setMedicamentos(List<Medicamento> medicamentos) {
-		this.medicamentos = medicamentos;
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Medicamento getMedicamento() {
+		return medicamento;
+	}
+
+	public void setMedicamento(Medicamento medicamento) {
+		this.medicamento = medicamento;
 	}
 
 	public FarmaciaPJ getFarmacia() {
@@ -35,6 +50,14 @@ public class InsereMedicamento {
 
 	public void setData(LocalDate data) {
 		this.data = data;
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
 	}
 
 }

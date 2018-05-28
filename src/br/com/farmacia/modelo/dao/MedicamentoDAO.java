@@ -23,8 +23,8 @@ public class MedicamentoDAO extends GenericDAO<Medicamento> {
 			stmt.setString(6, medicamento.getFotoPath().toString());
 			stmt.setString(7, medicamento.getFabricante());
 			stmt.setInt(8, medicamento.getQuantidade());
-			stmt.setString(9, medicamento.getCategoria());
-			stmt.setString(10, medicamento.getTipo());
+			stmt.setString(9, medicamento.getTipo().name());
+			stmt.setString(10, medicamento.getCategoria());
 			stmt.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -36,8 +36,8 @@ public class MedicamentoDAO extends GenericDAO<Medicamento> {
 
 	@Override
 	public void alterar(Medicamento medicamento) {
-		String sql = "update MEDICAMENTO set preco = ?, nome = ?, validade = ?, descricao = ?, foto_path = ?";
-		sql += "fabricante = ?, quantidade = ?, categoria = ? tipo = ? where id = ?";
+		String sql = "update MEDICAMENTO set preco = ?, nome = ?, validade = ?, descricao = ?, foto_path = ?, ";
+		sql += "fabricante = ?, quantidade = ?, categoria = ?, tipo = ? where id = ?";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 			stmt.setDouble(1, medicamento.getPreco().doubleValue());
 			stmt.setString(2, medicamento.getNome());
@@ -47,7 +47,7 @@ public class MedicamentoDAO extends GenericDAO<Medicamento> {
 			stmt.setString(6, medicamento.getFabricante());
 			stmt.setInt(7, medicamento.getQuantidade());
 			stmt.setString(8, medicamento.getCategoria());
-			stmt.setString(9, medicamento.getTipo());
+			stmt.setString(9, medicamento.getTipo().toString());
 			stmt.setInt(10, medicamento.getId());
 			stmt.executeUpdate();
 			connection.commit();
@@ -76,12 +76,12 @@ public class MedicamentoDAO extends GenericDAO<Medicamento> {
 	@Override
 	public Collection<Medicamento> listar() {
 		StringBuilder sql = new StringBuilder();
-		sql.append("select id, preco, nome, ");
-		sql.append("validade, descricao, foto_path ");
-		sql.append("fabricante, quantidade, tipo, categoria from MEDICAMENTO");
-		try (PreparedStatement stmt = connection.prepareStatement(sql.toString())) {
+		sql.append("select m.id, m.preco, m.nome, ");
+		sql.append("m.validade, m.descricao, m.foto_path, ");
+		sql.append("m.fabricante, m.quantidade, m.tipo, m.categoria from MEDICAMENTO as m");
+		try (PreparedStatement stmt = connection.prepareStatement(sql.toString());
+				ResultSet rs = stmt.executeQuery()) {
 			Collection<Medicamento> medicamentos = new ArrayList<>();
-			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) 
 				medicamentos.add(Util.getMedicamento(rs));
 			

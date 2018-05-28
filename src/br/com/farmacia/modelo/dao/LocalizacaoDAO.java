@@ -64,11 +64,11 @@ public class LocalizacaoDAO extends GenericDAO<Localizacao> {
 
 	@Override
 	public Collection<Localizacao> listar() {
-		String sql = "select LOCALIZACAO.id, LOCALIZACAO.cep, LOCALIZACAO.endereco,"
-				+ " LOCALIZACAO.cidade, LOCALIZACAO.estado from LOCALIZACAO";
-		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+		String sql = "select l.id, l.cep, l.endereco,"
+				+ " l.cidade, l.estado from LOCALIZACAO l";
+		try (PreparedStatement stmt = connection.prepareStatement(sql);
+				ResultSet rs = stmt.executeQuery()) {
 			Collection<Localizacao> localizacoes = new ArrayList<>();
-			ResultSet rs = stmt.executeQuery();
 			while (rs.next())
 				localizacoes.add(Util.getLocalizacao(rs));
 

@@ -1,18 +1,21 @@
 package br.com.farmacia.modelo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Pessoa {
 	private String email;
 	private String telefone;
 	private Localizacao localizacao;
 	private Login login;
-	private String perfil;
-	private List<Medicamento> medicamentos;
-	
-	public Pessoa() {
-		this.medicamentos = new ArrayList<>();
+	private Perfil perfil;
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("[email: " + getEmail() + ",");
+		sb.append("[telefone: " + getTelefone() + ",");
+		sb.append("[perfil: " + getPerfil() + ",");
+		sb.append("[login: " + getLogin() + ",");
+		sb.append("[localizacao: " + getLocalizacao() + "]");
+		return sb.toString();
 	}
 
 	public String getEmail() {
@@ -47,20 +50,12 @@ public class Pessoa {
 		this.login = login;
 	}
 
-	public String getPerfil() {
+	public Perfil getPerfil() {
 		return perfil;
 	}
 
-	public void setPerfil(String perfil) {
+	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
-	}
-
-	public List<Medicamento> getMedicamentos() {
-		return medicamentos;
-	}
-
-	public void setMedicamentos(List<Medicamento> medicamentos) {
-		this.medicamentos = medicamentos;
 	}
 
 }

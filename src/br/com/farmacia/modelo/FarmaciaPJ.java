@@ -2,11 +2,22 @@ package br.com.farmacia.modelo;
 
 import java.nio.file.Path;
 
-public class FarmaciaPJ extends Pessoa{
+public class FarmaciaPJ extends Pessoa {
 	private String cnpj;
 	private String razaoSocial;
 	private String nomeFantasia;
 	private Path logoPath;
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("\n[cnpj: " + getCnpj() + ",");
+		sb.append("[razão social: " + getRazaoSocial() + ",");
+		sb.append("[nome fantasia: " + getNomeFantasia() + ",");
+		sb.append("[logo path: " + getLogoPath() + ",");
+		sb.append(super.toString());
+		return sb.toString();
+	}
 
 	public Path getLogoPath() {
 		return logoPath;
@@ -39,5 +50,4 @@ public class FarmaciaPJ extends Pessoa{
 	public void setNomeFantasia(String nomeFantasia) {
 		this.nomeFantasia = nomeFantasia;
 	}
-
 }

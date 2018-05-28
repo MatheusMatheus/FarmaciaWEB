@@ -4,6 +4,15 @@ public class Login {
 	private int id;
 	private String usuario;
 	private String senha;
+	
+	@Override
+	public String toString() {
+		StringBuilder sBuilder = new StringBuilder();
+		sBuilder.append("\n[id: " + getId() + ",");
+		sBuilder.append("[usuario: " + getUsuario() + ",");
+		sBuilder.append("[usuario: " + getSenha() + "]");
+		return sBuilder.toString();
+	}
 
 	public int getId() {
 		return id;

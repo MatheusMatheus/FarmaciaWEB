@@ -6,6 +6,17 @@ public class Localizacao {
 	private String endereco;
 	private String cidade;
 	private String estado;
+	
+	@Override
+	public String toString() {
+		StringBuilder sBuilder = new StringBuilder();
+		sBuilder.append("\n[id: " + getId() + ",");
+		sBuilder.append("[cep: " + getCep() + ",");
+		sBuilder.append("[endereco: " + getEndereco() + ",");
+		sBuilder.append("[cidade: " + getCidade() + ",");
+		sBuilder.append("[estado: " + getEstado() + "]");
+		return sBuilder.toString();
+	}
 
 	public int getId() {
 		return id;

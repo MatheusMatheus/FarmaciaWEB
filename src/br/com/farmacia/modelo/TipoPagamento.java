@@ -1,31 +1,31 @@
 package br.com.farmacia.modelo;
 
-import java.math.BigDecimal;
+import java.text.NumberFormat;
 
 import br.com.farmacia.modelo.pagamento.PagamentoEstrategia;
 
-public enum TipoPagamento  implements PagamentoEstrategia{
+public enum TipoPagamento{
+
 	CREDITO {
 		@Override
-		public void pagar(BigDecimal valor) {
-			
+		public PagamentoEstrategia realizarPagamento() {
+			return va -> "Valor pago com crédito: " + formatador.format(va.doubleValue());			
 		}
-	}, DEBITO {
+	},
+	DEBITO {
 		@Override
-		public void pagar(BigDecimal valor) {
-			
+		public PagamentoEstrategia realizarPagamento() {
+			return va -> "Valor pago com débito: " + formatador.format(va.doubleValue());
 		}
-	}, BOLETO {
+	},
+	BOLETO {
 		@Override
-		public void pagar(BigDecimal valor) {
-			
-		}
-	}, PARCELADO {
-		@Override
-		public void pagar(BigDecimal valor) {
-			
+		public PagamentoEstrategia realizarPagamento() {
+			return va -> "Valor pago com boleto: " + formatador.format(va.doubleValue());
 		}
 	};
+	
+	private static NumberFormat formatador = NumberFormat.getCurrencyInstance();
 
-
+	public abstract PagamentoEstrategia realizarPagamento();
 }

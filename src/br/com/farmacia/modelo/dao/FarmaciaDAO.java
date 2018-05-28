@@ -1,10 +1,13 @@
 package br.com.farmacia.modelo.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import br.com.farmacia.modelo.FarmaciaPJ;
+import br.com.farmacia.modelo.dao.util.Util;
 
 public class FarmaciaDAO extends GenericDAO<FarmaciaPJ>{
 
@@ -20,7 +23,7 @@ public class FarmaciaDAO extends GenericDAO<FarmaciaPJ>{
 			stmt.setString(6, farmacia.getLogoPath().toString());
 			stmt.setInt(7, farmacia.getLocalizacao().getId());
 			stmt.setInt(8, farmacia.getLogin().getId());
-			stmt.setString(9, farmacia.getPerfil());
+			stmt.setString(9, farmacia.getPerfil().name());
 			stmt.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -33,9 +36,10 @@ public class FarmaciaDAO extends GenericDAO<FarmaciaPJ>{
 
 	@Override
 	public void alterar(FarmaciaPJ farmacia) {
-		String sql = "update FARMACIA set razao_social = ?, nome_fantasia = ?, email = ?, telefone = ?";
-		sql += "logo_path = ?, LOCALIZACAO_id = ?, LOGIN_id = ? perfil = ? where cnpj = ?";
-		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("update FARMACIA set razao_social = ?, nome_fantasia = ?, email = ?, telefone = ?, ");
+		sql.append("logo_path = ?, LOCALIZACAO_id = ?, LOGIN_id = ?, perfil = ? where cnpj = ?");
+		try (PreparedStatement stmt = connection.prepareStatement(sql.toString())) {
 			stmt.setString(1, farmacia.getRazaoSocial());
 			stmt.setString(2, farmacia.getNomeFantasia());
 			stmt.setString(3, farmacia.getEmail());
@@ -43,11 +47,12 @@ public class FarmaciaDAO extends GenericDAO<FarmaciaPJ>{
 			stmt.setString(5, farmacia.getLogoPath().toString());
 			stmt.setInt(6, farmacia.getLocalizacao().getId());
 			stmt.setInt(7, farmacia.getLogin().getId());
-			stmt.setString(8, farmacia.getPerfil());
+			stmt.setString(8, farmacia.getPerfil().name());
 			stmt.setString(9, farmacia.getCnpj());
 			stmt.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
+			System.out.println(e);
 			rollback(connection);
 		} finally {
 			closeConn(connection);
@@ -71,13 +76,23 @@ public class FarmaciaDAO extends GenericDAO<FarmaciaPJ>{
 	@Override
 	public Collection<FarmaciaPJ> listar() {
 		StringBuilder sql = new StringBuilder();
-		sql.append("select f.cnpj, f.email, f.logo_path, f.nome_fantasia, ");
+		sql.append("select f.cnpj, f.email, f.logo_path, f.nome_fantasia, f.LOGIN_id, ");
 		sql.append("f.perfil, f.razao_social, f.telefone, f.LOCALIZACAO_id, ");
-		sql.append("f.LOGIN_id, l.id, l.cep, l.endereco,  ");
-		sql.append("l.cidade, l.estado, lo.id, lo.senha, lo.usuario ");
-		sql.append("from FARMACIA f inner join LOCALIZACAO l on f.LOCALIZACAO_id = l.id ");
-		sql.append("inner join LOGIN lo on lo.id = l.id");
-		return null;
+		sql.append("l.id, l.cep, l.endereco, l.cidade, l.estado, ");
+		sql.append("lo.id, lo.senha, lo.usuario ");
+		sql.append("from FARMACIA as f inner join LOCALIZACAO as l on f.LOCALIZACAO_id = l.id ");
+		sql.append("inner join LOGIN as lo on lo.id = f.LOGIN_id");
+		try (PreparedStatement stmt = connection.prepareStatement(sql.toString());
+				ResultSet rs = stmt.executeQuery()){
+			Collection<FarmaciaPJ> farmacias = new ArrayList<>();
+			while(rs.next()) 
+				farmacias.add(Util.getFarmacia(rs));
+			return farmacias;
+		} catch (SQLException e) {
+			System.out.println(e);
+			return null;
+		}
+		
 	}
 
 }
