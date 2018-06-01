@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 
 public class Medicamento {
-	private int id;
+	private long id;
 	private BigDecimal preco;
 	private String nome;
 	private LocalDate validade;
@@ -32,11 +32,11 @@ public class Medicamento {
 		return sBuilder.toString();
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

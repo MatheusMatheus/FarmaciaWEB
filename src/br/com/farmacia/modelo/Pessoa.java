@@ -10,11 +10,11 @@ public class Pessoa {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("[email: " + getEmail() + ",");
-		sb.append("[telefone: " + getTelefone() + ",");
-		sb.append("[perfil: " + getPerfil() + ",");
-		sb.append("[login: " + getLogin() + ",");
-		sb.append("[localizacao: " + getLocalizacao() + "]");
+		sb.append("email: " + getEmail() + ",");
+		sb.append("telefone: " + getTelefone() + ",");
+		sb.append("perfil: " + getPerfil() + ",");
+		sb.append("login: " + getLogin() + ",");
+		sb.append("localizacao: " + getLocalizacao() + "]");
 		return sb.toString();
 	}
 

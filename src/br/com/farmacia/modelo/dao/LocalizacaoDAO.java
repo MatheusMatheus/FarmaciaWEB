@@ -1,5 +1,6 @@
 package br.com.farmacia.modelo.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,12 +11,16 @@ import br.com.farmacia.modelo.Localizacao;
 import br.com.farmacia.modelo.dao.util.Util;
 
 public class LocalizacaoDAO extends GenericDAO<Localizacao> {
+	
+	public LocalizacaoDAO(Connection connection) {
+		super.connection = connection;
+	}
 
 	@Override
 	public void inserir(Localizacao localizacao) {
 		String sql = "insert into LOCALIZACAO values(?,?,?,?,?)";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-			stmt.setInt(1, localizacao.getId());
+			stmt.setLong(1, localizacao.getId());
 			stmt.setString(2, localizacao.getCep());
 			stmt.setString(3, localizacao.getEndereco());
 			stmt.setString(4, localizacao.getCidade());
@@ -24,9 +29,7 @@ public class LocalizacaoDAO extends GenericDAO<Localizacao> {
 			connection.commit();
 		} catch (SQLException e) {
 			rollback(connection);
-		} finally {
-			closeConn(connection);
-		}
+		} 
 
 	}
 
@@ -38,28 +41,24 @@ public class LocalizacaoDAO extends GenericDAO<Localizacao> {
 			stmt.setString(2, localizacao.getEndereco());
 			stmt.setString(3, localizacao.getCidade());
 			stmt.setString(4, localizacao.getEstado());
-			stmt.setInt(5, localizacao.getId());
+			stmt.setLong(5, localizacao.getId());
 			stmt.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
 			rollback(connection);
-		} finally {
-			closeConn(connection);
-		}
+		} 
 	}
 
 	@Override
 	public void excluir(Localizacao localizacao) {
 		String sql = "delete from LOCALIZACAO where id = ?";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-			stmt.setInt(1, localizacao.getId());
+			stmt.setLong(1, localizacao.getId());
 			stmt.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
 			rollback(connection);
-		} finally {
-			closeConn(connection);
-		}
+		} 
 	}
 
 	@Override
@@ -76,8 +75,6 @@ public class LocalizacaoDAO extends GenericDAO<Localizacao> {
 		} catch (SQLException e) {
 			rollback(connection);
 			return null;
-		} finally {
-			closeConn(connection);
-		}
+		} 
 	}
 }

@@ -3,7 +3,7 @@ package br.com.farmacia.modelo;
 import java.time.LocalDate;
 
 public class InsereMedicamento {
-	private int id;
+	private long id;
 	private FarmaciaPJ farmacia;
 	private Medicamento medicamento;
 	private LocalDate data;
@@ -20,11 +20,11 @@ public class InsereMedicamento {
 		return sb.toString();
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
