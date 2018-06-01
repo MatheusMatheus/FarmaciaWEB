@@ -1,5 +1,6 @@
 package br.com.farmacia.modelo.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,23 +11,25 @@ import br.com.farmacia.modelo.InsereMedicamento;
 import br.com.farmacia.modelo.dao.util.Util;
 
 public class InsereMedicamentoDAO extends GenericDAO<InsereMedicamento> {
+	
+	public InsereMedicamentoDAO(Connection connection) {
+		super.connection = connection;
+	}
 
 	@Override
 	public void inserir(InsereMedicamento medicamento) {
 		String sql = "insert into INSERE values(?,?,?,?,?)";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 			stmt.setString(1, medicamento.getFarmacia().getCnpj());
-			stmt.setInt(2, medicamento.getMedicamento().getId());
+			stmt.setLong(2, medicamento.getMedicamento().getId());
 			stmt.setDate(3, java.sql.Date.valueOf(medicamento.getData()));
-			stmt.setInt(4, medicamento.getId());
-			stmt.setInt(5, medicamento.getQuantidade());
+			stmt.setLong(4, medicamento.getId());
+			stmt.setLong(5, medicamento.getQuantidade());
 			stmt.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
 			rollback(connection);
-		} finally {
-			closeConn(connection);
-		}
+		} 
 	}
 
 	@Override
@@ -69,8 +72,6 @@ public class InsereMedicamentoDAO extends GenericDAO<InsereMedicamento> {
 		} catch (SQLException e) {
 			rollback(connection);
 			return null;
-		} finally {
-			closeConn(connection);
-		}
+		} 
 	}
 }

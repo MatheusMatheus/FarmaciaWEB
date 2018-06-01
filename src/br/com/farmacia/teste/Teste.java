@@ -2,6 +2,8 @@ package br.com.farmacia.teste;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Date;
 
 import br.com.farmacia.modelo.Categoria;
 import br.com.farmacia.modelo.TipoPagamento;
@@ -16,5 +18,8 @@ public class Teste {
 		Field[] campos = Categoria.GripeResfriado.class.getDeclaredFields();
 		for(Field field : campos)
 			System.out.println(field.getName());
+		
+		System.out.println(System.currentTimeMillis());
+
 	}
 }

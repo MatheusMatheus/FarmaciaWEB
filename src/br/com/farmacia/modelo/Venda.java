@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Venda {
-	private int id;
+	private long id;
 	private LocalDate data;
 	private ClientePF cliente;
 	private Medicamento medicamento;
@@ -27,11 +27,11 @@ public class Venda {
 		return sb.toString();
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

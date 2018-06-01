@@ -8,6 +8,17 @@ public class ClientePF extends Pessoa {
 	private String sexo;
 	private String nome;
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("\n[CPF: " + getCpf() + ", ");
+		sb.append("data de nascimento: " + getDataNascimento() + ", ");
+		sb.append("sexo:" + getSexo() + ", ");
+		sb.append("nome: " + getNome() + ", ");
+		sb.append(super.toString());
+		return sb.toString();
+	}
+
 	public String getCpf() {
 		return cpf;
 	}

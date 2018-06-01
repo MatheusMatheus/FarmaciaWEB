@@ -1,5 +1,6 @@
 package br.com.farmacia.modelo.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,6 +11,10 @@ import br.com.farmacia.modelo.ClientePF;
 import br.com.farmacia.modelo.dao.util.Util;
 
 public class ClienteDAO extends GenericDAO<ClientePF> {
+	
+	public ClienteDAO(Connection connection) {
+		super.connection = connection;
+	}
 
 	@Override
 	public void inserir(ClientePF cliente) {
@@ -21,16 +26,14 @@ public class ClienteDAO extends GenericDAO<ClientePF> {
 			stmt.setString(4, cliente.getEmail());
 			stmt.setDate(5, java.sql.Date.valueOf(cliente.getDataNascimento()));
 			stmt.setString(6, cliente.getSexo());
-			stmt.setInt(7, cliente.getLocalizacao().getId());
-			stmt.setInt(8, cliente.getLogin().getId());
+			stmt.setLong(7, cliente.getLocalizacao().getId());
+			stmt.setLong(8, cliente.getLogin().getId());
 			stmt.setString(9, cliente.getPerfil().toString());
 			stmt.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
 			rollback(connection);
-		} finally {
-			closeConn(connection);
-		}
+		} 
 	}
 
 	@Override
@@ -44,15 +47,13 @@ public class ClienteDAO extends GenericDAO<ClientePF> {
 			stmt.setDate(4, java.sql.Date.valueOf(cliente.getDataNascimento()));
 			stmt.setString(5, cliente.getSexo());
 			stmt.setString(6, cliente.getPerfil().toString());
-			stmt.setInt(7, cliente.getLocalizacao().getId());
+			stmt.setLong(7, cliente.getLocalizacao().getId());
 			stmt.setString(8, cliente.getCpf());
 			stmt.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
 			rollback(connection);
-		} finally {
-			closeConn(connection);
-		}
+		} 
 	}
 
 	@Override
@@ -64,9 +65,7 @@ public class ClienteDAO extends GenericDAO<ClientePF> {
 			connection.commit();
 		} catch (SQLException e) {
 			rollback(connection);
-		} finally {
-			closeConn(connection);
-		}
+		} 
 
 	}
 
@@ -90,9 +89,7 @@ public class ClienteDAO extends GenericDAO<ClientePF> {
 			System.out.println("Deu merda");
 			rollback(connection);
 			return null;
-		} finally {
-			closeConn(connection);
-		}
+		} 
 	}
 
 }

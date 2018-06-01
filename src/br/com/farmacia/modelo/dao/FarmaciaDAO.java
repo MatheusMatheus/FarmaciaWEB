@@ -1,5 +1,6 @@
 package br.com.farmacia.modelo.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,6 +11,10 @@ import br.com.farmacia.modelo.FarmaciaPJ;
 import br.com.farmacia.modelo.dao.util.Util;
 
 public class FarmaciaDAO extends GenericDAO<FarmaciaPJ>{
+	
+	public FarmaciaDAO(Connection connection) {
+		super.connection = connection;
+	}
 
 	@Override
 	public void inserir(FarmaciaPJ farmacia) {
@@ -21,16 +26,14 @@ public class FarmaciaDAO extends GenericDAO<FarmaciaPJ>{
 			stmt.setString(4, farmacia.getEmail());
 			stmt.setString(5, farmacia.getTelefone());
 			stmt.setString(6, farmacia.getLogoPath().toString());
-			stmt.setInt(7, farmacia.getLocalizacao().getId());
-			stmt.setInt(8, farmacia.getLogin().getId());
+			stmt.setLong(7, farmacia.getLocalizacao().getId());
+			stmt.setLong(8, farmacia.getLogin().getId());
 			stmt.setString(9, farmacia.getPerfil().name());
 			stmt.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
 			rollback(connection);
-		} finally {
-			closeConn(connection);
-		}	
+		} 
 		
 	}
 
@@ -45,8 +48,8 @@ public class FarmaciaDAO extends GenericDAO<FarmaciaPJ>{
 			stmt.setString(3, farmacia.getEmail());
 			stmt.setString(4, farmacia.getTelefone());
 			stmt.setString(5, farmacia.getLogoPath().toString());
-			stmt.setInt(6, farmacia.getLocalizacao().getId());
-			stmt.setInt(7, farmacia.getLogin().getId());
+			stmt.setLong(6, farmacia.getLocalizacao().getId());
+			stmt.setLong(7, farmacia.getLogin().getId());
 			stmt.setString(8, farmacia.getPerfil().name());
 			stmt.setString(9, farmacia.getCnpj());
 			stmt.executeUpdate();
@@ -54,9 +57,7 @@ public class FarmaciaDAO extends GenericDAO<FarmaciaPJ>{
 		} catch (SQLException e) {
 			System.out.println(e);
 			rollback(connection);
-		} finally {
-			closeConn(connection);
-		}	
+		} 	
 	}
 
 	@Override
@@ -68,9 +69,7 @@ public class FarmaciaDAO extends GenericDAO<FarmaciaPJ>{
 			connection.commit();
 		} catch (SQLException e) {
 			rollback(connection);
-		} finally {
-			closeConn(connection);
-		}	
+		} 
 	}
 
 	@Override

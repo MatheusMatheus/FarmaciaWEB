@@ -3,19 +3,19 @@ package br.com.farmacia.modelo;
 public interface Categoria {
 	interface SaudeMulher {
 		String ANTICONCEPCIONAL = "Anticoncepcional"; 
-		String GINECOLOGICO = "GinecolÃ³gico";
+		String GINECOLOGICO = "Ginecológico";
 		String MENOPAUSA = "Menopausa"; 
-		String PILULA_DIA_SEGUINTE = "PÃ­lula do dia seguinte";
+		String PILULA_DIA_SEGUINTE = "Pílula do Dia Seguinte";
 	}
 	interface DorFebre {
-		String ANALGESICO = "AnalgÃ©sico"; 
-		String ANTI_INFLAMATORIO = "Anti-inflamatÃ³rio";
-		String CONTUSAO = "ContusÃ£o";
-		String COLICA = "CÃ³lica";
+		String ANALGESICO = "Analgésico"; 
+		String ANTI_INFLAMATORIO = "Anti-inflamatório";
+		String CONTUSAO = "Contusão";
+		String COLICA = "Cólica";
 		String ENXAQUECA = "Enxaqueca"; 
-		String DOR_CABECA = "Dor de cabeÃ§a"; 
+		String DOR_CABECA = "Dor de cabeça"; 
 		String RELAXANTE_MUSCULAR = "Relaxante muscular"; 
-		String ANTI_TERMICO = "AntitÃ©rmico";
+		String ANTI_TERMICO = "Antitérmico";
 	}
 	interface GripeResfriado{
 		String TOSSE = "Tosse";
@@ -30,24 +30,24 @@ public interface Categoria {
 	interface Infantil {
 		String ALIMENTOS = "Alimentos"; 
 		String BANHO = "Banho";
-		String CREME_ASSADURA = "Creme assadura"; 
+		String CREME_ASSADURA = "Creme Assadura"; 
 		String FRALDA = "Fralda";
 		String HIGIENTE_BUCAL = "Higiene bucal";
-		String ACESSORIOS = "AcessÃ³rios";
+		String ACESSORIOS = "Acessórios";
 	}
 	interface SistemaNervoso  {
 		String ALCOOLISMO = "Alcoolismo";
 		String ANTIDEPRESSIVO = "Antidepressivo";
-		String DISTURBIOS_MENTAIS = "Disturbios mentais";
+		String DISTURBIOS_MENTAIS = "Distúrbios Mentais";
 		String ALZHEIMER = "Alzheimer";
 		String ANTIPISCICOTICO = "Antipisicotico";
-		String ESCLEROSE_MULTIPLA = "Esclerose mÃºltipla";
-		String ANESTESICO = "AnestÃ©sico";
+		String ESCLEROSE_MULTIPLA = "Esclerose Múltipla";
+		String ANESTESICO = "Anestésico";
 		String CALMANTE = "Calmante";
 		String PARKINSON = "Parkinson";
 		String ANSIEDADE = "Ansiedade";
-		String CONVULSAO = "ConvulsÃ£o";
-		String TRANSTORNO_BIPOLAR = "Transtorno bipolar";
+		String CONVULSAO = "Convulsão";
+		String TRANSTORNO_BIPOLAR = "Transtorno Bipolar";
 	}
 
 

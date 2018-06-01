@@ -1,5 +1,6 @@
 package br.com.farmacia.modelo.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,24 +11,27 @@ import br.com.farmacia.modelo.Venda;
 import br.com.farmacia.modelo.dao.util.Util;
 
 public class VendaDAO extends GenericDAO<Venda> {
+	
+	public VendaDAO(Connection connection) {
+		super.connection = connection;
+	}
+	
 
 	@Override
 	public void inserir(Venda venda) {
 		String sql = "insert into VENDA values(?,?,?,?,?,?)";
 		try (PreparedStatement stmt = connection.prepareStatement(sql.toString())) {
 			stmt.setString(1, venda.getCliente().getCpf());
-			stmt.setInt(2, venda.getMedicamento().getId());
+			stmt.setLong(2, venda.getMedicamento().getId());
 			stmt.setDate(3, java.sql.Date.valueOf(venda.getData()));
 			stmt.setString(4, venda.getTipoPagamento().toString());
-			stmt.setInt(5, venda.getQuantidade());
-			stmt.setInt(6, venda.getId());
+			stmt.setLong(5, venda.getQuantidade());
+			stmt.setLong(6, venda.getId());
 			stmt.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
 			rollback(connection);
-		} finally {
-			closeConn(connection);
-		}	
+		} 
 	}
 
 	@Override
@@ -65,9 +69,7 @@ public class VendaDAO extends GenericDAO<Venda> {
 			System.out.println("Erro ao executar Query " + e);
 			rollback(connection);
 			return null;
-		} finally {
-			closeConn(connection);
-		}
+		} 
 	}
 	
 }

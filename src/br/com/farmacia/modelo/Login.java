@@ -1,7 +1,7 @@
 package br.com.farmacia.modelo;
 
 public class Login {
-	private int id;
+	private long id;
 	private String usuario;
 	private String senha;
 	
@@ -9,16 +9,16 @@ public class Login {
 	public String toString() {
 		StringBuilder sBuilder = new StringBuilder();
 		sBuilder.append("\n[id: " + getId() + ",");
-		sBuilder.append("[usuario: " + getUsuario() + ",");
-		sBuilder.append("[usuario: " + getSenha() + "]");
+		sBuilder.append("usuario: " + getUsuario() + ",");
+		sBuilder.append("senha: " + getSenha() + "]");
 		return sBuilder.toString();
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
