@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en">
 
 <head>
@@ -21,63 +22,9 @@
 
 <body>
 
-	<!-- Navigation -->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-		<div class="container">
-			<a class="navbar-brand" href="#">Farmácia</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarResponsive" aria-controls="navbarResponsive"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item active"><a class="nav-link"
-						href="paginas/admin-farmacia/admin-index.html">Home <span
-							class="sr-only">(current)</span>
-					</a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="paginas/login.html">Entrar</a></li>
-					<li class="dropdown"><a class="nav-link dropdown-content"
-						href="#" data-toggle="dropdown">Carrinho<span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li class="nav-link"><a href="#">Page 1-1</a></li>
-							<li class="nav-link"><a href="#">Page 1-2</a></li>
-							<li class="nav-link"><a href="#">Page 1-3</a></li>
-						</ul></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+	<c:import url="paginas/menu.jsp"/>
 
-	<!--Categorias -->
-	<nav class="navbar navbar-expand-lg navbar-light bg-light categorias">
-		<div class="container">
-			<a class="navbar-brand" href="#">asdfasf</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarResponsive" aria-controls="navbarResponsive"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active"><a class="nav-link"
-						href="paginas/admin-farmacia/admin-index.html">Home <span
-							class="sr-only">(current)</span>
-					</a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="paginas/login.html">asdfasf</a></li>
-					<li class="dropdown"><a class="nav-link dropdown-content"
-						href="#" data-toggle="dropdown">asdfasf<span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li class="nav-link"><a href="#">Page 1-1</a></li>
-							<li class="nav-link"><a href="#">Page 1-2</a></li>
-							<li class="nav-link"><a href="#">Page 1-3</a></li>
-						</ul></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+	<c:import url="paginas/categorias.jsp"/>
 
 	<!-- Page Content -->
 	<div class="container">
