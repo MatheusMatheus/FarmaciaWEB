@@ -6,16 +6,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 import br.com.farmacia.modelo.Login;
 import br.com.farmacia.modelo.dao.util.Util;
 
-public class LoginDAO extends GenericDAO<Login> {
-	
+public class LoginDAO extends GenericDAO<Login> implements FiltroID<Login> {
+
 	FiltroID<Login> filtro;
-	
+
 	public LoginDAO(Connection connection) {
-		super.connection = connection;
+		super(connection);
 	}
 
 	@Override
@@ -28,6 +29,8 @@ public class LoginDAO extends GenericDAO<Login> {
 			stmt.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
+			e.printStackTrace();
+			
 			rollback(connection);
 		}
 	}
@@ -59,44 +62,53 @@ public class LoginDAO extends GenericDAO<Login> {
 	}
 
 	@Override
-	public Collection<Login> listar() {
+	public Optional<Collection<Login>> listar() {
 		String sql = "select lo.id, lo.usuario, lo.senha from LOGIN as lo";
 		try (PreparedStatement stmt = connection.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
 			Collection<Login> logins = new ArrayList<>();
 			while (rs.next())
 				logins.add(Util.getLogin(rs));
 
-			return logins;
+			return Optional.of(logins);
 		} catch (SQLException e) {
 			rollback(connection);
-			return null;
+			return Optional.empty();
 		}
 	}
 
-	
-	public Login getBy(long id) {
+	@Override
+	public Optional<Login> getBy(long id) {
 		String sql = "select lo.id, lo.usuario, lo.senha from LOGIN as lo where lo.id = ?";
 		try (PreparedStatement stmt = connection.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
-			if(rs.next()) {
-				return Util.getLogin(rs);
+			if (rs.next()) {
+				return Optional.of(Util.getLogin(rs));
 			}
 		} catch (SQLException e) {
-			return null;
+			return Optional.empty();
 		}
-		return null;
+		return Optional.empty();
 	}
 
-	
-	public Login getBy(String id) {
-		String sql = "select lo.id, lo.usuario, lo.senha from LOGIN as lo where lo.id = ?";
-		try (PreparedStatement stmt = connection.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
-			if(rs.next()) {
-				return Util.getLogin(rs);
+	@Override
+	public Optional<Login> getBy(String... itens) {
+		if (itens.length != 2)
+			return Optional.empty();;
+		StringBuilder sql = new StringBuilder();
+		sql.append("select lo.id, lo.usuario, lo.senha from LOGIN as lo where lo.usuario = ? and lo.senha = ? ");
+		sql.append("or lo.usuario = ? and lo.senha = ?");
+		try (PreparedStatement stmt = connection.prepareStatement(sql.toString())) {
+			stmt.setString(1, itens[0]);
+			stmt.setString(2, itens[1]);
+			stmt.setString(3, itens[1]);
+			stmt.setString(4, itens[0]);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				return Optional.of(Util.getLogin(rs));
 			}
 		} catch (SQLException e) {
-			return null;
+			return Optional.empty();
 		}
-		return null;
+		return Optional.empty();
 	}
 
 }

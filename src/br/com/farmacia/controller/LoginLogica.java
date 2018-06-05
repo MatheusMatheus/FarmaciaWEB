@@ -1,25 +1,36 @@
 package br.com.farmacia.controller;
 
+import java.sql.Connection;
+import java.util.Optional;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import br.com.farmacia.modelo.Login;
-import br.com.farmacia.modelo.dao.GenericDAO;
 import br.com.farmacia.modelo.dao.LoginDAO;
-import br.com.farmacia.modelo.dao.util.ConnectionFactory;
 
 public class LoginLogica implements Logica {
 
 	@Override
 	public String executa(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		Login login = new  Login();
-		login.setId((int)System.currentTimeMillis());
-		login.setSenha(req.getParameter("senha"));
-		login.setUsuario(req.getParameter("usuario"));
+
+		String senha = req.getParameter("senha");
+		String usuario = req.getParameter("usuario");
 		
-		GenericDAO<Login> loginDao = new LoginDAO(ConnectionFactory.getConnection());
+		Connection connection = (Connection)req.getAttribute("connection");
+		LoginDAO loginDao = new LoginDAO(connection);
+		Optional<Login> login = loginDao.getBy(senha, usuario);
 		
-		return null;
+		if(login.isPresent()) {
+			// Use existing session if exist or create one new session
+			HttpSession session = req.getSession(true);			
+			session.setAttribute("usuario", usuario);
+			session.setMaxInactiveInterval(120);
+			return "/index.jsp";
+		} else {
+			return "WebContent/paginas/login.jsp";
+		}
 	}
 
 }

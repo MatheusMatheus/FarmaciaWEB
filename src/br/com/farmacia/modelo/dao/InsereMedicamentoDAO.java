@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 import br.com.farmacia.modelo.InsereMedicamento;
 import br.com.farmacia.modelo.dao.util.Util;
@@ -13,7 +14,7 @@ import br.com.farmacia.modelo.dao.util.Util;
 public class InsereMedicamentoDAO extends GenericDAO<InsereMedicamento> {
 	
 	public InsereMedicamentoDAO(Connection connection) {
-		super.connection = connection;
+		super(connection);
 	}
 
 	@Override
@@ -43,7 +44,7 @@ public class InsereMedicamentoDAO extends GenericDAO<InsereMedicamento> {
 	}
 
 	@Override
-	public Collection<InsereMedicamento> listar() {
+	public Optional<Collection<InsereMedicamento>> listar() {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select f.cnpj, f.email, f.logo_path, f.nome_fantasia, f.perfil, ");
 		sql.append("f.razao_social, f.telefone, f.LOCALIZACAO_id, f.LOGIN_id, ");
@@ -68,10 +69,10 @@ public class InsereMedicamentoDAO extends GenericDAO<InsereMedicamento> {
 				medicamento.setMedicamento(Util.getMedicamento(rs));
 				medicamentosInseridos.add(medicamento);
 			}
-			return medicamentosInseridos;
+			return Optional.of(medicamentosInseridos);
 		} catch (SQLException e) {
 			rollback(connection);
-			return null;
+			return Optional.empty();
 		} 
 	}
 }

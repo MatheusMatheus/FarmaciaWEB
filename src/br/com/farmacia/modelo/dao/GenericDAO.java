@@ -4,8 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
-
-import br.com.farmacia.modelo.dao.util.ConnectionFactory;
+import java.util.Optional;
 
 public abstract class GenericDAO<T> {
 	protected Connection connection;
@@ -16,21 +15,16 @@ public abstract class GenericDAO<T> {
 
 	public abstract void excluir(T entidade);
 
-	public abstract Collection<T> listar();
+	public abstract Optional<Collection<T>> listar();
 	
-	public GenericDAO() {
-		try {
-			connection = ConnectionFactory.getConnection();
-			connection.setAutoCommit(false);
-		} catch (SQLException e) {
-			System.out.println(e);
-		}
+	public GenericDAO(Connection connection) {
+		this.connection = connection;
+		setAutoCommit();
 	}
-
-	public void closeConn(Connection connection) {
+	
+	protected void setAutoCommit() {
 		try {
-			if (connection != null && !connection.isClosed())
-				connection.close();
+			connection.setAutoCommit(false);
 		} catch (SQLException e) {
 			System.out.println(e);
 		}

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 import br.com.farmacia.modelo.Medicamento;
 import br.com.farmacia.modelo.dao.util.Util;
@@ -13,7 +14,7 @@ import br.com.farmacia.modelo.dao.util.Util;
 public class MedicamentoDAO extends GenericDAO<Medicamento> {
 	
 	public MedicamentoDAO(Connection connection) {
-		super.connection = connection;
+		super(connection);
 	}
 
 	@Override
@@ -72,7 +73,7 @@ public class MedicamentoDAO extends GenericDAO<Medicamento> {
 	}
 
 	@Override
-	public Collection<Medicamento> listar() {
+	public Optional<Collection<Medicamento>> listar() {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select m.id, m.preco, m.nome, ");
 		sql.append("m.validade, m.descricao, m.foto_path, ");
@@ -83,10 +84,10 @@ public class MedicamentoDAO extends GenericDAO<Medicamento> {
 			while (rs.next()) 
 				medicamentos.add(Util.getMedicamento(rs));
 			
-			return medicamentos;
+			return Optional.of(medicamentos);
 		} catch (SQLException e) {
 			rollback(connection);
-			return null;
+			return Optional.empty();
 		}
 	}
 }

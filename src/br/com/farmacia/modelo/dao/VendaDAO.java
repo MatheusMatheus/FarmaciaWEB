@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 import br.com.farmacia.modelo.Venda;
 import br.com.farmacia.modelo.dao.util.Util;
@@ -13,7 +14,7 @@ import br.com.farmacia.modelo.dao.util.Util;
 public class VendaDAO extends GenericDAO<Venda> {
 	
 	public VendaDAO(Connection connection) {
-		super.connection = connection;
+		super(connection);
 	}
 	
 
@@ -45,7 +46,7 @@ public class VendaDAO extends GenericDAO<Venda> {
 	}
 
 	@Override
-	public Collection<Venda> listar() {
+	public Optional<Collection<Venda>> listar() {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select c.cpf, c.nome, c.telefone, c.email, c.dataNascimento, ");
 		sql.append("c.sexo, c.perfil, c.LOCALIZACAO_id, c.LOGIN_id, ");
@@ -64,11 +65,11 @@ public class VendaDAO extends GenericDAO<Venda> {
 			Collection<Venda> vendas = new ArrayList<>();
 			while (rs.next()) 
 				vendas.add(Util.getVenda(rs));
-			return vendas;
+			return Optional.of(vendas);
 		} catch (SQLException e) {
 			System.out.println("Erro ao executar Query " + e);
 			rollback(connection);
-			return null;
+			return Optional.empty();
 		} 
 	}
 	

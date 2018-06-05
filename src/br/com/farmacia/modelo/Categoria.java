@@ -3,19 +3,19 @@ package br.com.farmacia.modelo;
 public interface Categoria {
 	interface SaudeMulher {
 		String ANTICONCEPCIONAL = "Anticoncepcional"; 
-		String GINECOLOGICO = "Ginecológico";
+		String GINECOLOGICO = "GinecolÃ³gico";
 		String MENOPAUSA = "Menopausa"; 
-		String PILULA_DIA_SEGUINTE = "Pílula do Dia Seguinte";
+		String PILULA_DIA_SEGUINTE = "PÃ­lula do Dia Seguinte";
 	}
 	interface DorFebre {
-		String ANALGESICO = "Analgésico"; 
-		String ANTI_INFLAMATORIO = "Anti-inflamatório";
-		String CONTUSAO = "Contusão";
-		String COLICA = "Cólica";
+		String ANALGESICO = "AnalgÃ©sico"; 
+		String ANTI_INFLAMATORIO = "Anti-inflamatÃ³rio";
+		String CONTUSAO = "ContusÃ£o";
+		String COLICA = "CÃ³lica";
 		String ENXAQUECA = "Enxaqueca"; 
-		String DOR_CABECA = "Dor de cabeça"; 
+		String DOR_CABECA = "Dor de cabeÃ§a"; 
 		String RELAXANTE_MUSCULAR = "Relaxante muscular"; 
-		String ANTI_TERMICO = "Antitérmico";
+		String ANTI_TERMICO = "AntitÃ©rmico";
 	}
 	interface GripeResfriado{
 		String TOSSE = "Tosse";
@@ -33,20 +33,20 @@ public interface Categoria {
 		String CREME_ASSADURA = "Creme Assadura"; 
 		String FRALDA = "Fralda";
 		String HIGIENTE_BUCAL = "Higiene bucal";
-		String ACESSORIOS = "Acessórios";
+		String ACESSORIOS = "AcessÃ³rios";
 	}
 	interface SistemaNervoso  {
 		String ALCOOLISMO = "Alcoolismo";
 		String ANTIDEPRESSIVO = "Antidepressivo";
-		String DISTURBIOS_MENTAIS = "Distúrbios Mentais";
+		String DISTURBIOS_MENTAIS = "DistÃºrbios Mentais";
 		String ALZHEIMER = "Alzheimer";
 		String ANTIPISCICOTICO = "Antipisicotico";
-		String ESCLEROSE_MULTIPLA = "Esclerose Múltipla";
-		String ANESTESICO = "Anestésico";
+		String ESCLEROSE_MULTIPLA = "Esclerose MÃºltipla";
+		String ANESTESICO = "AnestÃ©sico";
 		String CALMANTE = "Calmante";
 		String PARKINSON = "Parkinson";
 		String ANSIEDADE = "Ansiedade";
-		String CONVULSAO = "Convulsão";
+		String CONVULSAO = "ConvulsÃ£o";
 		String TRANSTORNO_BIPOLAR = "Transtorno Bipolar";
 	}
 

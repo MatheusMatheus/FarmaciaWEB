@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 import br.com.farmacia.modelo.ClientePF;
 import br.com.farmacia.modelo.dao.util.Util;
@@ -13,7 +14,7 @@ import br.com.farmacia.modelo.dao.util.Util;
 public class ClienteDAO extends GenericDAO<ClientePF> {
 	
 	public ClienteDAO(Connection connection) {
-		super.connection = connection;
+		super(connection);
 	}
 
 	@Override
@@ -70,7 +71,7 @@ public class ClienteDAO extends GenericDAO<ClientePF> {
 	}
 
 	@Override
-	public Collection<ClientePF> listar() {
+	public Optional<Collection<ClientePF>> listar() {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select c.cpf, c.nome, c.telefone, c.email, ");
 		sql.append("c.dataNascimento, c.sexo, c.perfil, c.LOCALIZACAO_id, ");
@@ -84,11 +85,11 @@ public class ClienteDAO extends GenericDAO<ClientePF> {
 			Collection<ClientePF> clientes = new ArrayList<>();
 			while (rs.next()) 
 				clientes.add(Util.getCliente(rs));
-			return clientes;
+			return Optional.of(clientes);
 		} catch (SQLException e) {
 			System.out.println("Deu merda");
 			rollback(connection);
-			return null;
+			return Optional.empty();
 		} 
 	}
 

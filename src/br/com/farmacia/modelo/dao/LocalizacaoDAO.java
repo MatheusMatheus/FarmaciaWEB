@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 import br.com.farmacia.modelo.Localizacao;
 import br.com.farmacia.modelo.dao.util.Util;
@@ -13,7 +14,7 @@ import br.com.farmacia.modelo.dao.util.Util;
 public class LocalizacaoDAO extends GenericDAO<Localizacao> {
 	
 	public LocalizacaoDAO(Connection connection) {
-		super.connection = connection;
+		super(connection);
 	}
 
 	@Override
@@ -62,7 +63,7 @@ public class LocalizacaoDAO extends GenericDAO<Localizacao> {
 	}
 
 	@Override
-	public Collection<Localizacao> listar() {
+	public Optional<Collection<Localizacao>> listar() {
 		String sql = "select l.id, l.cep, l.endereco,"
 				+ " l.cidade, l.estado from LOCALIZACAO l";
 		try (PreparedStatement stmt = connection.prepareStatement(sql);
@@ -71,10 +72,10 @@ public class LocalizacaoDAO extends GenericDAO<Localizacao> {
 			while (rs.next())
 				localizacoes.add(Util.getLocalizacao(rs));
 
-			return localizacoes;
+			return Optional.of(localizacoes);
 		} catch (SQLException e) {
 			rollback(connection);
-			return null;
+			return Optional.empty();
 		} 
 	}
 }

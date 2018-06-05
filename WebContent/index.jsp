@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>FarmÃ¡cia</title>
+<title>Farmácia</title>
 
 <!-- Bootstrap core CSS -->
 <link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -203,7 +203,7 @@
 	<!-- Bootstrap core JavaScript -->
 	<script src="resources/jquery/jquery.min.js"></script>
 	<script src="resources/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+	<script src = "resources/js/categorias.js"></script>
 </body>
 
 </html>
