@@ -23,7 +23,7 @@ public class Util {
 			localizacao.setCidade(rs.getString("l.cidade"));
 			localizacao.setEndereco(rs.getString("l.endereco"));
 			localizacao.setEstado(rs.getString("l.estado"));
-			localizacao.setId(rs.getInt("l.id"));
+			localizacao.setId(rs.getLong("l.id"));
 			return localizacao;
 		} catch (SQLException e) {
 			System.out.println("Erro ao extrair localizacao do ResultSet " + e);
@@ -35,7 +35,7 @@ public class Util {
 	public static Medicamento getMedicamento(ResultSet rs) {
 		try {
 			Medicamento medicamento = new Medicamento();
-			medicamento.setId(rs.getInt("m.id"));
+			medicamento.setId(rs.getLong("m.id"));
 			medicamento.setPreco(new BigDecimal(rs.getDouble("m.preco")));
 			medicamento.setNome(rs.getString("m.nome"));
 			medicamento.setValidade(rs.getDate("m.validade").toLocalDate());
@@ -55,7 +55,7 @@ public class Util {
 	public static Login getLogin(ResultSet rs) {
 		try {
 			Login login = new Login();
-			login.setId(rs.getInt("lo.id"));
+			login.setId(rs.getLong("lo.id"));
 			login.setSenha(rs.getString("lo.senha"));
 			login.setUsuario(rs.getString("lo.usuario"));
 			return login;
@@ -108,7 +108,7 @@ public class Util {
 	public static Venda getVenda(ResultSet rs) {
 		try {
 			Venda venda = new Venda();
-			venda.setId(rs.getInt("v.id"));
+			venda.setId(rs.getLong("v.id"));
 			venda.setQuantidade(rs.getInt("v.quantidade"));
 			venda.setData(rs.getDate("v.dataVenda").toLocalDate());
 			venda.setCliente(Util.getCliente(rs));

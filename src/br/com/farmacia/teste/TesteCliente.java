@@ -8,6 +8,7 @@ import br.com.farmacia.modelo.Login;
 import br.com.farmacia.modelo.Perfil;
 import br.com.farmacia.modelo.dao.ClienteDAO;
 import br.com.farmacia.modelo.dao.GenericDAO;
+import br.com.farmacia.modelo.dao.util.ConnectionFactory;
 
 public class TesteCliente {
 	public static void main(String[] args) {
@@ -16,12 +17,12 @@ public class TesteCliente {
 		localizacao.setCidade("Sao Luis");
 		localizacao.setEndereco("QR 106 CJ 08 CS 05");
 		localizacao.setEstado("Maranhao");
-		localizacao.setId(5465466);
+		localizacao.setId(5465466L);
 		
 		Login login = new Login();
-		login.setId(513513);
-		login.setUsuario("matheus.rodrigues");
-		login.setSenha("798794");
+		login.setId(1528667212874L);
+		login.setUsuario("matheus@gmail.com");
+		login.setSenha("12345");
 		
 		ClientePF cliente = new ClientePF();
 		cliente.setCpf("04408803197");
@@ -34,7 +35,7 @@ public class TesteCliente {
 		cliente.setSexo("M");
 		cliente.setTelefone("12345678");
 		
-		GenericDAO<ClientePF> dao = new ClienteDAO();
+		GenericDAO<ClientePF> dao = new ClienteDAO(ConnectionFactory.getConnection());
 		dao.inserir(cliente);
 		//dao.listar().forEach(System.out::println);
 	}

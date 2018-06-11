@@ -8,11 +8,12 @@ public class TesteLogin {
 	public static void main(String[] args) {
 		Login login = new Login();
 		login.setId(System.currentTimeMillis());
-		login.setUsuario("matheus.rodrigues");
-		login.setSenha("798794");
+		login.setUsuario("matheus@gmail.com");
+		login.setSenha("12345");
 		
 		LoginDAO dao = new LoginDAO(ConnectionFactory.getConnection());
-		//dao.inserir(login);
+		dao.inserir(login);
+		
 		//dao.alterar(login);
 		//dao.excluir(login);
 		//dao.listar().forEach(System.out::println);

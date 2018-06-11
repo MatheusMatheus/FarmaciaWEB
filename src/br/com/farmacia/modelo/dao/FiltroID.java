@@ -2,10 +2,8 @@ package br.com.farmacia.modelo.dao;
 
 import java.util.Optional;
 
-public interface FiltroID<T> {
+public interface FiltroID<T, R> {
 
-	public Optional<T> getBy(long id);
-
-	public Optional<T> getBy(String... itens);
+	Optional<R> getBy(T id);
 
 }

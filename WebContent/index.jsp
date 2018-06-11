@@ -13,18 +13,16 @@
 <title>Farmácia</title>
 
 <!-- Bootstrap core CSS -->
-<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="resources/css/shop.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/shop.css" rel="stylesheet">
 
 </head>
 
 <body>
 
 	<c:import url="paginas/menu.jsp"/>
-
-	<c:import url="paginas/categorias.jsp"/>
 
 	<!-- Page Content -->
 	<div class="container">
@@ -191,19 +189,11 @@
 	</div>
 	<!-- /.container -->
 
-	<!-- Footer -->
-	<footer class="py-5 bg-dark">
-		<div class="container">
-			<p class="m-0 text-center text-white">Copyright &copy; Your
-				Website 2017</p>
-		</div>
-		<!-- /.container -->
-	</footer>
+	<c:import url="paginas/footer.jsp" />
 
 	<!-- Bootstrap core JavaScript -->
-	<script src="resources/jquery/jquery.min.js"></script>
-	<script src="resources/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src = "resources/js/categorias.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

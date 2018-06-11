@@ -7,13 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.function.Function;
 
 import br.com.farmacia.modelo.Login;
 import br.com.farmacia.modelo.dao.util.Util;
 
-public class LoginDAO extends GenericDAO<Login> implements FiltroID<Login> {
-
-	FiltroID<Login> filtro;
+public class LoginDAO extends GenericDAO<Login> implements Function<Login, Optional<Login>> {
 
 	public LoginDAO(Connection connection) {
 		super(connection);
@@ -77,38 +76,25 @@ public class LoginDAO extends GenericDAO<Login> implements FiltroID<Login> {
 	}
 
 	@Override
-	public Optional<Login> getBy(long id) {
-		String sql = "select lo.id, lo.usuario, lo.senha from LOGIN as lo where lo.id = ?";
-		try (PreparedStatement stmt = connection.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+	public Optional<Login> apply(Login login) {
+		StringBuilder sql = new StringBuilder();
+		sql.append("select lo.id, lo.usuario, lo.senha from LOGIN as lo where lo.usuario = ? and lo.senha = ? ");
+		ResultSet rs = null;
+		try (PreparedStatement stmt = connection.prepareStatement(sql.toString())) {
+			stmt.setString(1, login.getUsuario());
+			stmt.setString(2, login.getSenha());
+			rs = stmt.executeQuery();
 			if (rs.next()) {
 				return Optional.of(Util.getLogin(rs));
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return Optional.empty();
+		} finally {
+			closeResultSet(rs);
 		}
 		return Optional.empty();
 	}
 
-	@Override
-	public Optional<Login> getBy(String... itens) {
-		if (itens.length != 2)
-			return Optional.empty();;
-		StringBuilder sql = new StringBuilder();
-		sql.append("select lo.id, lo.usuario, lo.senha from LOGIN as lo where lo.usuario = ? and lo.senha = ? ");
-		sql.append("or lo.usuario = ? and lo.senha = ?");
-		try (PreparedStatement stmt = connection.prepareStatement(sql.toString())) {
-			stmt.setString(1, itens[0]);
-			stmt.setString(2, itens[1]);
-			stmt.setString(3, itens[1]);
-			stmt.setString(4, itens[0]);
-			ResultSet rs = stmt.executeQuery();
-			if (rs.next()) {
-				return Optional.of(Util.getLogin(rs));
-			}
-		} catch (SQLException e) {
-			return Optional.empty();
-		}
-		return Optional.empty();
-	}
 
 }

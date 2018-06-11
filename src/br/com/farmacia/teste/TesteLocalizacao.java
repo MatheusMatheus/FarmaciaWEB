@@ -3,10 +3,11 @@ package br.com.farmacia.teste;
 import br.com.farmacia.modelo.Localizacao;
 import br.com.farmacia.modelo.dao.GenericDAO;
 import br.com.farmacia.modelo.dao.LocalizacaoDAO;
+import br.com.farmacia.modelo.dao.util.ConnectionFactory;
 
 public class TesteLocalizacao {
 	public static void main(String[] args) {
-		GenericDAO<Localizacao> dao = new LocalizacaoDAO();
+		GenericDAO<Localizacao> dao = new LocalizacaoDAO(ConnectionFactory.getConnection());
 		
 		
 		Localizacao localizacao = new Localizacao();
