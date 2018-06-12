@@ -13,13 +13,12 @@ import br.com.farmacia.modelo.ClientePF;
 import br.com.farmacia.modelo.Login;
 import br.com.farmacia.modelo.dao.util.Util;
 
-public class ClienteDAO extends GenericDAO<ClientePF> implements Function<Login, Optional<ClientePF>>{
-	
+public class ClienteDAO extends GenericDAO<ClientePF> implements Function<Login, Optional<ClientePF>> {
+
 	public ClienteDAO(Connection connection) {
 		super(connection);
 	}
 
-	@Override
 	public void inserir(ClientePF cliente) {
 		String sql = "insert into CLIENTE values(?,?,?,?,?,?,?,?,?)";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -36,10 +35,9 @@ public class ClienteDAO extends GenericDAO<ClientePF> implements Function<Login,
 			connection.commit();
 		} catch (SQLException e) {
 			rollback(connection);
-		} 
+		}
 	}
 
-	@Override
 	public void alterar(ClientePF cliente) {
 		String sql = "update CLIENTE set nome = ?, telefone = ?, email = ? dataNascimento = ?"
 				+ "sexo = ?, perfil = ?, LOCALIZACAO_id = ? where cpf = ?";
@@ -56,10 +54,9 @@ public class ClienteDAO extends GenericDAO<ClientePF> implements Function<Login,
 			connection.commit();
 		} catch (SQLException e) {
 			rollback(connection);
-		} 
+		}
 	}
 
-	@Override
 	public void excluir(ClientePF cliente) {
 		String sql = "delete from CLIENTE where cpf = ?";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -68,10 +65,9 @@ public class ClienteDAO extends GenericDAO<ClientePF> implements Function<Login,
 			connection.commit();
 		} catch (SQLException e) {
 			rollback(connection);
-		} 
+		}
 	}
 
-	@Override
 	public Optional<Collection<ClientePF>> listar() {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select c.cpf, c.nome, c.telefone, c.email, ");
@@ -81,20 +77,18 @@ public class ClienteDAO extends GenericDAO<ClientePF> implements Function<Login,
 		sql.append("lo.id, lo.senha, lo.usuario ");
 		sql.append("from CLIENTE as c inner join LOCALIZACAO as l on l.id = c.LOCALIZACAO_id ");
 		sql.append("inner join LOGIN as lo on lo.id = c.LOGIN_id;");
-		try (PreparedStatement stmt = connection.prepareStatement(sql.toString());
-				ResultSet rs = stmt.executeQuery()) {
+		try (PreparedStatement stmt = connection.prepareStatement(sql.toString()); ResultSet rs = stmt.executeQuery()) {
 			Collection<ClientePF> clientes = new ArrayList<>();
-			while (rs.next()) 
+			while (rs.next())
 				clientes.add(Util.getCliente(rs));
 			return Optional.of(clientes);
 		} catch (SQLException e) {
 			System.out.println("Deu merda");
 			rollback(connection);
 			return Optional.empty();
-		} 
+		}
 	}
 
-	@Override
 	public Optional<ClientePF> apply(Login login) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select c.cpf, c.nome, c.telefone, c.email, ");
@@ -105,11 +99,11 @@ public class ClienteDAO extends GenericDAO<ClientePF> implements Function<Login,
 		sql.append("from CLIENTE as c inner join LOCALIZACAO as l on l.id = c.LOCALIZACAO_id ");
 		sql.append("inner join LOGIN as lo on lo.senha = ? and lo.usuario = ?");
 		ResultSet rs = null;
-		try (PreparedStatement stmt = connection.prepareStatement(sql.toString())){
+		try (PreparedStatement stmt = connection.prepareStatement(sql.toString())) {
 			stmt.setString(1, login.getSenha());
 			stmt.setString(2, login.getUsuario());
 			rs = stmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				return Optional.of(Util.getCliente(rs));
 			}
 		} catch (SQLException e) {

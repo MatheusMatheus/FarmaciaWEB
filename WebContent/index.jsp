@@ -22,8 +22,9 @@
 
 <body>
 
-	<c:import url="paginas/menu.jsp"/>
+	<c:import url="paginas/paginas-auxiliares/menu.jsp"/>
 
+	<c:import url="paginas/paginas-auxiliares/categorias.jsp"/>
 	<!-- Page Content -->
 	<div class="container">
 
@@ -189,7 +190,7 @@
 	</div>
 	<!-- /.container -->
 
-	<c:import url="paginas/footer.jsp" />
+	<c:import url="paginas/paginas-auxiliares/footer.jsp" />
 
 	<!-- Bootstrap core JavaScript -->
 	<script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>

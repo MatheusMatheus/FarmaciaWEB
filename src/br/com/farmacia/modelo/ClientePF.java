@@ -2,7 +2,7 @@ package br.com.farmacia.modelo;
 
 import java.time.LocalDate;
 
-public class ClientePF extends Pessoa {
+public class ClientePF extends Pessoa<ClientePF> {
 	private String cpf;
 	private LocalDate dataNascimento;
 	private String sexo;
@@ -23,32 +23,42 @@ public class ClientePF extends Pessoa {
 		return cpf;
 	}
 
-	public void setCpf(String cpf) {
+	public ClientePF setCpf(String cpf) {
 		this.cpf = cpf;
+		return this;
 	}
 
 	public LocalDate getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(LocalDate dataNascimento) {
+	public ClientePF setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
+		return this;
 	}
 
 	public String getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(String sexo) {
+	public ClientePF setSexo(String sexo) {
 		this.sexo = sexo;
+		return this;
 	}
 
 	public String getNome() {
 		return nome;
 	}
 
-	public void setNome(String nome) {
+	public ClientePF setNome(String nome) {
 		this.nome = nome;
+		return this;
 	}
+
+	@Override
+	protected ClientePF getThis() {
+		return this;
+	}
+
 
 }

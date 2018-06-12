@@ -90,14 +90,14 @@ public class Util {
 	public static ClientePF getCliente(ResultSet rs) {
 		try {
 			ClientePF cliente = new ClientePF();
-			cliente.setCpf(rs.getString("c.cpf"));
-			cliente.setNome(rs.getString("c.nome"));
-			cliente.setEmail(rs.getString("c.email"));
-			cliente.setDataNascimento(rs.getDate("c.dataNascimento").toLocalDate());
-			cliente.setSexo(rs.getString("c.sexo"));
-			cliente.setPerfil(Perfil.valueOf(rs.getString("c.perfil")));
-			cliente.setLocalizacao(getLocalizacao(rs));
-			cliente.setLogin(getLogin(rs));
+			cliente.setCpf(rs.getString("c.cpf"))
+				   .setNome(rs.getString("c.nome"))
+				   .setEmail(rs.getString("c.email"))
+				   .setDataNascimento(rs.getDate("c.dataNascimento").toLocalDate())
+				   .setSexo(rs.getString("c.sexo"))
+				   .setPerfil(Perfil.valueOf(rs.getString("c.perfil")))
+				   .setLocalizacao(getLocalizacao(rs))
+				   .setLogin(getLogin(rs));
 			return cliente;
 		} catch (SQLException e) {
 			System.out.println("Erro ao extrair cliente result set" + e);

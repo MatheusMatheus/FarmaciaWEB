@@ -9,8 +9,8 @@
 <link href="${pageContext.request.contextPath}/resources/css/signin.css"
 	rel="stylesheet">
 	
-	<c:import url="menu.jsp" />
-
+	<c:import url="paginas-auxiliares/menu.jsp" />
+	<c:import url="paginas-auxiliares/categorias.jsp" />
 	<div class="container">
 	
 			<form class="form-signin"
@@ -34,5 +34,5 @@
 	</div>
 	<!-- /container -->
 
-	<c:import url="footer.jsp" />
+	<c:import url="paginas-auxiliares/footer.jsp" />
 

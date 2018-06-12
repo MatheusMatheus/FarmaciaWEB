@@ -11,3 +11,4 @@
 		$('.logica').val("farmacia.FarmaciaLogica");
 	})	
 })();
+

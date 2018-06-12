@@ -25,18 +25,31 @@
 </head>
 
 <body>
-	<c:import url="menu.jsp" />
-
+	<c:import url="paginas-auxiliares/menu.jsp" />
+	<c:import url="paginas-auxiliares/categorias.jsp" />
 
 	<div class="container">
 		<div class="card card-register mx-auto mt-5">
 			<div class="card-header">Cadastro</div>
 			<div class="card-body">
-				<form method = "POST" action = "${pageContext.request.contextPath}/controller" class="needs-validation" >
+				<div class="form-group" id = "grupo">
+					<div class="custom-control custom-radio custom-control-inline">
+					  <input type="radio" id="pacienteConsumidor" name="perfil" class="custom-control-input">
+					  <label class="custom-control-label" for="pacienteConsumidor">Paciente ou consumidor</label>
+					</div>
+					
+					<div class="custom-control custom-radio custom-control-inline">
+					  <input type="radio" id="propFarmacia" name="perfil" class="custom-control-input">
+					  <label class="custom-control-label" for="propFarmacia">Proprietário de farmácia</label>
+					</div>						
+				</div>
+				<form method = "POST" action = "${pageContext.request.contextPath}/controller" class="needs-validation" novalidate>
+					<!-- A lógica será definida no arquivo aux-cadastro.js -->
+					<input type = "hidden" class = "logica" name = "logica" value = ""/>
 					<div class="form-row">
 					    <div class="col-md-6 mb-3">
 					      <label for="telefone">Telefone</label>
-					      <input type="text" class="form-control" id="telefone" placeholder="Telefone" required>
+					      <input name = "telefone" type="text" class="form-control" id="telefone" placeholder="Telefone" required>
 					      <div class="invalid-feedback">
 					        Por favor, insira o telefone.
 					      </div>
@@ -48,7 +61,7 @@
 								    <div class="input-group-prepend">
 								      <span class="input-group-text" id="inputGroupPrepend">@</span>
 								  </div>
-								    <input type="text" class="form-control" id="email" placeholder="Email" aria-describedby="inputGroupPrepend" required>
+								    <input name = "email" type="text" class="form-control" id="email" placeholder="Email" aria-describedby="inputGroupPrepend" required>
 								   <div class="invalid-feedback">
 								     Por favor, insira o email.
 								   </div>
@@ -60,7 +73,7 @@
 						<div class="col-md-6 mb-3">
 						  <label for="senha">Senha</label>
 							  <div class="input-group">
-								    <input type="password" class="form-control" id="senha" placeholder="Senha" required>
+								    <input name = "senha" type="password" class="form-control" id="senha" placeholder="Senha" required>
 								   <div class="invalid-feedback">
 								     Por favor, insira a senha.
 								   </div>
@@ -70,7 +83,7 @@
 						<div class="col-md-6 mb-3">
 						  <label for="confirma-senha">Confirmar Senha</label>
 							  <div class="input-group">
-								    <input type="password" class="form-control" id="confirma-senha" placeholder="Confirmar Senha" required>
+								    <input name = "confirma-senha" type="password" class="form-control" id="confirma-senha" placeholder="Confirmar Senha" required>
 								   <div class="invalid-feedback">
 								     Por favor, insira a senha.
 								   </div>
@@ -113,20 +126,7 @@
 					      </div>
 					    </div>	
 					</div>
-				
-					<div class="form-group" id = "grupo">
-						<div class="custom-control custom-radio custom-control-inline">
-						  <input type="radio" id="pacienteConsumidor" name="perfil" class="custom-control-input">
-						  <label class="custom-control-label" for="pacienteConsumidor">Paciente ou consumidor</label>
-						</div>
-						
-						<div class="custom-control custom-radio custom-control-inline">
-						  <input type="radio" id="propFarmacia" name="perfil" class="custom-control-input">
-						  <label class="custom-control-label" for="propFarmacia">Proprietário de farmácia</label>
-						</div>						
-						<input type = "hidden" class = "logica" name = "logica" value = ""/>
-					</div>
-					
+									
 					<div class="form-group collapse pessoa-fisica">
 						<div class="form-row">
 						    <div class="col-md-6 mb-3">
@@ -236,7 +236,7 @@
 		</div>
 	</div>
 
-	<c:import url="footer.jsp" />
+	<c:import url="paginas-auxiliares/footer.jsp" />
 	<!-- Bootstrap core JavaScript-->
 	<script
 		src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>

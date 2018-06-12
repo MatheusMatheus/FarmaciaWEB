@@ -1,6 +1,6 @@
 package br.com.farmacia.modelo;
 
-public class Pessoa {
+public abstract class Pessoa<T> {
 	private String email;
 	private String telefone;
 	private Localizacao localizacao;
@@ -17,45 +17,52 @@ public class Pessoa {
 		sb.append("localizacao: " + getLocalizacao() + "]");
 		return sb.toString();
 	}
+	
+	protected abstract T getThis();
 
 	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	public T setEmail(String email) {
 		this.email = email;
+		return getThis();
 	}
 
 	public String getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(String telefone) {
+	public T setTelefone(String telefone) {
 		this.telefone = telefone;
+		return getThis();
 	}
 
 	public Localizacao getLocalizacao() {
 		return localizacao;
 	}
 
-	public void setLocalizacao(Localizacao localizacao) {
+	public T setLocalizacao(Localizacao localizacao) {
 		this.localizacao = localizacao;
+		return getThis();
 	}
 
 	public Login getLogin() {
 		return login;
 	}
 
-	public void setLogin(Login login) {
+	public T setLogin(Login login) {
 		this.login = login;
+		return getThis();
 	}
 
 	public Perfil getPerfil() {
 		return perfil;
 	}
 
-	public void setPerfil(Perfil perfil) {
+	public T setPerfil(Perfil perfil) {
 		this.perfil = perfil;
+		return getThis();
 	}
 
 }

@@ -15,10 +15,14 @@ public class LogoutLogica implements Logica{
 		try {
 			HttpSession session = req.getSession(false);
 			Connection connection = (Connection)session.getAttribute("connection");
-			connection.close();
+			if(connection != null) {
+				connection.close();
+				System.out.println("Conexão com o banco de dados fechada");
+			}
+			
 			System.out.println("Sessao finalizada");
 			session.invalidate();
-			return "/index.jsp";
+			return "LogoutRedirect.java";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "/index.jsp";
