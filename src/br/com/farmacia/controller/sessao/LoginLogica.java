@@ -11,7 +11,6 @@ import br.com.farmacia.controller.Logica;
 import br.com.farmacia.dto.LoginDTO;
 import br.com.farmacia.modelo.ClientePF;
 import br.com.farmacia.modelo.Login;
-import br.com.farmacia.modelo.dao.util.ConnectionFactory;
 
 public class LoginLogica implements Logica {
 
@@ -23,7 +22,7 @@ public class LoginLogica implements Logica {
 			login.setSenha(req.getParameter("senha"));
 			login.setUsuario(req.getParameter("usuario"));
 			
-			Connection connection = ConnectionFactory.getConnection();
+			Connection connection = (Connection)req.getAttribute("connection");
 			LoginDTO loginDTO = new LoginDTO(connection);
 			
 			Optional<ClientePF> clienteValido = loginDTO.validaLogin(login);
@@ -31,7 +30,6 @@ public class LoginLogica implements Logica {
 			if(clienteValido.isPresent()) {
 				// Use existing session if exist or create one new session
 				HttpSession session = req.getSession(true);	
-				session.setAttribute("connection", connection);
 				session.setAttribute("clienteValido", clienteValido.get());
 				session.setMaxInactiveInterval(120);
 				

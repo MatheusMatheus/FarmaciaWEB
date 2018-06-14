@@ -25,218 +25,49 @@
 </head>
 
 <body>
-	<c:import url="paginas-auxiliares/menu.jsp" />
-	<c:import url="paginas-auxiliares/categorias.jsp" />
+	<c:import url="../paginas-auxiliares/menu.jsp" />
+	<c:import url="../paginas-auxiliares/categorias.jsp" />
 
 	<div class="container">
 		<div class="card card-register mx-auto mt-5">
 			<div class="card-header">Cadastro</div>
 			<div class="card-body">
-				<div class="form-group" id = "grupo">
-					<div class="custom-control custom-radio custom-control-inline">
-					  <input type="radio" id="pacienteConsumidor" name="perfil" class="custom-control-input">
-					  <label class="custom-control-label" for="pacienteConsumidor">Paciente ou consumidor</label>
-					</div>
-					
-					<div class="custom-control custom-radio custom-control-inline">
-					  <input type="radio" id="propFarmacia" name="perfil" class="custom-control-input">
-					  <label class="custom-control-label" for="propFarmacia">Proprietário de farmácia</label>
-					</div>						
-				</div>
 				<form method = "POST" action = "${pageContext.request.contextPath}/controller" class="needs-validation" novalidate>
-					<!-- A lógica será definida no arquivo aux-cadastro.js -->
-					<input type = "hidden" class = "logica" name = "logica" value = ""/>
-					<div class="form-row">
-					    <div class="col-md-6 mb-3">
-					      <label for="telefone">Telefone</label>
-					      <input name = "telefone" type="text" class="form-control" id="telefone" placeholder="Telefone" required>
-					      <div class="invalid-feedback">
-					        Por favor, insira o telefone.
-					      </div>
-					    </div>						
-
-						<div class="col-md-6 mb-3">
-						  <label for="email">Email</label>
-							  <div class="input-group">
-								    <div class="input-group-prepend">
-								      <span class="input-group-text" id="inputGroupPrepend">@</span>
-								  </div>
-								    <input name = "email" type="text" class="form-control" id="email" placeholder="Email" aria-describedby="inputGroupPrepend" required>
-								   <div class="invalid-feedback">
-								     Por favor, insira o email.
-								   </div>
-							  </div>
-						</div>	
-					</div>
-					
-					<div class="form-row">
-						<div class="col-md-6 mb-3">
-						  <label for="senha">Senha</label>
-							  <div class="input-group">
-								    <input name = "senha" type="password" class="form-control" id="senha" placeholder="Senha" required>
-								   <div class="invalid-feedback">
-								     Por favor, insira a senha.
-								   </div>
-							  </div>
-						</div>						
-
-						<div class="col-md-6 mb-3">
-						  <label for="confirma-senha">Confirmar Senha</label>
-							  <div class="input-group">
-								    <input name = "confirma-senha" type="password" class="form-control" id="confirma-senha" placeholder="Confirmar Senha" required>
-								   <div class="invalid-feedback">
-								     Por favor, insira a senha.
-								   </div>
-							  </div>
-						</div>	
-					</div>
-					
-					<div class="form-row">
-						 <div class="col-md-8 mb-3">
-						      <label for="endereco">Endereço</label>
-						      <input name = "endereco" type="text" class="form-control" id="endereco" placeholder="Endereco" required>
-						      <div class="invalid-feedback">
-						        Por favor, insira um endereço.
-						      </div>						 
-						 </div>
-						 
-					    <div class="col-md-4 mb-3">
-					      <label for="cep">CEP</label>
-					      <input name= "cep" type="text" class="form-control" id="cep" placeholder="CEP" required>
-					      <div class="invalid-feedback">
-					        Por favor, insira um CEP.
-					      </div>
-					    </div>	
-					</div>
-					
-					<div class="form-row">
-					    <div class="col-md-6 mb-3">
-					      <label for="estado">Estado</label>
-					      <input name = "estado" type="text" class="form-control" id="estado" placeholder="Estado" required>
-					      <div class="invalid-feedback">
-					        Por favor, insira um estado.
-					      </div>
-					    </div>						
-
-					    <div class="col-md-6 mb-3">
-					      <label for="cidade">Cidade</label>
-					      <input name= "cidade" type="text" class="form-control" id="cidade" placeholder="Cidade" required>
-					      <div class="invalid-feedback">
-					        Por favor, insira uma cidade.
-					      </div>
-					    </div>	
-					</div>
-									
-					<div class="form-group collapse pessoa-fisica">
+					<input type = "hidden" name = "logica" class = "logica"/>
+					<div class="form-group">
 						<div class="form-row">
-						    <div class="col-md-6 mb-3">
-						      <label for="primeiroNome">Primeiro nome</label>
-						      <input name = "primeiroNome" type="text" class="form-control" id="primeiroNome" placeholder="Primeiro nome" required>
-						      <div class="invalid-feedback">
-						        Por favor, insira o seu primeiro nome.
-						      </div>
-						    </div>
-						    
-						    <div class="col-md-6 mb-3">
-						      <label for="sobrenome">Sobrenome</label>
-						      <input name = "sobrenome" type="text" class="form-control" id="sobrenome" placeholder="Sobrenome" required>
-						      <div class="invalid-feedback">
-						        Por favor, insira o seu sobrenome.
-						      </div>
-						    </div>
-						</div>	
-						
-						<div class="form-row">
-						    <div class="col-md-6 mb-3">
-						      <label for="cpf">CPF</label>
-						      <input name = "cpf" type="text" class="form-control" id="cpf" placeholder="CPF" required>
-						      <div class="invalid-feedback">
-						        Por favor, insira o CPF.
-						      </div>
-						    </div>
-
-						    <div class="col-md-6 mb-3">
-						      <label for="dtnasc">Data de Nascimento</label>
-						      <input name = "dtnasc" type="date" class="form-control" id="dtnasc" placeholder="Data de Nascimento" required>
-						      <div class="invalid-feedback">
-						         Por favor, insira a data de nascimento.
-						      </div>
-						    </div>
-						</div>	
-						
-						<div class="form-row">
-						 	 <label class="control-label">Sexo</label>
-							 <div class="col-md-8 mb-3">
-								<div class="custom-control custom-radio custom-control-inline">
-								  <input type="radio" id="masculino" name="sexo" class="custom-control-input">
-								  <label class="custom-control-label" for="masculino">Masculino</label>
-								</div>
-								
-								<div class="custom-control custom-radio custom-control-inline">
-								  <input type="radio" id="feminino" name="sexo" class="custom-control-input">
-								  <label class="custom-control-label" for="feminino">Feminino</label>
-								</div>
-								
-								<div class="custom-control custom-radio custom-control-inline">
-								  <input type="radio" id="outro" name="sexo" class="custom-control-input">
-								  <label class="custom-control-label" for="outro">Outro</label>
-								</div>								 
-							 </div>
-						</div>									
-					</div>
-										
-					<div class="form-group collapse pessoa-juridica">
-						<div class="form-row">
-						    <div class="col-md-6 mb-3">
-						      <label for="razaoSocial">Razão Social</label>
-						      <input name = "razaoSocial" type="text" class="form-control" id="razaoSocial" placeholder="Razão Social" required>
-						      <div class="valid-feedback">
-						        Ok!
-						      </div>
-						    </div>
-
-						    <div class="col-md-6 mb-3">
-						      <label for="nomeFantasia">Nome Fantasia</label>
-						      <input name = "nomeFantasia" type="text" class="form-control" id="nomeFantasia" placeholder="Nome Fantasia" required>
-						      <div class="valid-feedback">
-						        Ok!
-						      </div>
-						    </div>
-						</div>
-						
-						<div class="form-row">
-							<div class="col-md-12 mb-3">
-						      <label for="cnpj">CNPJ</label>
-						      <input name = "cnpj" type="text" class="form-control" id="cnpj" placeholder="CNPJ" required>
-						      <div class="valid-feedback">
-						        Ok!
-						      </div>
-						    </div>
-						</div>
-						
-						<div class="form-row">
-							<div class="col-md-12 mb-3">
-								<div class="custom-file">
-								  <input type="file" class="custom-file-input" id="logoPath" name = "logoPath">
-								  <label class="custom-file-label" for="logoPath">Logomarca</label>
-								</div>	
+							  <!-- <input type="radio" id="pacienteConsumidor" name="perfil" class="custom-control-input"
+							  data-toggle="collapse" data-target="#pessoaFisica"> -->
+							  <div class="col-md-6 mb-3 text-center">
+							  <button type="button" class="btn btn-primary" id="pacienteConsumidor" name="perfil"
+							  data-toggle="collapse" data-target="#pessoaFisica">Paciente ou consumidor</button>
 							</div>
-						</div>
+							
+							<div class="col-md-6 mb-3 text-center">
+							 <!-- <input type="radio" id="propFarmacia" name="perfil" class="custom-control-input"
+							  data-toggle="collapse" data-target="#pessoaJuridica"> --> 
+							  
+							  <button type="button" class="btn btn-primary"  name="perfil"
+							  data-toggle="collapse" data-target="#pessoaJuridica">Proprietário de farmácia</button>
+							  </div>
+						</div>	
 					</div>
-					
+					<c:import url="comum.jsp"/>
+					<c:import url="pessoa-fisica.jsp"/>
+					<c:import url="pessoa-juridica.jsp"/>
 
-					<button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
-				</form>
 				<div class="text-center">
+				<button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
 					<a class="d-block small mt-3" href="login.jsp">Entrar</a> <a
 						class="d-block small" href="esqueceu-senha.html">Esqueceu a
 						senha?</a>
 				</div>
+				</form>
 			</div>
 		</div>
 	</div>
 
-	<c:import url="paginas-auxiliares/footer.jsp" />
+	<c:import url="../paginas-auxiliares/footer.jsp" />
 	<!-- Bootstrap core JavaScript-->
 	<script
 		src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>

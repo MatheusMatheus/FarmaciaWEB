@@ -8,7 +8,6 @@ import br.com.farmacia.modelo.ClientePF;
 import br.com.farmacia.modelo.Localizacao;
 import br.com.farmacia.modelo.Login;
 import br.com.farmacia.modelo.Medicamento;
-import br.com.farmacia.modelo.Perfil;
 import br.com.farmacia.modelo.TipoMedicamento;
 
 public class CriaObjetos {
@@ -31,7 +30,7 @@ public class CriaObjetos {
 	}
 
 	public static ClientePF newCliente(String cpf, LocalDate dtnsc, String sexo, String nome, String email,
-			String telefone, Localizacao localizacao, Login login, Perfil perfil) {
+			String telefone, Localizacao localizacao, Login login, String perfil) {
 		ClientePF cliente = new ClientePF();
 		cliente.setCpf(cpf);
 		cliente.setDataNascimento(dtnsc);

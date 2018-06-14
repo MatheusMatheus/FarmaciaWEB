@@ -29,14 +29,14 @@ public class TesteCliente {
 		cliente.setDataNascimento(LocalDate.of(1995, 2, 10));
 		cliente.setEmail("matheus@gmail.com");
 		cliente.setNome("Matheus Lindo");
-		cliente.setPerfil(Perfil.CLIENTE);
+		cliente.setPerfil(String.valueOf(Perfil.CLIENTE));
 		cliente.setLocalizacao(localizacao);
 		cliente.setLogin(login);
 		cliente.setSexo("M");
 		cliente.setTelefone("12345678");
 		
 		GenericDAO<ClientePF> dao = new ClienteDAO(ConnectionFactory.getConnection());
-		dao.inserir(cliente);
-		//dao.listar().forEach(System.out::println);
+		//dao.inserir(cliente);
+		dao.listar().ifPresent(System.out::println);
 	}
 }

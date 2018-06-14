@@ -29,7 +29,7 @@
 									href="/FarmaciaWEB/index.jsp" data-toggle="dropdown">
 								Bem	vindo, <c:out value="${sessionScope.clienteValido.nome}" /><span class="carret"></span></a>
 									<ul class="dropdown-menu">
-										<c:if test="${sessionScope.clienteValido.perfil = 'FARMACIA'}">
+										<!-- <c:if test="${sessionScope.clienteValido.perfil = 'FARMACIA'}">
 											<li class="nav-link"><a href="#">Inserir novos medicamentos</a></li>
 											<li class="nav-link"><a href="#">Vendas realizadas</a></li>
 										</c:if>		
@@ -37,7 +37,7 @@
 										<c:if test="${sessionScope.clienteValido.perfil = 'CLIENTE'}">
 											<li class="nav-link"><a href="#">Minha conta</a></li>
 											<li class="nav-link"><a href="#">Meus pedidos</a></li>
-										</c:if>		
+										</c:if> -->		
 										<li class="nav-link"><a href="/FarmaciaWEB/index.jsp" onclick = 'logout()'>Sair</a></li>
 									</ul>								
 								</li>

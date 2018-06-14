@@ -10,7 +10,7 @@ public class Localizacao {
 	@Override
 	public String toString() {
 		StringBuilder sBuilder = new StringBuilder();
-		sBuilder.append("\n[id: " + getId() + ",");
+		sBuilder.append(" [id: " + getId() + ",");
 		sBuilder.append("[cep: " + getCep() + ",");
 		sBuilder.append("[endereco: " + getEndereco() + ",");
 		sBuilder.append("[cidade: " + getCidade() + ",");

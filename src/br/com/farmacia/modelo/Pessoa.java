@@ -1,11 +1,11 @@
 package br.com.farmacia.modelo;
 
-public abstract class Pessoa<T> {
+public abstract class Pessoa {
 	private String email;
 	private String telefone;
 	private Localizacao localizacao;
 	private Login login;
-	private Perfil perfil;
+	private String perfil;
 
 	@Override
 	public String toString() {
@@ -13,56 +13,49 @@ public abstract class Pessoa<T> {
 		sb.append("email: " + getEmail() + ",");
 		sb.append("telefone: " + getTelefone() + ",");
 		sb.append("perfil: " + getPerfil() + ",");
-		sb.append("login: " + getLogin() + ",");
-		sb.append("localizacao: " + getLocalizacao() + "]");
+		sb.append("\nlogin: " + getLogin() + ",");
+		sb.append("\nlocalizacao: " + getLocalizacao() + "]");
 		return sb.toString();
 	}
-	
-	protected abstract T getThis();
 
 	public String getEmail() {
 		return email;
 	}
 
-	public T setEmail(String email) {
+	public void setEmail(String email) {
 		this.email = email;
-		return getThis();
 	}
 
 	public String getTelefone() {
 		return telefone;
 	}
 
-	public T setTelefone(String telefone) {
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
-		return getThis();
 	}
 
 	public Localizacao getLocalizacao() {
 		return localizacao;
 	}
 
-	public T setLocalizacao(Localizacao localizacao) {
+	public void setLocalizacao(Localizacao localizacao) {
 		this.localizacao = localizacao;
-		return getThis();
 	}
 
 	public Login getLogin() {
 		return login;
 	}
 
-	public T setLogin(Login login) {
+	public void setLogin(Login login) {
 		this.login = login;
-		return getThis();
 	}
 
-	public Perfil getPerfil() {
+	public String getPerfil() {
 		return perfil;
 	}
 
-	public T setPerfil(Perfil perfil) {
+	public void setPerfil(String perfil) {
 		this.perfil = perfil;
-		return getThis();
 	}
 
 }

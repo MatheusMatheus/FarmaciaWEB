@@ -29,6 +29,7 @@ public class LocalizacaoDAO extends GenericDAO<Localizacao> {
 			stmt.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
+			e.printStackTrace();
 			rollback(connection);
 		} 
 

@@ -10,7 +10,6 @@ import br.com.farmacia.modelo.FarmaciaPJ;
 import br.com.farmacia.modelo.Localizacao;
 import br.com.farmacia.modelo.Login;
 import br.com.farmacia.modelo.Medicamento;
-import br.com.farmacia.modelo.Perfil;
 import br.com.farmacia.modelo.TipoMedicamento;
 import br.com.farmacia.modelo.TipoPagamento;
 import br.com.farmacia.modelo.Venda;
@@ -76,7 +75,7 @@ public class Util {
 			farmacia.setEmail(rs.getString("f.email"));
 			farmacia.setLogoPath(Paths.get(rs.getString("logo_path")));
 			farmacia.setNomeFantasia(rs.getString("f.nome_fantasia"));
-			farmacia.setPerfil(Perfil.valueOf(rs.getString("f.perfil")));
+			farmacia.setPerfil(rs.getString("f.perfil"));
 			farmacia.setRazaoSocial(rs.getString("f.razao_social"));
 			farmacia.setTelefone(rs.getString("f.telefone"));
 			return farmacia;
@@ -90,14 +89,15 @@ public class Util {
 	public static ClientePF getCliente(ResultSet rs) {
 		try {
 			ClientePF cliente = new ClientePF();
-			cliente.setCpf(rs.getString("c.cpf"))
-				   .setNome(rs.getString("c.nome"))
-				   .setEmail(rs.getString("c.email"))
-				   .setDataNascimento(rs.getDate("c.dataNascimento").toLocalDate())
-				   .setSexo(rs.getString("c.sexo"))
-				   .setPerfil(Perfil.valueOf(rs.getString("c.perfil")))
-				   .setLocalizacao(getLocalizacao(rs))
-				   .setLogin(getLogin(rs));
+			cliente.setCpf(rs.getString("c.cpf"));
+			cliente.setNome(rs.getString("c.nome"));
+			cliente.setEmail(rs.getString("c.email"));
+			cliente.setDataNascimento(rs.getDate("c.dataNascimento").toLocalDate());
+			cliente.setSexo(rs.getString("c.sexo"));
+			cliente.setPerfil(rs.getString("c.perfil"));
+			cliente.setLocalizacao(getLocalizacao(rs));
+			cliente.setLogin(getLogin(rs));
+			cliente.setTelefone(rs.getString("c.telefone"));
 			return cliente;
 		} catch (SQLException e) {
 			System.out.println("Erro ao extrair cliente result set" + e);

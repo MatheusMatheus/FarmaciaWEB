@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import br.com.farmacia.controller.Logica;
 import br.com.farmacia.dto.ClienteDTO;
+import br.com.farmacia.dto.LocalizacaoDTO;
 import br.com.farmacia.dto.LoginDTO;
 import br.com.farmacia.modelo.ClientePF;
 import br.com.farmacia.modelo.Localizacao;
@@ -31,15 +32,24 @@ public class ClienteLogica implements Logica {
 			Optional<ClientePF> clienteValido = loginDTO.validaLogin(login);
 			
 			if (!clienteValido.isPresent()) {
-				session.setAttribute("ja-cadastrado", "ja-cadastrado");
-				return "/paginas/realiza-cadastro.jsp";
-			}
+				ClientePF clientePF = getCliente(req, login);
+				
+				LocalizacaoDTO localizacaoDTO = new LocalizacaoDTO(connection);
+				localizacaoDTO.inserir(clientePF.getLocalizacao());
+				
+				loginDTO.inserir(login);
+				
+				ClienteDTO clienteDTO = new ClienteDTO(connection);
+				clienteDTO.inserir(clientePF);
+				
+				session.setAttribute("clienteValido", clientePF);
+				return "/index.jsp";
+			} else 
+				return "/paginas/cadastro/realizar-cadastro.jsp";
 			
-			ClientePF clientePF = getCliente(req, login);
 
-			ClienteDTO clienteDTO = new ClienteDTO(connection);
-			clienteDTO.inserir(clientePF);
 		} catch (Exception e) {
+			e.printStackTrace();
 			// TODO: handle exception
 		}
 		return null;
@@ -52,15 +62,15 @@ public class ClienteLogica implements Logica {
 		nomeCompleto.append(" ");
 		nomeCompleto.append(req.getParameter("sobrenome"));
 		
-		clientePF.setLogin(login)
-		 	 	 .setLocalizacao(getLocalizacao(req))
-		 	 	 .setEmail(req.getParameter("email"))
-		 	 	 .setPerfil(Perfil.CLIENTE)
-				 .setTelefone(req.getParameter("telefone"))
-				 .setSexo(req.getParameter("sexo"))
-				 .setNome(nomeCompleto.toString())
-				 .setDataNascimento(LocalDate.parse(req.getParameter("dtnasc")))
-				 .setCpf(req.getParameter("cpf"));
+		clientePF.setLogin(login);
+		clientePF.setLocalizacao(getLocalizacao(req));
+		clientePF.setEmail(req.getParameter("email"));
+		clientePF.setPerfil(String.valueOf(Perfil.CLIENTE));
+		clientePF.setTelefone(req.getParameter("telefone"));
+		clientePF.setSexo(req.getParameter("sexo"));
+		clientePF.setNome(nomeCompleto.toString());
+		clientePF.setDataNascimento(LocalDate.parse(req.getParameter("dtnasc")));
+		clientePF.setCpf(req.getParameter("cpf"));
 		return clientePF;
 	}
 

@@ -1,6 +1,7 @@
 package br.com.farmacia.controller;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +16,8 @@ public class ControllerServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String parametro = req.getParameter("logica");
-		String nomeClasse = "br.com.farmacia.controller." + parametro;
+		ResourceBundle classes = ResourceBundle.getBundle("br.com.farmacia.controller.classes");
+		String nomeClasse = classes.getString(parametro);
 		
 		try {
 			Class<?> classe = Class.forName(nomeClasse);

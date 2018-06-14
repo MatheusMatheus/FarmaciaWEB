@@ -19,14 +19,6 @@ public class FarmaciaPJ extends Pessoa {
 		return sb.toString();
 	}
 
-	public Path getLogoPath() {
-		return logoPath;
-	}
-
-	public void setLogoPath(Path logoPath) {
-		this.logoPath = logoPath;
-	}
-
 	public String getCnpj() {
 		return cnpj;
 	}
@@ -50,4 +42,14 @@ public class FarmaciaPJ extends Pessoa {
 	public void setNomeFantasia(String nomeFantasia) {
 		this.nomeFantasia = nomeFantasia;
 	}
+
+	public Path getLogoPath() {
+		return logoPath;
+	}
+
+	public void setLogoPath(Path logoPath) {
+		this.logoPath = logoPath;
+	}
+
+	
 }

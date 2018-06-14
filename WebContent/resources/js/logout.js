@@ -1,9 +1,10 @@
 function logout() {
 	$.ajax({
 		 url: "controller",
-		 data: {logica : "sessao.LogoutLogica"},
+		 data: {logica : "logout"},
 		 success: function() {
-			 console.log("Retorno")
+			 // Recarrega a página
+			 window.location.reload();
 		 }
 	});
 }

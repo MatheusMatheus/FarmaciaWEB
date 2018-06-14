@@ -10,9 +10,10 @@ import br.com.farmacia.modelo.dao.GenericDAO;
 
 public class ClienteDTO {
 	private Connection connection;
-	private GenericDAO<ClientePF> clienteDAO = new ClienteDAO(connection);
+	private GenericDAO<ClientePF> clienteDAO;
 	public ClienteDTO(Connection connection) {
 		this.connection = connection;
+		this.clienteDAO = new ClienteDAO(this.connection);
 	}
 	
 	public void inserir(ClientePF cliente) {

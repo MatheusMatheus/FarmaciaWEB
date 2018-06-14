@@ -8,7 +8,7 @@ public class Login {
 	@Override
 	public String toString() {
 		StringBuilder sBuilder = new StringBuilder();
-		sBuilder.append("\n[id: " + getId() + ",");
+		sBuilder.append(" [id: " + getId() + ",");
 		sBuilder.append("usuario: " + getUsuario() + ",");
 		sBuilder.append("senha: " + getSenha() + "]");
 		return sBuilder.toString();

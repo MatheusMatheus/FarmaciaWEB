@@ -29,7 +29,7 @@ public class FarmaciaDAO extends GenericDAO<FarmaciaPJ>{
 			stmt.setString(6, farmacia.getLogoPath().toString());
 			stmt.setLong(7, farmacia.getLocalizacao().getId());
 			stmt.setLong(8, farmacia.getLogin().getId());
-			stmt.setString(9, farmacia.getPerfil().name());
+			stmt.setString(9, farmacia.getPerfil());
 			stmt.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -51,7 +51,7 @@ public class FarmaciaDAO extends GenericDAO<FarmaciaPJ>{
 			stmt.setString(5, farmacia.getLogoPath().toString());
 			stmt.setLong(6, farmacia.getLocalizacao().getId());
 			stmt.setLong(7, farmacia.getLogin().getId());
-			stmt.setString(8, farmacia.getPerfil().name());
+			stmt.setString(8, farmacia.getPerfil());
 			stmt.setString(9, farmacia.getCnpj());
 			stmt.executeUpdate();
 			connection.commit();

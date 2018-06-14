@@ -34,6 +34,7 @@ public class ClienteDAO extends GenericDAO<ClientePF> implements Function<Login,
 			stmt.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
+			e.printStackTrace();
 			rollback(connection);
 		}
 	}
@@ -77,7 +78,8 @@ public class ClienteDAO extends GenericDAO<ClientePF> implements Function<Login,
 		sql.append("lo.id, lo.senha, lo.usuario ");
 		sql.append("from CLIENTE as c inner join LOCALIZACAO as l on l.id = c.LOCALIZACAO_id ");
 		sql.append("inner join LOGIN as lo on lo.id = c.LOGIN_id;");
-		try (PreparedStatement stmt = connection.prepareStatement(sql.toString()); ResultSet rs = stmt.executeQuery()) {
+		try (PreparedStatement stmt = connection.prepareStatement(sql.toString()); 
+				ResultSet rs = stmt.executeQuery()) {
 			Collection<ClientePF> clientes = new ArrayList<>();
 			while (rs.next())
 				clientes.add(Util.getCliente(rs));
