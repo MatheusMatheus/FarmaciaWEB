@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.com.farmacia.controller.ControllerUtil;
 import br.com.farmacia.controller.Logica;
 import br.com.farmacia.dto.LoginDTO;
 import br.com.farmacia.modelo.Login;
@@ -26,16 +27,18 @@ public class LoginLogica implements Logica {
 			Connection connection = (Connection)req.getAttribute("connection");
 			LoginDTO loginDTO = new LoginDTO(connection);
 			
-			Optional<? extends Pessoa> clienteValido = loginDTO.validaLogin(login);
-			if(clienteValido.isPresent()) {
-				Pessoa pessoa = clienteValido.get();
+			Optional<? extends Pessoa> loginValido = loginDTO.validaUsuario(login);
+			if(loginValido.isPresent()) {
+				Pessoa pessoa = ControllerUtil.getCliente(req, login);
+				
 				// Use existing session if exist or create one new session
 				HttpSession session = req.getSession(true);	
+				
 				if(pessoa.getPerfil().equals(Perfil.CLIENTE))
-					session.setAttribute("clienteValido", clienteValido.get());
+					session.setAttribute("clienteValido", loginValido.orElse(null));
 				
 				if(pessoa.getPerfil().equals(Perfil.ADMINISTRADOR))
-					session.setAttribute("clienteValido", clienteValido.get());
+					session.setAttribute("farmaciaValida", loginValido.orElse(null));
 				session.setMaxInactiveInterval(120);
 				
 				return "/index.jsp";
@@ -44,6 +47,7 @@ public class LoginLogica implements Logica {
 				return "/paginas/login.jsp";
 			}			
 		} catch (Exception e) {
+			e.printStackTrace();;
 			return "/index.jsp";
 		}
 	}

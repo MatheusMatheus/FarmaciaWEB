@@ -9,10 +9,10 @@ import java.util.Optional;
 
 import br.com.farmacia.modelo.Login;
 import br.com.farmacia.modelo.Pessoa;
-import br.com.farmacia.modelo.dao.util.Util;
 
-public abstract class GenericDAO<T>{
+public abstract class GenericDAO<T> {
 	protected Connection connection;
+	private boolean clienteExiste = false;
 	
 	public abstract void inserir(T entidade);
 
@@ -24,22 +24,24 @@ public abstract class GenericDAO<T>{
 	
 	public Optional<? extends Pessoa> validaUsuario(Login login) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("select f.cnpj, f.email, f.logo_path, f.nome_fantasia, ");
-		sql.append("f.perfil, f.razao_social, f.telefone, f.LOCALIZACAO_id, f.LOGIN_id, ");
-		sql.append("l.id, l.cep, l.endereco, l.cidade, l.estado, ");
-		sql.append("lo.id, lo.senha, lo.usuario ");
-		sql.append("from FARMACIA as f inner join LOCALIZACAO as l on f.LOCALIZACAO_id = l.id ");
-		sql.append("inner join LOGIN as lo on lo.usuario = ? and lo.senha = ?");
+		sql.append("select c.cpf, lo.usuario ");
+		sql.append("from CLIENTE as c ");
+		sql.append("inner join LOGIN as lo on c.LOGIN_id = lo.id and lo.usuario = ? ");
 		ResultSet rs = null;
 		try (PreparedStatement stmt = connection.prepareStatement(sql.toString())) {
-			stmt.setString(1, login.getUsuario());
-			stmt.setString(2, login.getSenha());
 			rs = stmt.executeQuery();
 			if (rs.next()) {
-				return Optional.of(Util.getFarmacia(rs));
+				this.clienteExiste = true;
+				closeResultSet(rs);
+				stmt.close();
+				
+				if(clienteExiste)
+					return new ClienteDAO(connection).getBy(login);
+				else	
+					return new FarmaciaDAO(connection).getBy(login);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Deu merda");
 			rollback(connection);
 			return Optional.empty();
 		} finally {
@@ -48,6 +50,7 @@ public abstract class GenericDAO<T>{
 		return Optional.empty();
 	}
 	
+
 	public GenericDAO(Connection connection) {
 		this.connection = connection;
 		setAutoCommit();

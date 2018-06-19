@@ -29,69 +29,44 @@
 	<c:import url="../paginas-auxiliares/categorias.jsp" />
 	
 
-	<div class="container">
-		<div class = "row">			
-				<div class="col-lg-9">
-					<div class="card card-register mx-auto mt-5">
-						<div class="card-header">Cadastro</div>
-						<div class="card-body">
-							<form method = "POST" action = "${pageContext.request.contextPath}/controller" class="needs-validation" novalidate>
-								<input type = "hidden" name = "logica" class = "logica"/>
-								<c:import url="comum.jsp"/>
-								<div class="form-group">
-									<div class="form-row">
-										  <!-- <input type="radio" id="pacienteConsumidor" name="perfil" class="custom-control-input"
-										  data-toggle="collapse" data-target="#pessoaFisica"> -->
-										  <div class="col-md-6 mb-3 text-center">
-										  <button type="button" class="btn btn-primary" id="pacienteConsumidor" name="perfil"
-										  data-toggle="collapse" data-target="#pessoaFisica">Paciente ou consumidor</button>
-										</div>
-										
-										<div class="col-md-6 mb-3 text-center">
-										 <!-- <input type="radio" id="propFarmacia" name="perfil" class="custom-control-input"
-										  data-toggle="collapse" data-target="#pessoaJuridica"> --> 
-										  
-										  <button type="button" class="btn btn-primary" id="propFarmacia" name="perfil"
-										  data-toggle="collapse" data-target="#pessoaJuridica">Proprietário de farmácia</button>
-										  </div>
-									</div>	
+	<div class="container">	
+			<div class="card card-register mx-auto mt-5">
+				<div class="card-header">Cadastro</div>
+				<div class="card-body">
+					<form method = "POST" action = "${pageContext.request.contextPath}/controller" class="needs-validation" novalidate>
+						<input type = "hidden" name = "logica" class = "logica"/>
+						<c:import url="comum.jsp"/>
+						<div class="form-group">
+							<div class="form-row">
+								  <!-- <input type="radio" id="pacienteConsumidor" name="perfil" class="custom-control-input"
+								  data-toggle="collapse" data-target="#pessoaFisica"> -->
+								  <div class="col-md-6 mb-3 text-center">
+								  <button type="button" class="btn btn-primary" id="pacienteConsumidor" name="perfil"
+								  data-toggle="collapse" data-target="#pessoaFisica">Paciente ou consumidor</button>
 								</div>
 								
-								<c:import url="pessoa-fisica.jsp"/>
-								<c:import url="pessoa-juridica.jsp"/>
-							<div class="text-center">
-							<button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
-								<a class="d-block small mt-3" href="login.jsp">Entrar</a> <a
-									class="d-block small" href="esqueceu-senha.html">Esqueceu a
-									senha?</a>
-							</div>
-							</form>
+								<div class="col-md-6 mb-3 text-center">
+								 <!-- <input type="radio" id="propFarmacia" name="perfil" class="custom-control-input"
+								  data-toggle="collapse" data-target="#pessoaJuridica"> --> 
+								  
+								  <button type="button" class="btn btn-primary" id="propFarmacia" name="perfil"
+								  data-toggle="collapse" data-target="#pessoaJuridica">Proprietário de farmácia</button>
+								  </div>
+							</div>	
 						</div>
-					</div>
-				</div>	
-				
-				<div class="col-lg-3 ">
-					<c:choose>
-						<c:when test="${not empty sessionScope.clienteValido}">
-							<div class="alert alert-danger show" role="alert">
-				  				<strong>Que bosta!</strong> Email <c:out value="${sessionScope.clienteValido.email}"/> já cadastrado
-							</div>
-						</c:when>
-				
-						<c:when test="${not empty sessionScope.farmaciaValida}">
-							<div class="alert alert-danger fade show" role="alert">
-				  				<strong>Que bosta!</strong> Email <c:out value="${sessionScope.clienteValido.email}"/> já cadastrado
-							</div>
-						</c:when>
 						
-						<c:otherwise>
-							<div class="alert alert-success fade show" role="alert">
-							  <strong>Muito bem!</strong> Cadastrado realizado com sucesso
-							</div>		
-						</c:otherwise>
-					</c:choose>	
-				</div>				
-			</div>	
+						<c:import url="pessoa-fisica.jsp"/>
+						<c:import url="pessoa-juridica.jsp"/>
+					<div class="text-center">
+					<button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
+						<a class="d-block small mt-3" href="login.jsp">Entrar</a> <a
+							class="d-block small" href="esqueceu-senha.html">Esqueceu a
+							senha?</a>
+					</div>
+					</form>
+				</div>
+			</div>
+		
 		</div>
 
 	<c:import url="../paginas-auxiliares/footer.jsp" />

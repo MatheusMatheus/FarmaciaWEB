@@ -52,7 +52,7 @@ public class ControllerUtil {
 		return login;
 	}
 
-	public static Connection getConnection(HttpServletRequest req) {
+	public static Connection getConnectionFromSessao(HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		Connection connection = (Connection) session.getAttribute("connection");
 		

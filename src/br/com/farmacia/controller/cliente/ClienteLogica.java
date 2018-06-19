@@ -20,16 +20,16 @@ public class ClienteLogica implements Logica {
 	@Override
 	public String executa(HttpServletRequest req, HttpServletResponse res) {
 		try {
-			Login login = ControllerUtil.getLogin(req);
 			String pagina = null;
+			ClientePF clientePF = null;
+			Login login = ControllerUtil.getLogin(req);
 			HttpSession session = req.getSession(false);
-			Connection connection = ControllerUtil.getConnection(req);
-			
+			Connection connection = ControllerUtil.getConnectionFromSessao(req);
 			LoginDTO loginDTO = new LoginDTO(connection);
-			Optional<ClientePF> clienteValido = loginDTO.validaLoginCLiente(login);
+			Optional<Login> loginValido = loginDTO.validaUsuario(login);
 			
-			if (!clienteValido.isPresent()) {
-				ClientePF clientePF = ControllerUtil.getCliente(req, login);
+			if (!loginValido.isPresent()) {
+				clientePF = ControllerUtil.getCliente(req, login);
 				
 				LocalizacaoDTO localizacaoDTO = new LocalizacaoDTO(connection);
 				localizacaoDTO.inserir(clientePF.getLocalizacao());
@@ -40,9 +40,11 @@ public class ClienteLogica implements Logica {
 				clienteDTO.inserir(clientePF);
 				
 				pagina = "/index.jsp";
-			} else  
+			} else  {
 				pagina = "/paginas/cadastro/realizar-cadastro.jsp";
-			session.setAttribute("clienteValido", clienteValido.orElse(null));
+			}
+			
+			session.setAttribute("clienteValido", clientePF);
 			
 			return pagina;
 		} catch (Exception e) {

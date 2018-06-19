@@ -14,34 +14,33 @@ import br.com.farmacia.dto.LocalizacaoDTO;
 import br.com.farmacia.dto.LoginDTO;
 import br.com.farmacia.modelo.FarmaciaPJ;
 import br.com.farmacia.modelo.Login;
+import br.com.farmacia.modelo.Pessoa;
 
 public class FarmaciaLogica implements Logica {
 
 	@Override
 	public String executa(HttpServletRequest req, HttpServletResponse res) {
 		try {
+			String pagina = null;
 			Login login = ControllerUtil.getLogin(req);
 			HttpSession session = req.getSession(false);
-			Connection connection = ControllerUtil.getConnection(req);
-			String pagina = null;
-
+			Connection connection = ControllerUtil.getConnectionFromSessao(req);
 			LoginDTO loginDTO = new LoginDTO(connection);
-			Optional<FarmaciaPJ> farmaciaValida = loginDTO.validaLoginFarmacia(login);
-
+			Optional<? extends Pessoa> farmaciaValida = loginDTO.validaUsuario(login);
+			
 			if (!farmaciaValida.isPresent()) {
-				FarmaciaPJ farmacia = ControllerUtil.getFarmacia(req, login);
-
 				LocalizacaoDTO localizacaoDTO = new LocalizacaoDTO(connection);
-				localizacaoDTO.inserir(farmacia.getLocalizacao());
+				localizacaoDTO.inserir(farmaciaValida.get().getLocalizacao());
 
 				loginDTO.inserir(login);
 
 				FarmaciaDTO farmaciaDTO = new FarmaciaDTO(connection);
-				farmaciaDTO.inserir(farmacia);
+				farmaciaDTO.inserir(farmaciaValida.get());
 				pagina = "/index.jsp";
-			} else 
+			} else {
 				pagina = "/paginas/admin-farmacia/farmacia-cadastrada.jsp";
-
+			}
+			
 			session.setAttribute("farmaciaValida", farmaciaValida.orElse(null));
 			
 			return pagina;
