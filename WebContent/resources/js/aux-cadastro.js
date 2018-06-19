@@ -9,7 +9,12 @@
 
 	$('#propFarmacia').click(function(){
 		logica.val('cadastro-farmacia');
+		console.log(logica);
 	})	
+	
+	setInterval(function() {
+		$('.alert').alert('close');
+	}, 3000);
 })();
 /*
 (function() {

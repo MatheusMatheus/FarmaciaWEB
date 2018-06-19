@@ -9,8 +9,9 @@ import javax.servlet.http.HttpSession;
 
 import br.com.farmacia.controller.Logica;
 import br.com.farmacia.dto.LoginDTO;
-import br.com.farmacia.modelo.ClientePF;
 import br.com.farmacia.modelo.Login;
+import br.com.farmacia.modelo.Perfil;
+import br.com.farmacia.modelo.Pessoa;
 
 public class LoginLogica implements Logica {
 
@@ -25,12 +26,16 @@ public class LoginLogica implements Logica {
 			Connection connection = (Connection)req.getAttribute("connection");
 			LoginDTO loginDTO = new LoginDTO(connection);
 			
-			Optional<ClientePF> clienteValido = loginDTO.validaLogin(login);
-			
+			Optional<? extends Pessoa> clienteValido = loginDTO.validaLogin(login);
 			if(clienteValido.isPresent()) {
+				Pessoa pessoa = clienteValido.get();
 				// Use existing session if exist or create one new session
 				HttpSession session = req.getSession(true);	
-				session.setAttribute("clienteValido", clienteValido.get());
+				if(pessoa.getPerfil().equals(Perfil.CLIENTE))
+					session.setAttribute("clienteValido", clienteValido.get());
+				
+				if(pessoa.getPerfil().equals(Perfil.ADMINISTRADOR))
+					session.setAttribute("clienteValido", clienteValido.get());
 				session.setMaxInactiveInterval(120);
 				
 				return "/index.jsp";

@@ -7,11 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.function.Function;
 
 import br.com.farmacia.modelo.FarmaciaPJ;
+import br.com.farmacia.modelo.Login;
 import br.com.farmacia.modelo.dao.util.Util;
 
-public class FarmaciaDAO extends GenericDAO<FarmaciaPJ>{
+public class FarmaciaDAO extends GenericDAO<FarmaciaPJ>  {
 	
 	public FarmaciaDAO(Connection connection) {
 		super(connection);
@@ -92,7 +94,5 @@ public class FarmaciaDAO extends GenericDAO<FarmaciaPJ>{
 			System.out.println(e);
 			return Optional.empty();
 		}
-		
 	}
-
 }

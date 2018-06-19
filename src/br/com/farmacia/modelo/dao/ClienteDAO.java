@@ -7,13 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
-import java.util.function.Function;
 
 import br.com.farmacia.modelo.ClientePF;
 import br.com.farmacia.modelo.Login;
 import br.com.farmacia.modelo.dao.util.Util;
 
-public class ClienteDAO extends GenericDAO<ClientePF> implements Function<Login, Optional<ClientePF>> {
+public class ClienteDAO extends GenericDAO<ClientePF>  {
 
 	public ClienteDAO(Connection connection) {
 		super(connection);
@@ -90,32 +89,4 @@ public class ClienteDAO extends GenericDAO<ClientePF> implements Function<Login,
 			return Optional.empty();
 		}
 	}
-
-	public Optional<ClientePF> apply(Login login) {
-		StringBuilder sql = new StringBuilder();
-		sql.append("select c.cpf, c.nome, c.telefone, c.email, ");
-		sql.append("c.dataNascimento, c.sexo, c.perfil, c.LOCALIZACAO_id, ");
-		sql.append("c.LOGIN_id, l.id, l.cep, ");
-		sql.append("l.endereco, l.cidade, l.estado, ");
-		sql.append("lo.id, lo.senha, lo.usuario ");
-		sql.append("from CLIENTE as c inner join LOCALIZACAO as l on l.id = c.LOCALIZACAO_id ");
-		sql.append("inner join LOGIN as lo on lo.senha = ? and lo.usuario = ?");
-		ResultSet rs = null;
-		try (PreparedStatement stmt = connection.prepareStatement(sql.toString())) {
-			stmt.setString(1, login.getSenha());
-			stmt.setString(2, login.getUsuario());
-			rs = stmt.executeQuery();
-			if (rs.next()) {
-				return Optional.of(Util.getCliente(rs));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			rollback(connection);
-			return Optional.empty();
-		} finally {
-			closeResultSet(rs);
-		}
-		return Optional.empty();
-	}
-
 }

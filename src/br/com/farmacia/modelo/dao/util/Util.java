@@ -64,7 +64,7 @@ public class Util {
 		}
 
 	}
-
+	
 	public static FarmaciaPJ getFarmacia(ResultSet rs) {
 		try {
 			FarmaciaPJ farmacia = new FarmaciaPJ();

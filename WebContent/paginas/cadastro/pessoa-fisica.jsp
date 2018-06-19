@@ -20,7 +20,7 @@
 		<div class="form-row">
 		    <div class="col-md-6 mb-3">
 		      <label for="cpf">CPF</label>
-		      <input name = "cpf" type="text" class="form-control" id="cpf" placeholder="CPF" required>
+		      <input name = "cpf" type="text" class="form-control" id="cpf" placeholder="CPF" maxlength="11" required>
 		      <div class="invalid-feedback">
 		        Por favor, insira o CPF.
 		      </div>

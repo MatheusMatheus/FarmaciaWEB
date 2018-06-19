@@ -20,7 +20,7 @@
 		<div class="form-row">
 			<div class="col-md-12 mb-3">
 		      <label for="cnpj">CNPJ</label>
-		      <input name = "cnpj" type="text" class="form-control" id="cnpj" placeholder="CNPJ" required>
+		      <input name = "cnpj" type="text" class="form-control" id="cnpj" placeholder="CNPJ" maxlength="16" required>
 		      <div class="valid-feedback">
 		        Ok!
 		      </div>

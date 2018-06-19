@@ -10,7 +10,7 @@
 	<!-- Navigation -->
  	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation">
 		<div class="container">
-			<a class="navbar-brand" href="#">Start Bootstrap</a>
+			<a class="navbar-brand" href="#">Farmácia</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarResponsive" aria-controls="navbarResponsive"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -23,33 +23,7 @@
 					</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="/FarmaciaWEB/paginas/login.jsp"> 
-						<c:choose>
-							<c:when test="${not empty sessionScope.clienteValido}">
-								<li class="dropdown"><a class="nav-link dropdown-toggle" 
-									href="/FarmaciaWEB/index.jsp" data-toggle="dropdown">
-								Bem	vindo, <c:out value="${sessionScope.clienteValido.nome}" /><span class="carret"></span></a>
-									<ul class="dropdown-menu">
-	
-										<li class="nav-link"><a href="/FarmaciaWEB/index.jsp" onclick = 'logout()'>Sair</a></li>
-									</ul>								
-								</li>
-							</c:when>
-
-							<c:when test="${not empty sessionScope.farmaciaValida}">
-								<li class="dropdown"><a class="nav-link dropdown-toggle" 
-									href="/FarmaciaWEB/index.jsp" data-toggle="dropdown">
-								Bem	vindo, <c:out value="${sessionScope.farmaciaValida.nomeFantasia}" /><span class="carret"></span></a>
-									<ul class="dropdown-menu">
-
-										<li class="nav-link"><a href="/FarmaciaWEB/index.jsp" onclick = 'logout()'>Sair</a></li>
-									</ul>								
-								</li>
-							</c:when>
-							
-							<c:otherwise>
-								Entrar ou cadastrar-se
-							</c:otherwise>
-						</c:choose>
+						Entrar ou cadastrar-se
 					</a>
 					</li>
 					<li class="dropdown"><a class="nav-link dropdown-toggle"
