@@ -17,7 +17,7 @@ public abstract class Pessoa {
 		sb.append("\nlocalizacao: " + getLocalizacao() + "]");
 		return sb.toString();
 	}
-
+	
 	public String getEmail() {
 		return email;
 	}

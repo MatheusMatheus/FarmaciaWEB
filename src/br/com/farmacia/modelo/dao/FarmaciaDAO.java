@@ -96,7 +96,7 @@ public class FarmaciaDAO extends GenericDAO<FarmaciaPJ> implements FiltroID<Logi
 	}
 
 	@Override
-	public Optional<FarmaciaPJ> getBy(Login id) throws SQLException {
+	public Optional<FarmaciaPJ> getBy(Login login) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select f.cnpj, f.email, f.logo_path, f.nome_fantasia, f.LOGIN_id, ");
 		sql.append("f.perfil, f.razao_social, f.telefone, f.LOCALIZACAO_id, ");
@@ -107,6 +107,8 @@ public class FarmaciaDAO extends GenericDAO<FarmaciaPJ> implements FiltroID<Logi
 		
 		ResultSet rs = null;
 		try (PreparedStatement stmt = connection.prepareStatement(sql.toString())){
+			stmt.setString(1, login.getUsuario());
+			stmt.setString(2, login.getSenha());
 			rs = stmt.executeQuery();
 			if(rs.next()) 
 				return Optional.of(Util.getFarmacia(rs));

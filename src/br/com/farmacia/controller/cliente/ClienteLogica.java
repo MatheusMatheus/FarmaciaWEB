@@ -1,50 +1,45 @@
 package br.com.farmacia.controller.cliente;
 
-import java.sql.Connection;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import br.com.farmacia.controller.ControllerUtil;
 import br.com.farmacia.controller.Logica;
+import br.com.farmacia.controller.LogicaHelper;
 import br.com.farmacia.dto.ClienteDTO;
 import br.com.farmacia.dto.LocalizacaoDTO;
-import br.com.farmacia.dto.LoginDTO;
 import br.com.farmacia.modelo.ClientePF;
-import br.com.farmacia.modelo.Login;
 
 public class ClienteLogica implements Logica {
+	private LogicaHelper logicaHelper;
+	
+	public ClienteLogica(LogicaHelper logicaHelper) {
+		this.logicaHelper = logicaHelper;
+	}
 
 	@Override
 	public String executa(HttpServletRequest req, HttpServletResponse res) {
 		try {
 			String pagina = null;
-			ClientePF clientePF = null;
-			Login login = ControllerUtil.getLogin(req);
-			HttpSession session = req.getSession(false);
-			Connection connection = ControllerUtil.getConnectionFromSessao(req);
-			LoginDTO loginDTO = new LoginDTO(connection);
-			Optional<Login> loginValido = loginDTO.validaUsuario(login);
+			Optional<ClientePF> clientePF = (Optional<ClientePF>)(Optional<?>)logicaHelper.getPessoa();
 			
-			if (!loginValido.isPresent()) {
-				clientePF = ControllerUtil.getCliente(req, login);
+			if (!clientePF.isPresent()) {
 				
-				LocalizacaoDTO localizacaoDTO = new LocalizacaoDTO(connection);
-				localizacaoDTO.inserir(clientePF.getLocalizacao());
+				LocalizacaoDTO localizacaoDTO = new LocalizacaoDTO(logicaHelper.getConnection());
+				localizacaoDTO.inserir(clientePF.get().getLocalizacao());
 				
-				loginDTO.inserir(login);
+				logicaHelper.getLoginDTO().inserir(logicaHelper.getLogin());
 				
-				ClienteDTO clienteDTO = new ClienteDTO(connection);
-				clienteDTO.inserir(clientePF);
+				ClienteDTO clienteDTO = new ClienteDTO(logicaHelper.getConnection());
+				clienteDTO.inserir(clientePF.get());
 				
 				pagina = "/index.jsp";
 			} else  {
 				pagina = "/paginas/cadastro/realizar-cadastro.jsp";
 			}
 			
-			session.setAttribute("clienteValido", clientePF);
+			logicaHelper.getSession().setAttribute("clienteValido", clientePF);
 			
 			return pagina;
 		} catch (Exception e) {

@@ -1,6 +1,7 @@
 package br.com.farmacia.controller;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
@@ -20,8 +21,16 @@ public class ControllerServlet extends HttpServlet {
 		String nomeClasse = classes.getString(parametro);
 		
 		try {
+			LogicaHelper logicaHelper = new LogicaHelper(req);
+
+			// Procura no classpath a classe passada no parâmetro
 			Class<?> classe = Class.forName(nomeClasse);
-			Logica logica = (Logica)classe.newInstance();
+			
+			// Se encontrar a classe, procura o construtor que tenha como parâmetro um LogicaHelper
+			Constructor<?> constructor = classe.getConstructor(LogicaHelper.class);
+			
+			// Instancia a classe usando o construtor que tem um parâmetro
+			Logica logica = (Logica)constructor.newInstance(logicaHelper);
 			String pagina = logica.executa(req, res);
 			
 			req.getRequestDispatcher(pagina).forward(req, res);

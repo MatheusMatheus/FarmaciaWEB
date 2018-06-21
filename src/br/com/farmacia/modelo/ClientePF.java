@@ -50,5 +50,4 @@ public class ClientePF extends Pessoa {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
 }

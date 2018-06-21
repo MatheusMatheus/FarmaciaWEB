@@ -24,7 +24,7 @@ public class LoginDTO {
 	 * @return Optional<ClientePF>
 	 */
 	public Optional<? extends Pessoa> validaUsuario(Login login) {
-		return loginDAO.validaUsuario(login);
+		return (Optional<? extends Pessoa>)loginDAO.validaUsuario(login);
 	}
 	
 	public void inserir(Login login) {

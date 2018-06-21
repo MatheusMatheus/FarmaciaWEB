@@ -2,7 +2,7 @@ package br.com.farmacia.modelo;
 
 import java.nio.file.Path;
 
-public class FarmaciaPJ extends Pessoa {
+public class FarmaciaPJ extends Pessoa{
 	private String cnpj;
 	private String razaoSocial;
 	private String nomeFantasia;
@@ -50,6 +50,5 @@ public class FarmaciaPJ extends Pessoa {
 	public void setLogoPath(Path logoPath) {
 		this.logoPath = logoPath;
 	}
-
 	
 }
