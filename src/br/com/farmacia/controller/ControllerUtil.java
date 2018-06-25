@@ -1,9 +1,11 @@
 package br.com.farmacia.controller;
 
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.time.LocalDate;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -24,7 +26,6 @@ public class ControllerUtil {
 		
 		clientePF.setLogin(login);
 		clientePF.setLocalizacao(getLocalizacao(req));
-		clientePF.setEmail(req.getParameter("email"));
 		clientePF.setPerfil(String.valueOf(Perfil.CLIENTE));
 		clientePF.setTelefone(req.getParameter("telefone"));
 		clientePF.setSexo(req.getParameter("sexo"));
@@ -48,7 +49,7 @@ public class ControllerUtil {
 		Login login = new Login();
 		login.setId(System.currentTimeMillis());
 		login.setSenha(req.getParameter("senha"));
-		login.setUsuario(req.getParameter("email"));
+		login.setUsuario(req.getParameter("usuario"));
 		return login;
 	}
 
@@ -64,17 +65,20 @@ public class ControllerUtil {
 	}
 
 	public static FarmaciaPJ getFarmacia(HttpServletRequest req, Login login) {
-		FarmaciaPJ farmaciaPJ = new FarmaciaPJ();
-		farmaciaPJ.setLogin(login);
-		farmaciaPJ.setCnpj(req.getParameter("cnpj"));
-		farmaciaPJ.setEmail(req.getParameter("email"));
-		farmaciaPJ.setLocalizacao(getLocalizacao(req));
-		farmaciaPJ.setLogoPath(Paths.get(req.getParameter("logoPath")));
-		farmaciaPJ.setNomeFantasia(req.getParameter("nomeFantasia"));
-		farmaciaPJ.setPerfil(String.valueOf(Perfil.FARMACIA));
-		farmaciaPJ.setRazaoSocial(req.getParameter("razaoSocial"));
-		farmaciaPJ.setTelefone(req.getParameter("telefone"));
-		
-		return farmaciaPJ;
+		FarmaciaPJ farmaciaPJ = null;
+		try {
+			farmaciaPJ = new FarmaciaPJ();
+			farmaciaPJ.setLogin(login);
+			farmaciaPJ.setCnpj(req.getParameter("cnpj"));
+			farmaciaPJ.setLocalizacao(getLocalizacao(req));
+			farmaciaPJ.setLogoPath(Paths.get(req.getPart("logoPath").getName()));
+			farmaciaPJ.setNomeFantasia(req.getParameter("nomeFantasia"));
+			farmaciaPJ.setPerfil(String.valueOf(Perfil.FARMACIA));
+			farmaciaPJ.setRazaoSocial(req.getParameter("razaoSocial"));
+			farmaciaPJ.setTelefone(req.getParameter("telefone"));
+			return farmaciaPJ;
+		} catch (ServletException | IOException e) {
+			return null;
+		}
 	}
 }

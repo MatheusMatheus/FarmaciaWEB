@@ -31,11 +31,12 @@
 			<form class="form-signin"
 				action="${pageContext.request.contextPath}/controller" method="POST">
 				<h2 class="form-signin-heading">Entrar</h2>
-				<label for="inputEmail" class="sr-only">Email</label> <input
-					type="email" id="inputEmail" class="form-control" name="usuario"
-					placeholder="Email" required autofocus> <label
-					for="inputPassword" class="sr-only">Senha</label> <input
-					type="password" id="inputPassword" class="form-control"
+				<label for="inputEmail" class="sr-only">Email</label> 
+				<input type="email" name="usuario" id="inputEmail" class="form-control" 
+					placeholder="Email" required autofocus> 
+					
+				<label for="inputPassword" class="sr-only">Senha</label> 
+				<input type="password" id="inputPassword" class="form-control"
 					name="senha" placeholder="Senha" required>
 				<div class="checkbox">
 					<a href = "cadastro/realizar-cadastro.jsp">Realizar cadastro</a>

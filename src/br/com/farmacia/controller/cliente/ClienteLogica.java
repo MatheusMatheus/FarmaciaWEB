@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.farmacia.controller.ControllerUtil;
 import br.com.farmacia.controller.Logica;
 import br.com.farmacia.controller.LogicaHelper;
 import br.com.farmacia.dto.ClienteDTO;
@@ -19,27 +20,38 @@ public class ClienteLogica implements Logica {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public String executa(HttpServletRequest req, HttpServletResponse res) {
 		try {
 			String pagina = null;
-			Optional<ClientePF> clientePF = (Optional<ClientePF>)(Optional<?>)logicaHelper.getPessoa();
+			Optional<ClientePF> clienteValido = Optional.empty();
 			
-			if (!clientePF.isPresent()) {
+			// Verifica se a pessoa retornada é do tipo ClientePF
+			if(logicaHelper.getPessoa().getClass().isAssignableFrom(ClientePF.class)) {
+				 clienteValido = (Optional<ClientePF>)(Optional<?>)logicaHelper.getPessoa();
+			}
+			
+			if(logicaHelper.getPessoa().isPresent()) {
+				return "/paginas/cliente-final/cliente-cadastrado.jsp";
+			}
+			
+			if (!clienteValido.isPresent()) {
+				clienteValido = Optional.of(ControllerUtil.getCliente(req, logicaHelper.getLogin()));
 				
 				LocalizacaoDTO localizacaoDTO = new LocalizacaoDTO(logicaHelper.getConnection());
-				localizacaoDTO.inserir(clientePF.get().getLocalizacao());
+				localizacaoDTO.inserir(clienteValido.get().getLocalizacao());
 				
 				logicaHelper.getLoginDTO().inserir(logicaHelper.getLogin());
 				
 				ClienteDTO clienteDTO = new ClienteDTO(logicaHelper.getConnection());
-				clienteDTO.inserir(clientePF.get());
+				clienteDTO.inserir(clienteValido.get());
 				
 				pagina = "/index.jsp";
 			} else  {
-				pagina = "/paginas/cadastro/realizar-cadastro.jsp";
+				pagina = "/paginas/cliente-final/cliente-cadastrado.jsp";
 			}
 			
-			logicaHelper.getSession().setAttribute("clienteValido", clientePF);
+			logicaHelper.getSession().setAttribute("clienteValido", clienteValido.orElse(null));
 			
 			return pagina;
 		} catch (Exception e) {

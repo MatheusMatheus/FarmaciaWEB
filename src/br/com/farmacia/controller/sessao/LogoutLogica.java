@@ -7,14 +7,20 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.farmacia.controller.Logica;
+import br.com.farmacia.controller.LogicaHelper;
 
 public class LogoutLogica implements Logica{
+	private LogicaHelper logicaHelper;
+	
+	public LogoutLogica(LogicaHelper logicaHelper) {
+		this.logicaHelper = logicaHelper;
+	}
 
 	@Override
 	public String executa(HttpServletRequest req, HttpServletResponse res)  {
 		try {
-			HttpSession session = req.getSession(false);
-			Connection connection = (Connection)session.getAttribute("connection");
+			HttpSession session = logicaHelper.getSession();
+			Connection connection = logicaHelper.getConnection();
 			if(connection != null) {
 				connection.close();
 				System.out.println("Conexão com o banco de dados fechada");

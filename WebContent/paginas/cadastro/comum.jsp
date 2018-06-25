@@ -14,7 +14,7 @@
 					    <div class="input-group-prepend">
 					      <span class="input-group-text" id="inputGroupPrepend">@</span>
 					  </div>
-					    <input name = "email" type="text" class="form-control" id="email" placeholder="Email" aria-describedby="inputGroupPrepend" required>
+					    <input name = "usuario" type="text" class="form-control" id="email" placeholder="Email" aria-describedby="inputGroupPrepend" required>
 					   <div class="invalid-feedback">
 					     Por favor, insira o email.
 					   </div>

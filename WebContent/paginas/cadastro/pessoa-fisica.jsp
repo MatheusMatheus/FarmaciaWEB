@@ -49,7 +49,7 @@
 				</div>
 				
 				<div class="custom-control custom-radio custom-control-inline">
-				  <input type="radio" id="outro" name="sexo" class="custom-control-input">
+				  <input type="radio" id="outro" name="sexo" value = 'X' class="custom-control-input">
 				  <label class="custom-control-label" for="outro">Outro</label>
 				</div>								 
 			 </div>

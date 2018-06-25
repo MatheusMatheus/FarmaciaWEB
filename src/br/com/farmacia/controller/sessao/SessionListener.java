@@ -22,11 +22,14 @@ public class SessionListener implements HttpSessionListener {
 		sessoesAtivas.incrementAndGet();
 		if(event.getSession().getMaxInactiveInterval() > 120)
 			event.getSession().invalidate();
+		
+		System.out.println(sessoesAtivas);
 	}
 
 	@Override
 	public void sessionDestroyed(HttpSessionEvent event) {
 		sessoesAtivas.decrementAndGet();
+		System.out.println(sessoesAtivas);
 	}
 
 }

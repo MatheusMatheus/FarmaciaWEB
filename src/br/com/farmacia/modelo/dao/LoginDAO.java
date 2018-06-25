@@ -7,12 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
-import java.util.function.Function;
+import java.util.function.Supplier;
 
 import br.com.farmacia.modelo.Login;
 import br.com.farmacia.modelo.dao.util.Util;
 
-public class LoginDAO extends GenericDAO<Login> implements Function<Login, Optional<Login>> {
+public class LoginDAO extends GenericDAO<Login> implements FiltroID<Login, Login> {
 
 	public LoginDAO(Connection connection) {
 		super(connection);
@@ -76,7 +76,7 @@ public class LoginDAO extends GenericDAO<Login> implements Function<Login, Optio
 	}
 
 	@Override
-	public Optional<Login> apply(Login login) {
+	public Optional<Login> getBy(Login login) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select lo.id, lo.usuario, lo.senha from LOGIN as lo where lo.usuario = ? and lo.senha = ? ");
 		ResultSet rs = null;
@@ -96,5 +96,43 @@ public class LoginDAO extends GenericDAO<Login> implements Function<Login, Optio
 		return Optional.empty();
 	}
 
+	public boolean validaUsuario(Login login, Supplier<String> query) {
+		boolean clienteExiste;
+		ResultSet rs = null;
+		try (PreparedStatement stmt = connection.prepareStatement(query.get())) {
+			stmt.setString(1, login.getUsuario());
+			rs = stmt.executeQuery();
+			
+			clienteExiste = rs.next() ? true : false;
+			closeResultSet(rs);
+			stmt.close();
+
+			return clienteExiste;
+	
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Deu merda");
+			rollback(connection);
+			return false;
+		} finally {
+			closeResultSet(rs);
+		}
+	}
+	
+	public static String clienteQuery() {
+		StringBuilder sql = new StringBuilder();
+		sql.append("select c.cpf, lo.usuario ");
+		sql.append("from CLIENTE as c ");
+		sql.append("inner join LOGIN as lo on c.LOGIN_id = lo.id and lo.usuario = ? ");
+		return sql.toString();
+	}
+
+	public static String farmaciaQuery() {
+		StringBuilder sql = new StringBuilder();
+		sql.append("select f.cnpj, lo.usuario ");
+		sql.append("from FARMACIA as f ");
+		sql.append("inner join LOGIN as lo on f.LOGIN_id = lo.id and lo.usuario = ? ");	
+		return sql.toString();
+	}
 
 }

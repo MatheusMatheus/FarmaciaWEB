@@ -18,6 +18,11 @@ lo.id, lo.senha, lo.usuario
 from FARMACIA as f inner join LOCALIZACAO as l on f.LOCALIZACAO_id = l.id
 inner join LOGIN as lo on lo.id = f.LOGIN_id;
 
+select c.cpf, lo.usuario
+from CLIENTE as c
+inner join LOGIN as lo on c.LOGIN_id = lo.id and lo.usuario = 'matheus@gmail.com';
+
+
 select f.cnpj, f.email, f.logo_path, f.nome_fantasia, f.perfil, 
 f.razao_social, f.telefone, f.LOCALIZACAO_id, f.LOGIN_id,
 m.id, m.nome, m.preco, m.categoria, m.descricao, m.fabricante, m.foto_path, 
@@ -44,5 +49,9 @@ inner join CLIENTE c on c.cpf = v.CLIENTE_cpf
 inner join LOCALIZACAO as l on l.id = c.LOCALIZACAO_id
 inner join LOGIN as lo on lo.id = c.LOGIN_id;
 
-
-select v.CLIENTE_cpf 
+select * from CLIENTE;
+select c.cpf, c.nome, c.telefone, c.email, c.dataNascimento,
+c.sexo, c.perfil, c.LOCALIZACAO_id, c.LOGIN_id,
+c.LOGIN_id,
+lo.id, lo.senha, lo.usuario 
+from CLIENTE as c inner join LOGIN as lo on lo.senha = '12345' and lo.usuario = 'matheus@gmail.com';

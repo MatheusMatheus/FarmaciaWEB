@@ -29,7 +29,7 @@ public class CriaObjetos {
 		return localizacao;
 	}
 
-	public static ClientePF newCliente(String cpf, LocalDate dtnsc, String sexo, String nome, String email,
+	public static ClientePF newCliente(String cpf, LocalDate dtnsc, String sexo, String nome, 
 			String telefone, Localizacao localizacao, Login login, String perfil) {
 		ClientePF cliente = new ClientePF();
 		cliente.setCpf(cpf);
@@ -37,7 +37,6 @@ public class CriaObjetos {
 		cliente.setSexo(sexo);
 		cliente.setNome(nome);
 		cliente.setTelefone(telefone);
-		cliente.setEmail(email);
 		cliente.setLocalizacao(localizacao);
 		cliente.setLogin(login);
 		cliente.setPerfil(perfil);

@@ -27,7 +27,7 @@
 							<c:when test="${not empty sessionScope.clienteValido}">
 								<li class="dropdown"><a class="nav-link dropdown-toggle" 
 									href="/FarmaciaWEB/index.jsp" data-toggle="dropdown">
-								Bem	vindo, <c:out value="${sessionScope.clienteValido.nome}" /><span class="carret"></span></a>
+								Bem	vindo (a), <c:out value="${sessionScope.clienteValido.nome}" /><span class="carret"></span></a>
 									<ul class="dropdown-menu">
 	
 										<li class="nav-link"><a href="/FarmaciaWEB/index.jsp" onclick = 'logout()'>Sair</a></li>

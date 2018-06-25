@@ -1,7 +1,6 @@
 package br.com.farmacia.modelo;
 
 public abstract class Pessoa {
-	private String email;
 	private String telefone;
 	private Localizacao localizacao;
 	private Login login;
@@ -10,20 +9,11 @@ public abstract class Pessoa {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("email: " + getEmail() + ",");
 		sb.append("telefone: " + getTelefone() + ",");
 		sb.append("perfil: " + getPerfil() + ",");
 		sb.append("\nlogin: " + getLogin() + ",");
 		sb.append("\nlocalizacao: " + getLocalizacao() + "]");
 		return sb.toString();
-	}
-	
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getTelefone() {

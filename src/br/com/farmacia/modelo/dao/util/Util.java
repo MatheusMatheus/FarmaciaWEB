@@ -72,7 +72,6 @@ public class Util {
 			farmacia.setLocalizacao(getLocalizacao(rs));
 			farmacia.setLogin(getLogin(rs));
 			farmacia.setCnpj(rs.getString("f.cnpj"));
-			farmacia.setEmail(rs.getString("f.email"));
 			farmacia.setLogoPath(Paths.get(rs.getString("logo_path")));
 			farmacia.setNomeFantasia(rs.getString("f.nome_fantasia"));
 			farmacia.setPerfil(rs.getString("f.perfil"));
@@ -91,7 +90,6 @@ public class Util {
 			ClientePF cliente = new ClientePF();
 			cliente.setCpf(rs.getString("c.cpf"));
 			cliente.setNome(rs.getString("c.nome"));
-			cliente.setEmail(rs.getString("c.email"));
 			cliente.setDataNascimento(rs.getDate("c.dataNascimento").toLocalDate());
 			cliente.setSexo(rs.getString("c.sexo"));
 			cliente.setPerfil(rs.getString("c.perfil"));

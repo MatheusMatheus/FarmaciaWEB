@@ -19,17 +19,16 @@ public class ClienteDAO extends GenericDAO<ClientePF> implements FiltroID<Login,
 	}
 
 	public void inserir(ClientePF cliente) {
-		String sql = "insert into CLIENTE values(?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into CLIENTE values(?,?,?,?,?,?,?,?)";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 			stmt.setString(1, cliente.getCpf());
 			stmt.setString(2, cliente.getNome());
 			stmt.setString(3, cliente.getTelefone());
-			stmt.setString(4, cliente.getEmail());
-			stmt.setDate(5, java.sql.Date.valueOf(cliente.getDataNascimento()));
-			stmt.setString(6, cliente.getSexo());
-			stmt.setLong(7, cliente.getLocalizacao().getId());
-			stmt.setLong(8, cliente.getLogin().getId());
-			stmt.setString(9, cliente.getPerfil().toString());
+			stmt.setDate(4, java.sql.Date.valueOf(cliente.getDataNascimento()));
+			stmt.setString(5, cliente.getSexo());
+			stmt.setLong(6, cliente.getLocalizacao().getId());
+			stmt.setLong(7, cliente.getLogin().getId());
+			stmt.setString(8, cliente.getPerfil().toString());
 			stmt.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -39,17 +38,16 @@ public class ClienteDAO extends GenericDAO<ClientePF> implements FiltroID<Login,
 	}
 
 	public void alterar(ClientePF cliente) {
-		String sql = "update CLIENTE set nome = ?, telefone = ?, email = ? dataNascimento = ?"
+		String sql = "update CLIENTE set nome = ?, telefone = ?, dataNascimento = ?"
 				+ "sexo = ?, perfil = ?, LOCALIZACAO_id = ? where cpf = ?";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 			stmt.setString(1, cliente.getNome());
 			stmt.setString(2, cliente.getTelefone());
-			stmt.setString(3, cliente.getEmail());
-			stmt.setDate(4, java.sql.Date.valueOf(cliente.getDataNascimento()));
-			stmt.setString(5, cliente.getSexo());
-			stmt.setString(6, cliente.getPerfil().toString());
-			stmt.setLong(7, cliente.getLocalizacao().getId());
-			stmt.setString(8, cliente.getCpf());
+			stmt.setDate(3, java.sql.Date.valueOf(cliente.getDataNascimento()));
+			stmt.setString(4, cliente.getSexo());
+			stmt.setString(5, cliente.getPerfil().toString());
+			stmt.setLong(6, cliente.getLocalizacao().getId());
+			stmt.setString(7, cliente.getCpf());
 			stmt.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -70,7 +68,7 @@ public class ClienteDAO extends GenericDAO<ClientePF> implements FiltroID<Login,
 
 	public Optional<Collection<ClientePF>> listar() {
 		StringBuilder sql = new StringBuilder();
-		sql.append("select c.cpf, c.nome, c.telefone, c.email, ");
+		sql.append("select c.cpf, c.nome, c.telefone, ");
 		sql.append("c.dataNascimento, c.sexo, c.perfil, c.LOCALIZACAO_id, ");
 		sql.append("c.LOGIN_id, l.id, l.cep, ");
 		sql.append("l.endereco, l.cidade, l.estado, ");
@@ -93,7 +91,7 @@ public class ClienteDAO extends GenericDAO<ClientePF> implements FiltroID<Login,
 	@Override
 	public Optional<ClientePF> getBy(Login login) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("select c.cpf, c.nome, c.telefone, c.email, ");
+		sql.append("select c.cpf, c.nome, c.telefone, ");
 		sql.append("c.dataNascimento, c.sexo, c.perfil, c.LOCALIZACAO_id, ");
 		sql.append("c.LOGIN_id, l.id, l.cep, ");
 		sql.append("l.endereco, l.cidade, l.estado, ");
@@ -110,7 +108,6 @@ public class ClienteDAO extends GenericDAO<ClientePF> implements FiltroID<Login,
 				return Optional.of(Util.getCliente(rs));
 			}
 		} catch (SQLException e) {
-			rollback(connection);
 			return Optional.empty();
 		} finally {
 			closeResultSet(rs);

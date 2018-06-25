@@ -33,7 +33,7 @@
 			<div class="card card-register mx-auto mt-5">
 				<div class="card-header">Cadastro</div>
 				<div class="card-body">
-					<form method = "POST" action = "${pageContext.request.contextPath}/controller" class="needs-validation" novalidate>
+					<form method = "POST" action = "${pageContext.request.contextPath}/controller" class="needs-validation" novalidate enctype="multipart/form-data">
 						<input type = "hidden" name = "logica" class = "logica"/>
 						<c:import url="comum.jsp"/>
 						<div class="form-group">

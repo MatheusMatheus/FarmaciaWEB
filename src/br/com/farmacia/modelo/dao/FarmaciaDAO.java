@@ -20,17 +20,16 @@ public class FarmaciaDAO extends GenericDAO<FarmaciaPJ> implements FiltroID<Logi
 
 	@Override
 	public void inserir(FarmaciaPJ farmacia) {
-		String sql = "insert into FARMACIA values(?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into FARMACIA values(?,?,?,?,?,?,?,?)";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 			stmt.setString(1, farmacia.getCnpj());
 			stmt.setString(2, farmacia.getRazaoSocial());
 			stmt.setString(3, farmacia.getNomeFantasia());
-			stmt.setString(4, farmacia.getEmail());
-			stmt.setString(5, farmacia.getTelefone());
-			stmt.setString(6, farmacia.getLogoPath().toString());
-			stmt.setLong(7, farmacia.getLocalizacao().getId());
-			stmt.setLong(8, farmacia.getLogin().getId());
-			stmt.setString(9, farmacia.getPerfil());
+			stmt.setString(4, farmacia.getTelefone());
+			stmt.setString(5, farmacia.getLogoPath().toString());
+			stmt.setLong(6, farmacia.getLocalizacao().getId());
+			stmt.setLong(7, farmacia.getLogin().getId());
+			stmt.setString(8, farmacia.getPerfil());
 			stmt.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -42,18 +41,17 @@ public class FarmaciaDAO extends GenericDAO<FarmaciaPJ> implements FiltroID<Logi
 	@Override
 	public void alterar(FarmaciaPJ farmacia) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("update FARMACIA set razao_social = ?, nome_fantasia = ?, email = ?, telefone = ?, ");
+		sql.append("update FARMACIA set razao_social = ?, nome_fantasia = ?, telefone = ?, ");
 		sql.append("logo_path = ?, LOCALIZACAO_id = ?, LOGIN_id = ?, perfil = ? where cnpj = ?");
 		try (PreparedStatement stmt = connection.prepareStatement(sql.toString())) {
 			stmt.setString(1, farmacia.getRazaoSocial());
 			stmt.setString(2, farmacia.getNomeFantasia());
-			stmt.setString(3, farmacia.getEmail());
-			stmt.setString(4, farmacia.getTelefone());
-			stmt.setString(5, farmacia.getLogoPath().toString());
-			stmt.setLong(6, farmacia.getLocalizacao().getId());
-			stmt.setLong(7, farmacia.getLogin().getId());
-			stmt.setString(8, farmacia.getPerfil());
-			stmt.setString(9, farmacia.getCnpj());
+			stmt.setString(3, farmacia.getTelefone());
+			stmt.setString(4, farmacia.getLogoPath().toString());
+			stmt.setLong(5, farmacia.getLocalizacao().getId());
+			stmt.setLong(6, farmacia.getLogin().getId());
+			stmt.setString(7, farmacia.getPerfil());
+			stmt.setString(8, farmacia.getCnpj());
 			stmt.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -77,7 +75,7 @@ public class FarmaciaDAO extends GenericDAO<FarmaciaPJ> implements FiltroID<Logi
 	@Override
 	public Optional<Collection<FarmaciaPJ>> listar() {
 		StringBuilder sql = new StringBuilder();
-		sql.append("select f.cnpj, f.email, f.logo_path, f.nome_fantasia, f.LOGIN_id, ");
+		sql.append("select f.cnpj, f.logo_path, f.nome_fantasia, f.LOGIN_id, ");
 		sql.append("f.perfil, f.razao_social, f.telefone, f.LOCALIZACAO_id, ");
 		sql.append("l.id, l.cep, l.endereco, l.cidade, l.estado, ");
 		sql.append("lo.id, lo.senha, lo.usuario ");
@@ -96,9 +94,9 @@ public class FarmaciaDAO extends GenericDAO<FarmaciaPJ> implements FiltroID<Logi
 	}
 
 	@Override
-	public Optional<FarmaciaPJ> getBy(Login login) throws SQLException {
+	public Optional<FarmaciaPJ> getBy(Login login) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("select f.cnpj, f.email, f.logo_path, f.nome_fantasia, f.LOGIN_id, ");
+		sql.append("select f.cnpj, f.logo_path, f.nome_fantasia, f.LOGIN_id, ");
 		sql.append("f.perfil, f.razao_social, f.telefone, f.LOCALIZACAO_id, ");
 		sql.append("l.id, l.cep, l.endereco, l.cidade, l.estado, ");
 		sql.append("lo.id, lo.senha, lo.usuario ");

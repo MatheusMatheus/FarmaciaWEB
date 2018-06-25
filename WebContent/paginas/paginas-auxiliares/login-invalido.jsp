@@ -25,19 +25,19 @@
 </head>
 
 <body>
-	<c:import url="../paginas-auxiliares/menu.jsp" />
-	<c:import url="../paginas-auxiliares/categorias.jsp" />
+	<c:import url="./menu.jsp" />
+	<c:import url="./categorias.jsp" />
 	
  <!-- Begin page content -->
     <main role="main" class="container">
-      <h1 class="mt-5">Farmácia já cadastrada</h1>
-      <p class="lead">O email informado já se encontra na base de dados, por favor insira outro.</p>
-      <p><a href="${pageContext.request.contextPath}/paginas/cadastro/realizar-cadastro.jsp">Clique aqui para retornar à página de cadastro</a></p>
-      <p><a href="${pageContext.request.contextPath}/paginas/login.jsp">Clique aqui para realizar login</a></p>
+      <h1 class="mt-5">Login inválido</h1>
+      <p class="lead">O login informado não está cadastrado ou é inválido, por favor insira outro.</p>
+      <p><a href="${pageContext.request.contextPath}/paginas/login.jsp">Clique aqui para retornar à página de login</a></p>
+      <p><a href="${pageContext.request.contextPath}/paginas/cadastro/realizar-cadastro.jsp">Clique aqui para realizar cadastro</a></p>
     </main>
 
 
-	<c:import url="../paginas-auxiliares/footer.jsp" />
+	<c:import url="./footer.jsp" />
 	<!-- Bootstrap core JavaScript-->
 	<script
 		src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>

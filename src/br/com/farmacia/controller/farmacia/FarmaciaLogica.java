@@ -19,22 +19,33 @@ public class FarmaciaLogica implements Logica {
 	}
 	
 	@Override
+	@SuppressWarnings("unchecked")
 	public String executa(HttpServletRequest req, HttpServletResponse res) {
 		try {
 			String pagina = null;
-			Optional<FarmaciaPJ> farmaciaValida = (Optional<FarmaciaPJ>)(Optional<?>)logicaHelper.getPessoa();
+			Optional<FarmaciaPJ> farmaciaValida = Optional.empty();
+			
+			// Verifica se a pessoa retornada é do tipo ClientePF
+			if(logicaHelper.getPessoa().getClass().isAssignableFrom(FarmaciaPJ.class)) {
+				farmaciaValida = (Optional<FarmaciaPJ>)(Optional<?>)logicaHelper.getPessoa();
+			}	
+			
+			if(logicaHelper.getPessoa().isPresent()) {
+				return "/paginas/admin-farmacia/farmacia-cadastrada.jsp";
+			}
 			
 			if (!farmaciaValida.isPresent()) {
-				FarmaciaPJ farmaciaPJ = ControllerUtil.getFarmacia(req, logicaHelper.getLogin());
+				farmaciaValida = Optional.of(ControllerUtil.getFarmacia(req, logicaHelper.getLogin()));
 				
 				LocalizacaoDTO localizacaoDTO = new LocalizacaoDTO(logicaHelper.getConnection());
-				localizacaoDTO.inserir(farmaciaPJ.getLocalizacao());
+				localizacaoDTO.inserir(farmaciaValida.get().getLocalizacao());
 
 				logicaHelper.getLoginDTO().inserir(logicaHelper.getLogin());
 
 				FarmaciaDTO farmaciaDTO = new FarmaciaDTO(logicaHelper.getConnection());
-				farmaciaDTO.inserir(farmaciaPJ);
+				farmaciaDTO.inserir(farmaciaValida.get());
 				pagina = "/index.jsp";
+				SubidorImagens.uploadImagem(req);
 			} else {
 				pagina = "/paginas/admin-farmacia/farmacia-cadastrada.jsp";
 			}
