@@ -31,7 +31,7 @@ public class LoginLogica implements Logica {
 				if(pessoa.getPerfil().equals(Perfil.CLIENTE.name()))
 					session.setAttribute("clienteValido", logicaHelper.getPessoa().orElse(null));
 				
-				if(pessoa.getPerfil().equals(Perfil.ADMINISTRADOR.name()))
+				if(pessoa.getPerfil().equals(Perfil.FARMACIA.name()))
 					session.setAttribute("farmaciaValida", logicaHelper.getPessoa().orElse(null));
 				session.setMaxInactiveInterval(120);
 				

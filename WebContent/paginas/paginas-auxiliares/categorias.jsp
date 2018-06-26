@@ -24,7 +24,7 @@
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav mr-auto">
 					<jsp:useBean id="categorias"
-						class="br.com.farmacia.modelo.Categorias" />
+						class="br.com.farmacia.controller.util.DadosEstaticos" />
 					<c:forEach var="cat" items="${categorias.categorias}">
 						<li class="dropdown">
 							<a class="nav-link dropdown-content" href="#" data-toggle="dropdown">${cat.key}<span class="caret"></span></a>

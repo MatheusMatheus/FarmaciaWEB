@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import br.com.farmacia.controller.util.ControllerUtil;
 import br.com.farmacia.dto.LoginDTO;
 import br.com.farmacia.modelo.Login;
 import br.com.farmacia.modelo.Pessoa;

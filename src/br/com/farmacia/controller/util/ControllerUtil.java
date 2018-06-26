@@ -1,4 +1,4 @@
-package br.com.farmacia.controller;
+package br.com.farmacia.controller.util;
 
 import java.io.IOException;
 import java.nio.file.Paths;

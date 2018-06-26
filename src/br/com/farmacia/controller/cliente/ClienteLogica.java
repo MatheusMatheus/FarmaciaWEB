@@ -5,9 +5,9 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.farmacia.controller.ControllerUtil;
 import br.com.farmacia.controller.Logica;
 import br.com.farmacia.controller.LogicaHelper;
+import br.com.farmacia.controller.util.ControllerUtil;
 import br.com.farmacia.dto.ClienteDTO;
 import br.com.farmacia.dto.LocalizacaoDTO;
 import br.com.farmacia.modelo.ClientePF;

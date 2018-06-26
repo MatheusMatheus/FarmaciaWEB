@@ -1,11 +1,15 @@
 package br.com.farmacia.teste;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 import com.dropbox.core.DbxException;
 import com.dropbox.core.DbxRequestConfig;
 import com.dropbox.core.v2.DbxClientV2;
+import com.dropbox.core.v2.files.FileMetadata;
 import com.dropbox.core.v2.users.FullAccount;
 
 public class UploadImages
@@ -21,6 +25,12 @@ public class UploadImages
 	        System.out.println(account.getName().getDisplayName());
 	        System.out.println(account.getEmail());
 	        
-	        client.files().createFolderV2("/Eu sou foda");
+	        String url = "/home/matheus/Imagens/batman.jpg";
+	        File file = new File(url);
+	        try (InputStream in = new FileInputStream(file)) {
+	        	
+	            FileMetadata metadata = client.files().uploadBuilder("/Eu sou foda/batman.jpg")
+	                .uploadAndFinish(in);
+	        }
 	    }
 }

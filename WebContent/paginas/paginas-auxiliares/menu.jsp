@@ -40,7 +40,7 @@
 									href="/FarmaciaWEB/index.jsp" data-toggle="dropdown">
 								Bem	vindo, <c:out value="${sessionScope.farmaciaValida.nomeFantasia}" /><span class="carret"></span></a>
 									<ul class="dropdown-menu">
-
+										<li class="nav-link"><a href="${pageContext.request.contextPath}/paginas/admin-farmacia/admin-index.jsp">Administrar conta</a></li>
 										<li class="nav-link"><a href="/FarmaciaWEB/index.jsp" onclick = 'logout()'>Sair</a></li>
 									</ul>								
 								</li>
