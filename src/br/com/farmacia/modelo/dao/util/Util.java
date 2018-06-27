@@ -44,6 +44,7 @@ public class Util {
 			medicamento.setQuantidade(rs.getInt("m.quantidade"));
 			medicamento.setCategoria(rs.getString("m.categoria"));
 			medicamento.setTipo(TipoMedicamento.valueOf(rs.getString("m.tipo")));
+			medicamento.setIdentificador(rs.getString("m.identificador"));
 			return medicamento;
 		} catch (SQLException e) {
 			System.out.println("Erro ao extrair medicamento do ResultSet " + e);

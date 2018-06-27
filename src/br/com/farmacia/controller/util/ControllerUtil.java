@@ -1,6 +1,7 @@
 package br.com.farmacia.controller.util;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.time.LocalDate;
@@ -11,12 +12,43 @@ import javax.servlet.http.HttpSession;
 
 import br.com.farmacia.modelo.ClientePF;
 import br.com.farmacia.modelo.FarmaciaPJ;
+import br.com.farmacia.modelo.InsereMedicamento;
 import br.com.farmacia.modelo.Localizacao;
 import br.com.farmacia.modelo.Login;
+import br.com.farmacia.modelo.Medicamento;
 import br.com.farmacia.modelo.Perfil;
+import br.com.farmacia.modelo.TipoMedicamento;
 import br.com.farmacia.modelo.dao.util.ConnectionFactory;
 
 public class ControllerUtil {
+	public static InsereMedicamento getInsercaoMedicamento(HttpServletRequest request, FarmaciaPJ farmacia, Medicamento medicamento) {
+		InsereMedicamento insercao = new InsereMedicamento();
+		insercao.setData(LocalDate.now());
+		insercao.setFarmacia(farmacia);
+		insercao.setMedicamento(medicamento);
+		return insercao;
+	}
+	
+	public static Medicamento getMedicamento(HttpServletRequest request) {
+		Medicamento medicamento = new Medicamento();
+		try {
+			medicamento.setId(System.currentTimeMillis());
+			medicamento.setCategoria(request.getParameter("categoria"));
+			medicamento.setDescricao(request.getParameter("descricao"));
+			medicamento.setFabricante(request.getParameter("fabricante"));
+			medicamento.setFotoPath(Paths.get(request.getPart("logoPath").getName()));
+			medicamento.setNome(request.getParameter("nome"));
+			medicamento.setPreco(new BigDecimal(request.getParameter("preco")));
+			medicamento.setQuantidade(Integer.parseInt(request.getParameter("quantidade")));
+			medicamento.setTipo(TipoMedicamento.valueOf(request.getParameter("tipo").toUpperCase()));
+			medicamento.setValidade(LocalDate.parse(request.getParameter("validade")));
+		} catch (IOException | ServletException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return medicamento;
+	}
+	
 	public static ClientePF getCliente(HttpServletRequest req, Login login) {
 		ClientePF clientePF = new ClientePF();
 		StringBuilder nomeCompleto = new StringBuilder();

@@ -25,7 +25,8 @@
     <div class="card card-register mx-auto mt-5">
       <div class="card-header">Novo medicamento</div>
       <div class="card-body">
-        <form>
+        <form action = "${pageContext.request.contextPath}/controller" method = "POST">
+        <input type="hidden" name="logica" value="insere-medicamento">
           <div class="form-group">
             <div class="form-row">
               <div class="col-md-6">
@@ -42,7 +43,7 @@
              <div class="form-row">
               <div class="col-md-6">
                 <label for="preco">Preço</label>
-                <input name = "preco" class="form-control" id="preco" type="number" aria-describedby="nameHelp" placeholder="Preço" required>
+                <input name = "preco" class="form-control" id="preco" type="number" step="0.01" aria-describedby="nameHelp" placeholder="Preço" required>
               </div>
               <div class="col-md-6">
                 <label for="validade">Validade</label>
@@ -57,38 +58,47 @@
 				  <label for="sel1">Tipo</label>
 	            	<jsp:useBean id="dados"
 							class="br.com.farmacia.controller.util.DadosEstaticos" />
-				  <select name = "tipo" class="form-control" id="sel1" required>
+				  <select name = "tipo" class="form-control" id="tipo" required>
 				  	<option>Selecione um tipo</option>
 				    <c:forEach var = "tipo" items = "${ dados.tipoMedicamentos }">
 				    	<option value = "${ tipo }">${ tipo }</option>
 				    </c:forEach>
 				  </select>
 		      </div>
+              <div class="col-md-6">
+                <label for="preco">Quantidade</label>
+                <input name = "quantidade" class="form-control" id="quantidade" type="number" aria-describedby="nameHelp" placeholder="Quantidade" required>
+		      </div>
+
           	</div>
           </div>
-          
+
           <div class="form-group">
-            <div class="form-row">
-	            <div class="col-md-6">
-	            	<p>Categorias</p>
-						<div class="btn-group-vertical ">
-							<c:forEach var="cat" items="${dados.categorias}">
-								<div class="btn-group-vertical dropleft">
-								<input type="button" class="btn btn-primary " 
-								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
-								value = "${cat.key}" />
-								
-								<ul class="dropdown-menu">
-									<c:forEach var="subCat" items="${cat.value}">
-										<li class="nav-link" value = "${subCat}"><a href="#">${subCat}</a></li>
-									</c:forEach>
-								</ul>							
-								</div>
+            <div class="form-row">   
+            <div class = "col-md-6">
+				<label for="categorias">Categorias</label>
+				<select name = "categoria" class="form-control" id="categoria" required>
+					<c:forEach var="cat" items="${dados.categorias}">
+						<optgroup label="${cat.key}">
+							<c:forEach var="subCat" items="${cat.value}">
+								<option value = "${subCat}">${subCat}</option>
 							</c:forEach>
-						</div>
-	          </div>
+						</optgroup>
+					</c:forEach>   
+				</select>         
+            </div>
+            
+			<div class="col-md-6">
+				<label for="file">Foto do medicamento</label>
+				<div class="custom-file">
+				   
+				  <input type="file" class="custom-file-input" id="logoPath" name = "logoPath">
+				  <label class="custom-file-label" for="logoPath">Foto do medicamento</label>
+				</div>	
+			</div>
           </div>
 		</div>
+
 		<div class="form-group">
 		  <label for="descricao">Descrição:</label>
 		  <textarea name = "descricao" class="form-control" rows="5" id="descricao"></textarea>

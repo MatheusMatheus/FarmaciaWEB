@@ -23,7 +23,7 @@ from CLIENTE as c
 inner join LOGIN as lo on c.LOGIN_id = lo.id and lo.usuario = 'matheus@gmail.com';
 
 
-select f.cnpj, f.email, f.logo_path, f.nome_fantasia, f.perfil, 
+select f.cnpj, f.logo_path, f.nome_fantasia, f.perfil, 
 f.razao_social, f.telefone, f.LOCALIZACAO_id, f.LOGIN_id,
 m.id, m.nome, m.preco, m.categoria, m.descricao, m.fabricante, m.foto_path, 
 m.quantidade, m.tipo, m.validade, 

@@ -15,6 +15,7 @@ public class Medicamento {
 	private int quantidade;
 	private String categoria;
 	private TipoMedicamento tipo;
+	private String identificador;
 
 	@Override
 	public String toString() {
@@ -26,6 +27,7 @@ public class Medicamento {
 		sBuilder.append("[descricao: " + getDescricao() + "],");
 		sBuilder.append("[foto_path: " + getFotoPath() + "],");
 		sBuilder.append("[fabricante: " + getFabricante() + "],");
+		sBuilder.append("[identificador: " + getIdentificador() + "],");
 		sBuilder.append("[quantidade: " + getQuantidade() + "],");
 		sBuilder.append("[categoria: " + getCategoria() + "],");
 		sBuilder.append("[tipo: " + getTipo() + "]");
@@ -111,5 +113,17 @@ public class Medicamento {
 	public void setTipo(TipoMedicamento tipo) {
 		this.tipo = tipo;
 	}
+
+	public String getIdentificador() {
+		return identificador;
+	}
+
+	public void setIdentificador(String identificador) {
+		this.identificador = identificador;
+	}
+	
+	
+	
+	
 
 }

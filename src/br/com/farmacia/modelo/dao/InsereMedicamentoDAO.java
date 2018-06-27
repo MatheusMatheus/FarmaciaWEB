@@ -46,7 +46,7 @@ public class InsereMedicamentoDAO extends GenericDAO<InsereMedicamento> {
 	@Override
 	public Optional<Collection<InsereMedicamento>> listar() {
 		StringBuilder sql = new StringBuilder();
-		sql.append("select f.cnpj, f.email, f.logo_path, f.nome_fantasia, f.perfil, ");
+		sql.append("select f.cnpj, f.logo_path, f.nome_fantasia, f.perfil, ");
 		sql.append("f.razao_social, f.telefone, f.LOCALIZACAO_id, f.LOGIN_id, ");
 		sql.append("m.id, m.nome, m.preco, m.categoria, m.descricao, m.fabricante, m.foto_path, ");
 		sql.append("m.quantidade, m.tipo, m.validade, ");
