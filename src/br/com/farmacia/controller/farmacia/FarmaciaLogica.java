@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.farmacia.controller.Logica;
 import br.com.farmacia.controller.LogicaHelper;
 import br.com.farmacia.controller.util.ControllerUtil;
+import br.com.farmacia.controller.util.SubidorImagens;
 import br.com.farmacia.dto.FarmaciaDTO;
 import br.com.farmacia.dto.LocalizacaoDTO;
 import br.com.farmacia.modelo.FarmaciaPJ;
@@ -45,7 +46,7 @@ public class FarmaciaLogica implements Logica {
 				FarmaciaDTO farmaciaDTO = new FarmaciaDTO(logicaHelper.getConnection());
 				farmaciaDTO.inserir(farmaciaValida.get());
 				pagina = "/index.jsp";
-				SubidorImagens.uploadImagem(req);
+				SubidorImagens.uploadImagem(req, "logo");
 			} else {
 				pagina = "/paginas/admin-farmacia/farmacia-cadastrada.jsp";
 			}

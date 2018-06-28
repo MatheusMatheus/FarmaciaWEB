@@ -1,6 +1,7 @@
 package br.com.farmacia.modelo.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,7 +24,7 @@ public class InsereMedicamentoDAO extends GenericDAO<InsereMedicamento> {
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 			stmt.setString(1, medicamento.getFarmacia().getCnpj());
 			stmt.setLong(2, medicamento.getMedicamento().getId());
-			stmt.setDate(3, java.sql.Date.valueOf(medicamento.getData()));
+			stmt.setDate(3, Date.valueOf(medicamento.getData()));
 			stmt.setLong(4, medicamento.getId());
 			stmt.setLong(5, medicamento.getQuantidade());
 			stmt.executeUpdate();
@@ -57,7 +58,8 @@ public class InsereMedicamentoDAO extends GenericDAO<InsereMedicamento> {
 		sql.append("inner join MEDICAMENTO as m on m.id = i.MEDICAMENTO_id ");
 		sql.append("inner join LOCALIZACAO as l on l.id = f.LOCALIZACAO_id ");
 		sql.append("inner join LOGIN as lo on lo.id = f.LOGIN_id");
-		try (PreparedStatement stmt = connection.prepareStatement(sql.toString()); ResultSet rs = stmt.executeQuery()) {
+		try (PreparedStatement stmt = connection.prepareStatement(sql.toString()); 
+				ResultSet rs = stmt.executeQuery()) {
 			Collection<InsereMedicamento> medicamentosInseridos = new ArrayList<>();
 			InsereMedicamento medicamento = null;
 			while (rs.next()) {

@@ -16,6 +16,27 @@ public class Medicamento {
 	private String categoria;
 	private TipoMedicamento tipo;
 	private String identificador;
+	
+	public void removeMedicamentos(int qtd) {
+		this.quantidade -= qtd;
+	}
+	
+	public void addMedicamentos(int qtd) {
+		this.quantidade += qtd;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Medicamento))
+			return false;
+		
+		Medicamento medicamento = (Medicamento)obj;
+		boolean nome = getNome().toUpperCase().equals(medicamento.getNome().toUpperCase());
+		boolean tipo = getTipo().equals(medicamento.getTipo());
+		boolean categoria = getCategoria().toUpperCase().equals(medicamento.getCategoria().toUpperCase());
+		
+		return nome && tipo && categoria;
+	}
 
 	@Override
 	public String toString() {

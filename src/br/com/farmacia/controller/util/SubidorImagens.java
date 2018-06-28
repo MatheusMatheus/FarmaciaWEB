@@ -1,4 +1,4 @@
-package br.com.farmacia.controller.farmacia;
+package br.com.farmacia.controller.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,7 +19,7 @@ import com.dropbox.core.DbxRequestConfig;
 import com.dropbox.core.v2.DbxClientV2;
 
 public class SubidorImagens {
-	public static void uploadImagem(HttpServletRequest request) throws ServletException, IOException{
+	public static void uploadImagem(HttpServletRequest request, String subpasta) throws ServletException, IOException{
 
 		// Pega o caminho absoluto da aplicação
 		String appPath = request.getServletContext().getRealPath("");
@@ -49,15 +49,20 @@ public class SubidorImagens {
 				out.write(bytes, 0, read);
 			}
 			
-			uploadDropbox(razaoSocial, arquivo, fileName);
+			uploadDropbox(razaoSocial, arquivo, fileName, subpasta);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
 
-	private static void uploadDropbox(String razaoSocial, File arquivo, String nomeArq ) {
-		String url = "/Farmacias/Imagens/".concat(razaoSocial).concat("/logo");
+	private static void uploadDropbox(String razaoSocial, File arquivo, String nomeArq, String subpasta) {
+		StringBuilder surl = new StringBuilder();
+		surl.append("/Farmacias/Imagens/");
+		surl.append(razaoSocial).append("/").append(subpasta);
+		
+		String url = surl.toString();
+		
 		try (InputStream in = new FileInputStream(arquivo))  {
 			ResourceBundle subidor = ResourceBundle.getBundle("br.com.farmacia.controller.subidor-imagens");
 			String ACCESS_TOKEN = subidor.getString("ACCESS_TOKEN");

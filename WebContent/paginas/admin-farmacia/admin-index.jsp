@@ -662,12 +662,13 @@
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+            <button class="btn btn-primary" onclick = 'logout()'>Logout</button>
           </div>
         </div>
       </div>
     </div>
     <!-- Bootstrap core JavaScript-->
+    
     <script src="${pageContext.request.contextPath}/resources/jquery/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/jquery-easing/jquery.easing.min.js"></script>
@@ -682,6 +683,7 @@
     <!-- Custom scripts for this page-->
     <script src="${pageContext.request.contextPath}/resources/js/admin/sb-admin-datatables.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/admin/sb-admin-charts.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/logout.js"></script>
   </div>
 </body>
 

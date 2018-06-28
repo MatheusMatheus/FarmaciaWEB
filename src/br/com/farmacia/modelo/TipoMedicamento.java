@@ -16,4 +16,11 @@ public enum TipoMedicamento {
 		return tipo;
 	}
 	
+	public static TipoMedicamento fromString(String string) {
+		for(TipoMedicamento tipoMedicamento : TipoMedicamento.values())
+			if (tipoMedicamento.tipo.equalsIgnoreCase(string))
+				return tipoMedicamento;
+		return null;
+	}
+
 }

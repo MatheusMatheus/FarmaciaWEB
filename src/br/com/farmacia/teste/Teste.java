@@ -1,19 +1,19 @@
 package br.com.farmacia.teste;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
+import br.com.farmacia.modelo.Medicamento;
 import br.com.farmacia.modelo.TipoMedicamento;
 
 public class Teste  {
 	public static void main(String[] args)  {
-		System.out.println(getTipoMedicamentos());
+		Medicamento medicamento = new Medicamento();
+		medicamento.setTipo(TipoMedicamento.fromString("Genérico"));
+		System.out.println(medicamento.getTipo());
+
 	}
 	
-	public static List<String> getTipoMedicamentos() {
-		Stream<TipoMedicamento> stream = Stream.of(TipoMedicamento.values());
-		return stream.map(TipoMedicamento::asText).collect(Collectors.toList());
-	}
 
 }

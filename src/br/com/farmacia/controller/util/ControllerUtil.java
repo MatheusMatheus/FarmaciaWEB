@@ -23,9 +23,11 @@ import br.com.farmacia.modelo.dao.util.ConnectionFactory;
 public class ControllerUtil {
 	public static InsereMedicamento getInsercaoMedicamento(HttpServletRequest request, FarmaciaPJ farmacia, Medicamento medicamento) {
 		InsereMedicamento insercao = new InsereMedicamento();
+		insercao.setId(System.currentTimeMillis());
 		insercao.setData(LocalDate.now());
 		insercao.setFarmacia(farmacia);
 		insercao.setMedicamento(medicamento);
+		insercao.setQuantidade(Integer.parseInt(request.getParameter("quantidade")));
 		return insercao;
 	}
 	
@@ -40,7 +42,7 @@ public class ControllerUtil {
 			medicamento.setNome(request.getParameter("nome"));
 			medicamento.setPreco(new BigDecimal(request.getParameter("preco")));
 			medicamento.setQuantidade(Integer.parseInt(request.getParameter("quantidade")));
-			medicamento.setTipo(TipoMedicamento.valueOf(request.getParameter("tipo").toUpperCase()));
+			medicamento.setTipo(TipoMedicamento.fromString(request.getParameter("tipo")));
 			medicamento.setValidade(LocalDate.parse(request.getParameter("validade")));
 		} catch (IOException | ServletException e) {
 			e.printStackTrace();

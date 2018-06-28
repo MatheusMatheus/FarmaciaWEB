@@ -11,7 +11,7 @@ import java.util.Optional;
 import br.com.farmacia.modelo.Medicamento;
 import br.com.farmacia.modelo.dao.util.Util;
 
-public class MedicamentoDAO extends GenericDAO<Medicamento> {
+public class MedicamentoDAO extends GenericDAO<Medicamento> implements FiltroID<Medicamento, Medicamento>{
 	
 	public MedicamentoDAO(Connection connection) {
 		super(connection);
@@ -91,5 +91,27 @@ public class MedicamentoDAO extends GenericDAO<Medicamento> {
 			rollback(connection);
 			return Optional.empty();
 		}
+	}
+
+	@Override
+	public Optional<Medicamento> getBy(Medicamento medicamento){
+		StringBuilder sql = new StringBuilder();
+		sql.append("select m.id, m.preco, m.nome, ");
+		sql.append("m.validade, m.descricao, m.foto_path, ");
+		sql.append("m.fabricante, m.quantidade, m.tipo, m.categoria, m.identificador from MEDICAMENTO as m ");
+		sql.append("where m.nome = ? and m.categoria = ? and m.tipo = ?");
+		
+		try (PreparedStatement stmt = connection.prepareStatement(sql.toString())){
+			stmt.setString(1, medicamento.getNome());
+			stmt.setString(2, medicamento.getCategoria());
+			stmt.setString(3, medicamento.getTipo().name());
+			
+			ResultSet resultSet = stmt.executeQuery();
+			if(resultSet.next())
+				return Optional.of(Util.getMedicamento(resultSet));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return Optional.empty();
 	}
 }

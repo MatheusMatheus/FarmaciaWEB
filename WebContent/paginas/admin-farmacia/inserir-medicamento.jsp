@@ -25,17 +25,17 @@
     <div class="card card-register mx-auto mt-5">
       <div class="card-header">Novo medicamento</div>
       <div class="card-body">
-        <form action = "${pageContext.request.contextPath}/controller" method = "POST">
+        <form action = "${pageContext.request.contextPath}/controller" method = "POST" novalidate enctype="multipart/form-data">
         <input type="hidden" name="logica" value="insere-medicamento">
           <div class="form-group">
             <div class="form-row">
               <div class="col-md-6">
                 <label for="nome">Nome</label>
-                <input name = "nome" class="form-control" id="nome" type="text" aria-describedby="nameHelp" placeholder="Nome" required>
+                <input name = "nome" class="form-control" type="text" aria-describedby="nameHelp" placeholder="Nome" required>
               </div>
               <div class="col-md-6">
                 <label for="fabricante">Fabricante</label>
-                <input name = "fabricante" class="form-control" id="fabricante" type="text" aria-describedby="nameHelp" placeholder="Fabricante" required>
+                <input name = "fabricante" class="form-control" type="text" aria-describedby="nameHelp" placeholder="Fabricante" required>
               </div>
             </div>
           </div>
@@ -43,11 +43,11 @@
              <div class="form-row">
               <div class="col-md-6">
                 <label for="preco">Preço</label>
-                <input name = "preco" class="form-control" id="preco" type="number" step="0.01" aria-describedby="nameHelp" placeholder="Preço" required>
+                <input name = "preco" class="form-control" type="number" step="0.01" aria-describedby="nameHelp" placeholder="Preço" required>
               </div>
               <div class="col-md-6">
                 <label for="validade">Validade</label>
-                <input name = "validade" class="form-control" id="validade" type="date" aria-describedby="nameHelp" placeholder="Validade" required>
+                <input name = "validade" class="form-control" type="date" aria-describedby="nameHelp" placeholder="Validade" required>
               </div>
             </div>          
           </div>
@@ -58,7 +58,7 @@
 				  <label for="sel1">Tipo</label>
 	            	<jsp:useBean id="dados"
 							class="br.com.farmacia.controller.util.DadosEstaticos" />
-				  <select name = "tipo" class="form-control" id="tipo" required>
+				  <select name = "tipo" class="form-control" required>
 				  	<option>Selecione um tipo</option>
 				    <c:forEach var = "tipo" items = "${ dados.tipoMedicamentos }">
 				    	<option value = "${ tipo }">${ tipo }</option>
@@ -67,7 +67,7 @@
 		      </div>
               <div class="col-md-6">
                 <label for="preco">Quantidade</label>
-                <input name = "quantidade" class="form-control" id="quantidade" type="number" aria-describedby="nameHelp" placeholder="Quantidade" required>
+                <input name = "quantidade" class="form-control" type="number" aria-describedby="nameHelp" placeholder="Quantidade" required>
 		      </div>
 
           	</div>
@@ -76,8 +76,8 @@
           <div class="form-group">
             <div class="form-row">   
             <div class = "col-md-6">
-				<label for="categorias">Categorias</label>
-				<select name = "categoria" class="form-control" id="categoria" required>
+				<label for="categorias">Categoria</label>
+				<select name = "categoria" class="form-control" required>
 					<c:forEach var="cat" items="${dados.categorias}">
 						<optgroup label="${cat.key}">
 							<c:forEach var="subCat" items="${cat.value}">
@@ -89,26 +89,21 @@
             </div>
             
 			<div class="col-md-6">
-				<label for="file">Foto do medicamento</label>
+				<label for="file">Imagem do medicamento</label>
 				<div class="custom-file">
-				   
-				  <input type="file" class="custom-file-input" id="logoPath" name = "logoPath">
-				  <label class="custom-file-label" for="logoPath">Foto do medicamento</label>
+				  <label class="custom-file-label" for="logoPath">Selecione a imagem</label>
+				  <input type="file" class="custom-file-input" name = "logoPath" >
 				</div>	
 			</div>
           </div>
 		</div>
 
 		<div class="form-group">
-		  <label for="descricao">Descrição:</label>
-		  <textarea name = "descricao" class="form-control" rows="5" id="descricao"></textarea>
+		  <label for="descricao">Descrição</label>
+		  <textarea name = "descricao" class="form-control" rows="5" ></textarea>
 		</div>
-          <a class="btn btn-primary btn-block" href="login.html">Registrar</a>
+          <input type = "submit" class="btn btn-primary btn-block" value = "Inserir">
         </form>
-        <div class="text-center">
-          <a class="d-block small mt-3" href="login.html">Entrar</a>
-          <a class="d-block small" href="esqueceu-senha.html">Esqueceu a senha?</a>
-        </div>
       </div>
     </div>
 
