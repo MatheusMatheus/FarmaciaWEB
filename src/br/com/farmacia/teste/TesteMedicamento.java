@@ -8,8 +8,6 @@ import java.time.Month;
 import br.com.farmacia.modelo.Categoria;
 import br.com.farmacia.modelo.Medicamento;
 import br.com.farmacia.modelo.TipoMedicamento;
-import br.com.farmacia.modelo.dao.GenericDAO;
-import br.com.farmacia.modelo.dao.MedicamentoDAO;
 
 public class TesteMedicamento {
 	public static void main(String[] args) {
@@ -26,8 +24,6 @@ public class TesteMedicamento {
 		medicamento.setId(513513);
 		
 		
-		GenericDAO<Medicamento> dao = new MedicamentoDAO();
-		dao.inserir(medicamento);
 		//dao.alterar(medicamento);
 		//dao.excluir(medicamento);
 		//dao.listar().forEach(System.out::println);

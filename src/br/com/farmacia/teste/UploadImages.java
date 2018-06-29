@@ -14,7 +14,7 @@ import com.dropbox.core.v2.users.FullAccount;
 
 public class UploadImages
 {
-	 private static final String ACCESS_TOKEN = "rR-a_dxX65AAAAAAAAAABl48CHYl92TBHPCiDlHUjzAcpyRdgCfgorUdpBXPW6_s";
+		private static final String ACCESS_TOKEN = "rR-a_dxX65AAAAAAAAAABl48CHYl92TBHPCiDlHUjzAcpyRdgCfgorUdpBXPW6_s";
 
 	    public static void main(String args[]) throws DbxException, FileNotFoundException, IOException {
 	        // Create Dropbox client

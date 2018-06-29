@@ -30,12 +30,15 @@ public class MedicamentoDTO {
 			// Caso exista, incrementa a quantidade desse medicamento 
 			// no banco com a quantidade que está sendo inserida
 			med.get().addMedicamentos(medicamento.getQuantidade());
+			
 			alterar(med.get());
 		} else {
+			
 			inserir(medicamento);
+			novoMedicamento.setId(medicamento.getId());
+			this.novoMedicamentoDAO.inserir(novoMedicamento);
 		}
 		
-		this.novoMedicamentoDAO.inserir(novoMedicamento);
 	}
 
 	private void inserir(Medicamento medicamento) {

@@ -111,7 +111,6 @@ CREATE TABLE IF NOT EXISTS `FarmaciaWEB`.`MEDICAMENTO` (
   `quantidade` INT NOT NULL,
   `tipo` VARCHAR(45) NOT NULL,
   `categoria` VARCHAR(45) NOT NULL,
-  `identificador` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 

@@ -23,7 +23,6 @@ import br.com.farmacia.modelo.dao.util.ConnectionFactory;
 public class ControllerUtil {
 	public static InsereMedicamento getInsercaoMedicamento(HttpServletRequest request, FarmaciaPJ farmacia, Medicamento medicamento) {
 		InsereMedicamento insercao = new InsereMedicamento();
-		insercao.setId(System.currentTimeMillis());
 		insercao.setData(LocalDate.now());
 		insercao.setFarmacia(farmacia);
 		insercao.setMedicamento(medicamento);

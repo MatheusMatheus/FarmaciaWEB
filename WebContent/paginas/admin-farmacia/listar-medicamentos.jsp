@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<%@page import="br.com.farmacia.modelo.Medicamento"%>
 <%@page import="br.com.farmacia.modelo.FarmaciaPJ"%>
+<%@page import="br.com.farmacia.modelo.Medicamento"%>
 <%@page import="br.com.farmacia.dto.InsereMedicamentoDTO"%>
 <%@page import="java.sql.Connection"%>
+<%@page import="br.com.farmacia.dto.MedicamentoDTO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html lang="en">
 
@@ -30,9 +31,9 @@
       <!-- Breadcrumbs-->
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="#">Dashboard</a>
+          <a href="#">Sua Farmácia</a>
         </li>
-        <li class="breadcrumb-item active">My Dashboard</li>
+        <li class="breadcrumb-item active">Lista de medicamentos</li>
       </ol>
 
       <!-- Example DataTables Card-->
@@ -75,7 +76,12 @@
                   <td align="center"><% out.print(med.getPreco()); %></td>
                   <td align="center"><% out.print(med.getQuantidade()); %></td>
                   <td align="center"><% out.print(med.getCategoria()); %></td>
-                  <td align="center"><i class="fa fa-eye" aria-hidden="true"></i></td>
+                  <td align="center">
+                  	<a style = "cursor: pointer;" data-toggle="modal" data-target="#detalhes"
+                  	onclick = "detalhar(<% out.print(med.getId()); %>)">
+                  		<i class="fa fa-eye" aria-hidden="true"></i>
+                  	</a>
+                  </td>
                   <td align="center"><i class="fa fa-trash-o" aria-hidden="true"></i></td>
                 </tr>             	
               	<% } %>
@@ -95,24 +101,21 @@
         </div>
       </div>
     </footer>
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-      <i class="fa fa-angle-up"></i>
-    </a>
-    <!-- Logout Modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    
+    
+    <!-- Detalhes Modal-->
+    <div class="modal fade" id="detalhes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">X</span>
-            </button>
+            <h5 class="modal-title" id="exampleModalLabel">Detalhes do medicamento</h5>
+
           </div>
-          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-body">Informações do medicamento aparecem aqui.</div>
           <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="/FarmaciaWEB/index.jsp" onclick = 'logout()' >Logout</a>
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Voltar</button>
+            <a class="btn btn-primary">Alterar</a>
+            <a class="btn btn-primary">Excluir</a>
           </div>
         </div>
       </div>
@@ -133,7 +136,7 @@
     <!-- Custom scripts for this page-->
     <script src="${pageContext.request.contextPath}/resources/js/admin/sb-admin-datatables.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/admin/sb-admin-charts.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/logout.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/admin/manipula-medicamento.js"></script>
   </div>
 </body>
 

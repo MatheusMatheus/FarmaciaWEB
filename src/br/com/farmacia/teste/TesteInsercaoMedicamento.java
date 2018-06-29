@@ -11,10 +11,7 @@ import br.com.farmacia.modelo.InsereMedicamento;
 import br.com.farmacia.modelo.Localizacao;
 import br.com.farmacia.modelo.Login;
 import br.com.farmacia.modelo.Medicamento;
-import br.com.farmacia.modelo.Perfil;
 import br.com.farmacia.modelo.TipoMedicamento;
-import br.com.farmacia.modelo.dao.GenericDAO;
-import br.com.farmacia.modelo.dao.InsereMedicamentoDAO;
 
 public class TesteInsercaoMedicamento {
 	public static void main(String[] args) {
@@ -32,12 +29,10 @@ public class TesteInsercaoMedicamento {
 		
 		FarmaciaPJ farmacia = new FarmaciaPJ();
 		farmacia.setCnpj("88380900000152");
-		farmacia.setEmail("fjçalskjfçlsakjflçksjfça@gmail.com");
 		farmacia.setLocalizacao(localizacao);
 		farmacia.setLogin(login);
 		farmacia.setLogoPath(Paths.get("/asdfaf/asdsf"));
 		farmacia.setNomeFantasia("Farmacia do bagulho louco");
-		farmacia.setPerfil(Perfil.FARMACIA);
 		farmacia.setRazaoSocial("lkasjdçflksjaçflkjasdçlfj");
 		farmacia.setTelefone("31589544");
 		
@@ -60,7 +55,6 @@ public class TesteInsercaoMedicamento {
 		insere.setMedicamento(medicamento);
 		insere.setQuantidade(90);
 		
-		GenericDAO<InsereMedicamento> dao = new InsereMedicamentoDAO();
 		//dao.inserir(insere);
 		//dao.listar().forEach(System.out::println);
 	}

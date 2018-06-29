@@ -14,8 +14,6 @@ import br.com.farmacia.modelo.Perfil;
 import br.com.farmacia.modelo.TipoMedicamento;
 import br.com.farmacia.modelo.TipoPagamento;
 import br.com.farmacia.modelo.Venda;
-import br.com.farmacia.modelo.dao.GenericDAO;
-import br.com.farmacia.modelo.dao.VendaDAO;
 
 public class TesteVenda {
 	public static void main(String[] args) {
@@ -58,9 +56,8 @@ public class TesteVenda {
 		ClientePF cliente = new ClientePF();
 		cliente.setCpf("04408803197");
 		cliente.setDataNascimento(LocalDate.of(1995, 2, 10));
-		cliente.setEmail("matheus@gmail.com");
 		cliente.setNome("Matheus Lindo");
-		cliente.setPerfil(Perfil.CLIENTE);
+		cliente.setPerfil(Perfil.CLIENTE.name());
 		cliente.setLocalizacao(localizacao);
 		cliente.setLogin(login);
 		cliente.setSexo("M");
@@ -73,8 +70,5 @@ public class TesteVenda {
 		venda.setTipoPagamento(TipoPagamento.BOLETO);
 		venda.setQuantidade(3);
 		
-		GenericDAO<Venda> dao = new VendaDAO();
-		//dao.inserir(venda);
-		dao.listar().forEach(System.out::println);
 	}
 }

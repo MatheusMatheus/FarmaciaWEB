@@ -26,8 +26,10 @@ public class LogoutLogica implements Logica{
 				System.out.println("Conexão com o banco de dados fechada");
 			}
 			
-			System.out.println("Sessao finalizada");
+			session.removeAttribute("farmaciaValida");
+			session.removeAttribute("clienteValido");
 			session.invalidate();
+			System.out.println("Sessao finalizada");
 			return "LogoutRedirect.java";
 		} catch (Exception e) {
 			e.printStackTrace();

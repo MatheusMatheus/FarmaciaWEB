@@ -1,7 +1,9 @@
 package br.com.farmacia.controller.farmacia;
 
+import java.io.IOException;
 import java.util.Optional;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -46,7 +48,8 @@ public class FarmaciaLogica implements Logica {
 				FarmaciaDTO farmaciaDTO = new FarmaciaDTO(logicaHelper.getConnection());
 				farmaciaDTO.inserir(farmaciaValida.get());
 				pagina = "/index.jsp";
-				SubidorImagens.uploadImagem(req, "logo");
+				
+				subirImagem(farmaciaValida.get(), logicaHelper);
 			} else {
 				pagina = "/paginas/admin-farmacia/farmacia-cadastrada.jsp";
 			}
@@ -60,5 +63,12 @@ public class FarmaciaLogica implements Logica {
 		}
 	}
 
+	private void subirImagem(FarmaciaPJ farmacia, LogicaHelper logicaHelper) throws ServletException, IOException {
+		String razaoSocial = farmacia.getRazaoSocial();
+		StringBuilder subpasta = new StringBuilder();
+		subpasta.append(razaoSocial).append("/logo");
+		
+		SubidorImagens.uploadImagem(logicaHelper.getRequest(), subpasta.toString());		
+	}
 
 }

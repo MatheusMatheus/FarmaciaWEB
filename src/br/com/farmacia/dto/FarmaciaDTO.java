@@ -2,7 +2,7 @@ package br.com.farmacia.dto;
 
 import java.sql.Connection;
 import java.util.Collection;
-import java.util.Optional;
+import java.util.Collections;
 
 import br.com.farmacia.modelo.FarmaciaPJ;
 import br.com.farmacia.modelo.dao.FarmaciaDAO;
@@ -28,7 +28,8 @@ public class FarmaciaDTO {
 		this.farmaciaDAO.excluir(farmacia);
 	}
 	
-	public Optional<Collection<FarmaciaPJ>> listar() {
-		return this.farmaciaDAO.listar();
+	public Collection<FarmaciaPJ> listar() {
+		return this.farmaciaDAO.listar().orElse(Collections.emptyList());
 	}
+
 }

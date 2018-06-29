@@ -1,11 +1,15 @@
 package br.com.farmacia.controller.farmacia;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.farmacia.controller.Logica;
 import br.com.farmacia.controller.LogicaHelper;
 import br.com.farmacia.controller.util.ControllerUtil;
+import br.com.farmacia.controller.util.SubidorImagens;
 import br.com.farmacia.dto.MedicamentoDTO;
 import br.com.farmacia.modelo.FarmaciaPJ;
 import br.com.farmacia.modelo.InsereMedicamento;
@@ -32,12 +36,21 @@ public class InserirMedicamentoLogica implements Logica{
 			MedicamentoDTO medicamentoDTO = new MedicamentoDTO(logicaHelper.getConnection());
 			medicamentoDTO.novoCadastro(novoMedicamento, medicamento);
 			
-			
-			
+			subirImagem(medicamento, farmacia, logicaHelper);
+			return "/paginas/admin-farmacia/medicamento-inserido-sucesso.jsp";
 		} catch (Exception e) {
-			// TODO: handle exception
+			return "/paginas/admin-farmacia/medicamento-inserido-falha.jsp";
 		}
-		return null;
 	}
-
+	
+	private void subirImagem(Medicamento medicamento, FarmaciaPJ farmacia, LogicaHelper logicaHelper) throws ServletException, IOException {
+		String nomeMed = medicamento.getNome();
+		String categoria = medicamento.getCategoria();
+		String razaoSocial = farmacia.getRazaoSocial();
+		StringBuilder subpasta = new StringBuilder();
+		subpasta.append(razaoSocial).append("/medicamentos/").append(categoria).append("/").append(nomeMed);
+		
+		SubidorImagens.uploadImagem(logicaHelper.getRequest(), subpasta.toString());		
+	}
+	
 }

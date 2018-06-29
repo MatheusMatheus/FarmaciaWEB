@@ -23,8 +23,7 @@ public class SubidorImagens {
 
 		// Pega o caminho absoluto da aplicação
 		String appPath = request.getServletContext().getRealPath("");
-		String razaoSocial = request.getParameter("razaoSocial");
-		String fullURL = appPath.concat("imgs/farmacias/").concat(razaoSocial).concat("/logo");
+		String fullURL = appPath.concat("imgs/farmacias/").concat(subpasta);
 
 		// Create path components to save the file
 		Part filePart = request.getPart("logoPath");
@@ -49,17 +48,17 @@ public class SubidorImagens {
 				out.write(bytes, 0, read);
 			}
 			
-			uploadDropbox(razaoSocial, arquivo, fileName, subpasta);
+			uploadDropbox(arquivo, fileName, subpasta);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
 
-	private static void uploadDropbox(String razaoSocial, File arquivo, String nomeArq, String subpasta) {
+	private static void uploadDropbox(File arquivo, String nomeArq, String subpasta) {
 		StringBuilder surl = new StringBuilder();
 		surl.append("/Farmacias/Imagens/");
-		surl.append(razaoSocial).append("/").append(subpasta);
+		surl.append(subpasta);
 		
 		String url = surl.toString();
 		

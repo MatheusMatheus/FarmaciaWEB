@@ -15,8 +15,7 @@ public class Medicamento {
 	private int quantidade;
 	private String categoria;
 	private TipoMedicamento tipo;
-	private String identificador;
-	
+
 	public void removeMedicamentos(int qtd) {
 		this.quantidade -= qtd;
 	}
@@ -31,9 +30,9 @@ public class Medicamento {
 			return false;
 		
 		Medicamento medicamento = (Medicamento)obj;
-		boolean nome = getNome().toUpperCase().equals(medicamento.getNome().toUpperCase());
+		boolean nome = getNome().equalsIgnoreCase(medicamento.getNome());
 		boolean tipo = getTipo().equals(medicamento.getTipo());
-		boolean categoria = getCategoria().toUpperCase().equals(medicamento.getCategoria().toUpperCase());
+		boolean categoria = getCategoria().equalsIgnoreCase(medicamento.getCategoria());
 		
 		return nome && tipo && categoria;
 	}
@@ -48,7 +47,6 @@ public class Medicamento {
 		sBuilder.append("[descricao: " + getDescricao() + "],");
 		sBuilder.append("[foto_path: " + getFotoPath() + "],");
 		sBuilder.append("[fabricante: " + getFabricante() + "],");
-		sBuilder.append("[identificador: " + getIdentificador() + "],");
 		sBuilder.append("[quantidade: " + getQuantidade() + "],");
 		sBuilder.append("[categoria: " + getCategoria() + "],");
 		sBuilder.append("[tipo: " + getTipo() + "]");
@@ -134,17 +132,4 @@ public class Medicamento {
 	public void setTipo(TipoMedicamento tipo) {
 		this.tipo = tipo;
 	}
-
-	public String getIdentificador() {
-		return identificador;
-	}
-
-	public void setIdentificador(String identificador) {
-		this.identificador = identificador;
-	}
-	
-	
-	
-	
-
 }

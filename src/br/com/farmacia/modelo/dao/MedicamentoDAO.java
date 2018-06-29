@@ -19,7 +19,7 @@ public class MedicamentoDAO extends GenericDAO<Medicamento> implements FiltroID<
 
 	@Override
 	public void inserir(Medicamento medicamento) {
-		String sql = "insert into MEDICAMENTO values(?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into MEDICAMENTO values(?,?,?,?,?,?,?,?,?,?)";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 			stmt.setLong(1, medicamento.getId());;
 			stmt.setDouble(2, medicamento.getPreco().doubleValue());
@@ -31,10 +31,10 @@ public class MedicamentoDAO extends GenericDAO<Medicamento> implements FiltroID<
 			stmt.setLong(8, medicamento.getQuantidade());
 			stmt.setString(9, medicamento.getTipo().name());
 			stmt.setString(10, medicamento.getCategoria());
-			stmt.setString(11, medicamento.getIdentificador());
 			stmt.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
+			e.printStackTrace();
 			rollback(connection);
 		} 	
 	}
@@ -42,7 +42,7 @@ public class MedicamentoDAO extends GenericDAO<Medicamento> implements FiltroID<
 	@Override
 	public void alterar(Medicamento medicamento) {
 		String sql = "update MEDICAMENTO set preco = ?, nome = ?, validade = ?, descricao = ?, foto_path = ?, ";
-		sql += "fabricante = ?, quantidade = ?, categoria = ?, tipo = ?, identificador = ? where id = ?";
+		sql += "fabricante = ?, quantidade = ?, categoria = ?, tipo = ? where id = ?";
 		try (PreparedStatement stmt = connection.prepareStatement(sql)) {
 			stmt.setDouble(1, medicamento.getPreco().doubleValue());
 			stmt.setString(2, medicamento.getNome());
@@ -53,8 +53,7 @@ public class MedicamentoDAO extends GenericDAO<Medicamento> implements FiltroID<
 			stmt.setLong(7, medicamento.getQuantidade());
 			stmt.setString(8, medicamento.getCategoria());
 			stmt.setString(9, medicamento.getTipo().toString());
-			stmt.setString(10, medicamento.getIdentificador());
-			stmt.setLong(11, medicamento.getId());
+			stmt.setLong(10, medicamento.getId());
 			stmt.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
@@ -79,7 +78,7 @@ public class MedicamentoDAO extends GenericDAO<Medicamento> implements FiltroID<
 		StringBuilder sql = new StringBuilder();
 		sql.append("select m.id, m.preco, m.nome, ");
 		sql.append("m.validade, m.descricao, m.foto_path, ");
-		sql.append("m.fabricante, m.quantidade, m.tipo, m.categoria, m.identificador from MEDICAMENTO as m");
+		sql.append("m.fabricante, m.quantidade, m.tipo, m.categoria from MEDICAMENTO as m");
 		try (PreparedStatement stmt = connection.prepareStatement(sql.toString());
 				ResultSet rs = stmt.executeQuery()) {
 			Collection<Medicamento> medicamentos = new ArrayList<>();
@@ -98,7 +97,7 @@ public class MedicamentoDAO extends GenericDAO<Medicamento> implements FiltroID<
 		StringBuilder sql = new StringBuilder();
 		sql.append("select m.id, m.preco, m.nome, ");
 		sql.append("m.validade, m.descricao, m.foto_path, ");
-		sql.append("m.fabricante, m.quantidade, m.tipo, m.categoria, m.identificador from MEDICAMENTO as m ");
+		sql.append("m.fabricante, m.quantidade, m.tipo, m.categoria from MEDICAMENTO as m ");
 		sql.append("where m.nome = ? and m.categoria = ? and m.tipo = ?");
 		
 		try (PreparedStatement stmt = connection.prepareStatement(sql.toString())){

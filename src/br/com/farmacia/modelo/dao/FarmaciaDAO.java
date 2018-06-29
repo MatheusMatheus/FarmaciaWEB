@@ -100,8 +100,10 @@ public class FarmaciaDAO extends GenericDAO<FarmaciaPJ> implements FiltroID<Logi
 		sql.append("f.perfil, f.razao_social, f.telefone, f.LOCALIZACAO_id, ");
 		sql.append("l.id, l.cep, l.endereco, l.cidade, l.estado, ");
 		sql.append("lo.id, lo.senha, lo.usuario ");
-		sql.append("from FARMACIA as f inner join LOCALIZACAO as l on f.LOCALIZACAO_id = l.id ");
-		sql.append("inner join LOGIN as lo on lo.usuario = ? and lo.senha = ?");
+		sql.append("from FARMACIA as f, LOCALIZACAO as l, LOGIN as lo ");
+		sql.append("where f.LOCALIZACAO_id = l.id ");
+		sql.append("and f.LOGIN_id = lo.id ");
+		sql.append("and lo.usuario = ? and lo.senha = ?");
 		
 		ResultSet rs = null;
 		try (PreparedStatement stmt = connection.prepareStatement(sql.toString())){

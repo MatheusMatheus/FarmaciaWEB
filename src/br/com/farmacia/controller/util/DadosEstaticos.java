@@ -14,6 +14,7 @@ import br.com.farmacia.modelo.Categoria;
 import br.com.farmacia.modelo.TipoMedicamento;
 
 public class DadosEstaticos {
+	
 	public List<String> getTipoMedicamentos() {
 		Stream<TipoMedicamento> stream = Stream.of(TipoMedicamento.values());
 		return stream.map(TipoMedicamento::asText).collect(Collectors.toList());

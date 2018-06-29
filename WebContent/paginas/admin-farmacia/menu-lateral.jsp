@@ -6,13 +6,13 @@
      </a>
    </li>
    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-     <a class="nav-link" href="charts.html">
+     <a class="nav-link" href="#">
        <i class="fa fa-fw fa-area-chart"></i>
        <span class="nav-link-text">Gráficos</span>
      </a>
    </li>
    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-     <a class="nav-link" href="tables.html">
+     <a class="nav-link" href="#">
        <i class="fa fa-fw fa-table"></i>
        <span class="nav-link-text">Tabelas</span>
      </a>
@@ -27,10 +27,7 @@
          <a href="inserir-medicamento.jsp">Inserir novo medicamento</a>
        </li>
        <li>
-         <a href="#">Alterar medicamento</a>
-       </li>
-       <li>
-         <a href="#">Excluir medicamento</a>
+         <a href="./listar-medicamentos.jsp">Listar medicamentos</a>
        </li>
      </ul>
    </li>

@@ -64,7 +64,18 @@
 		</div>
 	</nav>
 		
-	<script src="${pageContext.request.contextPath}/resources/js/logout.js"></script>
+	<script type = "text/javascript">
+	function logout() {
+		$.ajax({
+			 url: "controller",
+			 data: {logica : "logout"},
+			 success: function() {
+				 // Recarrega a página
+				 window.location.reload();
+			 }
+		});
+	}
+	</script>
 </body>
 
 </html>

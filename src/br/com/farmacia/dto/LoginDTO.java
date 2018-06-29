@@ -31,7 +31,7 @@ public class LoginDTO {
 		}
 		
 		if(farmacia) {
-			return new FarmaciaDAO(connection).getBy(login);
+			return new FarmaciaDAO(this.connection).getBy(login);
 		}
 		
 		return Optional.empty();

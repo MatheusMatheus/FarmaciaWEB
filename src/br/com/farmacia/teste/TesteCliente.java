@@ -27,7 +27,6 @@ public class TesteCliente {
 		ClientePF cliente = new ClientePF();
 		cliente.setCpf("04408803197");
 		cliente.setDataNascimento(LocalDate.of(1995, 2, 10));
-		cliente.setEmail("matheus@gmail.com");
 		cliente.setNome("Matheus Lindo");
 		cliente.setPerfil(String.valueOf(Perfil.CLIENTE));
 		cliente.setLocalizacao(localizacao);

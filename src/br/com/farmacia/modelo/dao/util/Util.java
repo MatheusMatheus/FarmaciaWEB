@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import br.com.farmacia.modelo.ClientePF;
 import br.com.farmacia.modelo.FarmaciaPJ;
+import br.com.farmacia.modelo.InsereMedicamento;
 import br.com.farmacia.modelo.Localizacao;
 import br.com.farmacia.modelo.Login;
 import br.com.farmacia.modelo.Medicamento;
@@ -30,6 +31,21 @@ public class Util {
 		}
 
 	}
+	
+	public static InsereMedicamento getInsercaoMedicamento(ResultSet rs) {
+		try {
+			InsereMedicamento medicamento = new InsereMedicamento();
+			medicamento.setId(rs.getInt("i.id"));
+			medicamento.setQuantidade(rs.getInt("i.quantidade"));
+			medicamento.setData(rs.getDate("i.dataInsercao").toLocalDate());
+			medicamento.setFarmacia(getFarmacia(rs));
+			medicamento.setMedicamento(getMedicamento(rs));
+			return medicamento;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	public static Medicamento getMedicamento(ResultSet rs) {
 		try {
@@ -44,7 +60,6 @@ public class Util {
 			medicamento.setQuantidade(rs.getInt("m.quantidade"));
 			medicamento.setCategoria(rs.getString("m.categoria"));
 			medicamento.setTipo(TipoMedicamento.valueOf(rs.getString("m.tipo")));
-			medicamento.setIdentificador(rs.getString("m.identificador"));
 			return medicamento;
 		} catch (SQLException e) {
 			System.out.println("Erro ao extrair medicamento do ResultSet " + e);
